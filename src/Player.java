@@ -36,23 +36,37 @@ public class Player {
     }
 
     public void waterCrop(int row, int column) {
-
+        Crop crop = this.farm.getTile(row, column).getCrop();
+        if (crop != null) crop.water();
     }
 
     public void fertilizeCrop(int row, int column) {
-
+        Crop crop = this.farm.getTile(row, column).getCrop();
+        if (crop != null) crop.fertilize();
     }
 
     public void plowTile(int row, int column) {
-
+        this.farm.getTile(row, column).plow();
     }
 
-    public void shovelTile(int row, int column) {
+    public boolean shovelTile(int row, int column) {
+        if (this.objectCoins < 7) return false;
+        this.objectCoins -= 7;
 
+        this.farm.getTile(row, column).shovel();
+
+        return true;
     }
 
-    public void pickaxeTile(int row, int column) {
+    public boolean pickaxeTile(int row, int column) {
+        if (this.objectCoins < 50) return false;
+        this.objectCoins -= 50;
 
+        Tile tile = this.farm.getTile(row, column);
+        if (tile.getRock() == null) return false;
+        tile.pickaxe();
+
+        return true;
     }
 
     public int getCoins() {
