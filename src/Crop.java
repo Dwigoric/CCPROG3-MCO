@@ -1,20 +1,22 @@
 public class Crop {
     private String type;
-    private int harvestTime;
-    private int waterNeeds;
-    private int fertilizerNeeds;
-    private int productsProduced;
-    private int seedCost;
-    private int baseSellPrice;
-    private float expYield;
+    private final Tile tile;
+    private final int harvestTime;
+    private final int waterNeeds;
+    private final int fertilizerNeeds;
+    private final int productsProduced;
+    private final int seedCost;
+    private final int baseSellPrice;
+    private final float expYield;
 
     private int currAge = 0;
     private int timesWatered = 0;
     private int timesFertilized = 0;
     private boolean isAlive = true;
 
-    public Crop(String type, int harvestTime, int waterNeeds, int fertilizerNeeds,
+    public Crop(Tile tile, String type, int harvestTime, int waterNeeds, int fertilizerNeeds,
                 int productsProduced, int seedCost, int baseSellPrice, float expYield) {
+        this.tile = tile;
         this.type = type;
         this.harvestTime = harvestTime;
         this.waterNeeds = waterNeeds;
@@ -28,9 +30,7 @@ public class Crop {
     public void addAge() {
         this.currAge++;
 
-        if(this.currAge > harvestTime) {
-            isAlive = false;
-        }
+        if (this.currAge > harvestTime) isAlive = false;
     }
 
     public void water() {
@@ -39,5 +39,9 @@ public class Crop {
 
     public void fertilize() {
         this.timesFertilized++;
+    }
+
+    public boolean isAlive() {
+        return this.isAlive;
     }
 }

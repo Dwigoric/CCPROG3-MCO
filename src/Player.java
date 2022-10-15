@@ -2,11 +2,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Player {
-    private float exp = 0;
-    private int level = 0;
-    private int typeLevel = 0;
-    private int objectCoins = 100;
     private Farm farm;
+    private int level = 0;
+    private float exp = 0;
+    private int objectCoins = 100;
+    private int typeLevel = 0;
 
     private ArrayList<String> typeName = new ArrayList<String>(Arrays.asList(
             "Farmer",
@@ -27,10 +27,6 @@ public class Player {
 
     }
 
-    public void advanceDay() {
-
-    }
-
     public void plantSeed(String cropType) {
 
     }
@@ -40,6 +36,10 @@ public class Player {
     }
 
     public void waterCrop(int row, int column) {
+
+    }
+
+    public void fertilizeCrop(int row, int column) {
 
     }
 
@@ -57,5 +57,9 @@ public class Player {
 
     public int getCoins() {
         return objectCoins;
+    }
+
+    public Farm getFarm() {
+        return farm;
     }
 }
