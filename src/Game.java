@@ -24,14 +24,16 @@ public class Game {
             switch(sc.nextLine()) {
                 case "P":
                 case "p":
-                    
+                    player.plowTile(0, 0);
                     break;
                 case "B":
                 case "b":
+                    player.plantSeed(0, 0, "turnip");
 
                     break;
                 case "A":
                 case "a":
+                    
                     
                     break;
                 case "end":

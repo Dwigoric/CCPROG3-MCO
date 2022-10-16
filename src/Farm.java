@@ -8,13 +8,7 @@ public class Farm {
     public void displayFarm() {
         System.out.println(" +==========+");
         System.out.println(" +          +");
-
-        if(Tiles[0][0].getState() == "unplowed") {
-            System.out.println(" + UNPLOWED +");
-        } else {
-            System.out.println(" +  PLOWED  +");
-        }
-
+        System.out.println(" +" + Tiles[0][0].getState() + "+");
         System.out.println(" +          +");
         System.out.println(" +==========+");
     }

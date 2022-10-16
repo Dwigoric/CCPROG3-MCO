@@ -69,7 +69,7 @@ public class Player {
     // }
 
     public void plowTile(int row, int column) {
-        
+        this.farm.getTile(row, column).setState("plowed");
     }
 
     // public boolean shovelTile(int row, int column) {
