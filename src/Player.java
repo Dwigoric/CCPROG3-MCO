@@ -51,19 +51,8 @@ public class Player {
         }
     }
 
-    public void buySeeds(int amount) {
-        //temp buy turnip mco1
-        if(amount * 5 > objectCoins) {
-            System.out.println("Not enough Object coins");
-        } else {
-            objectCoins-= amount * 5;
-            seedInventory[0]+= amount;
-            System.out.println("Bought" + amount + " Turnips");
-        }
-    }
-
-    public void plantSeed(String cropType) {
-
+    public void plantSeed(int row, int column, String cropType) {
+        this.farm.getTile(0, 0).setState(cropType);
     }
     // public boolean harvestCrop(int row, int column) {
 
@@ -80,7 +69,7 @@ public class Player {
     // }
 
     public void plowTile(int row, int column) {
-        this.farm.getTile(row, column).setState("plowed");
+        
     }
 
     // public boolean shovelTile(int row, int column) {
