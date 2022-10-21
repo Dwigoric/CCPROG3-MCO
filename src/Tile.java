@@ -19,4 +19,13 @@ public class Tile {
             this.crop = new Crop("Root Crop", 2, 1, 0, rand.nextInt(2) + 1, 5, 6, 5);
         }
     }
+
+    public Crop getCrop () {
+        return this.crop;
+    }
+
+    public void resetTile() {
+        this.state = "unplowed";
+        this.crop = null;
+    }
 }

@@ -8,7 +8,11 @@ public class Farm {
     public void displayFarm() {
         System.out.println(" +==========+");
         System.out.println(" +          +");
-        System.out.println(" +" + Tiles[0][0].getState() + "+");
+        System.out.print(" +" + Tiles[0][0].getState());
+        
+        if(Tiles[0][0].getCrop() != null)
+            System.out.println("(" + Tiles[0][0].getCrop().getCurrWater() + "|" + Tiles[0][0].getCrop().getCurrFertilize());
+
         System.out.println(" +          +");
         System.out.println(" +==========+");
     }

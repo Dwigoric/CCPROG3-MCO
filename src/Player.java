@@ -52,45 +52,41 @@ public class Player {
     }
 
     public void plantSeed(int row, int column, String cropType) {
-        this.farm.getTile(0, 0).setState(cropType);
+        if(this.farm.getTile(0, 0).getState() == "plowed") {
+            this.farm.getTile(0, 0).setState(cropType);
+            this.objectCoins-= 5;
+        } else {
+            System.out.println("tile cant be planted on");
+        }
+        
     }
-    // public boolean harvestCrop(int row, int column) {
-
-    // }
-
-    // public void waterCrop(int row, int column) {
-    //     Crop crop = this.farm.getTile(row, column).getCrop();
-    //     if (crop != null) crop.water();
-    // }
-
-    // public void fertilizeCrop(int row, int column) {
-    //     Crop crop = this.farm.getTile(row, column).getCrop();
-    //     if (crop != null) crop.fertilize();
-    // }
 
     public void plowTile(int row, int column) {
         this.farm.getTile(row, column).setState("plowed");
     }
 
-    // public boolean shovelTile(int row, int column) {
-    //     if (this.objectCoins < 7) return false;
-    //     this.objectCoins -= 7;
+    public void waterCrop(int row, int column) {
+        if(this.farm.getTile(row, column).getCrop() != null) {}
+            this.farm.getTile(row, column).getCrop().water();
+    }
 
-    //     this.farm.getTile(row, column).shovel();
+    public void fertilizeCrop(int row, int column) {
+        if(this.farm.getTile(row, column).getCrop() != null) {}
+            this.farm.getTile(row, column).getCrop().fertilize();
+    }
 
-    //     return true;
-    // }
+    public void HarvestCrop(int row, int column) {
+        if(this.farm.getTile(row, column).getCrop() != null &&
+           this.farm.getTile(row, column).getCrop().getCurrWater() == this.farm.getTile(row, column).getCrop().getWaterNeeds() &&
+           this.farm.getTile(row, column).getCrop().getCurrFertilize() == this.farm.getTile(row, column).getCrop().getFertilizerNeeds() &&
+           this.farm.getTile(row, column).getCrop().getCurrAge == this.farm.getTile(row, column).getCrop().getHarvestTime())
+        {
+            this.exp+= 5 * this.farm.getTile(row, column).getCrop().getProductsProduced();
+            this.objectCoins+= 6 * this.farm.getTile(row, column).getCrop().getExpYield();
 
-    // public boolean pickaxeTile(int row, int column) {
-    //     if (this.objectCoins < 50) return false;
-    //     this.objectCoins -= 50;
-
-    //     Tile tile = this.farm.getTile(row, column);
-    //     if (tile.getRock() == null) return false;
-    //     tile.pickaxe();
-
-    //     return true;
-    // }
+            this.farm.getTile(row, column).resetTile();
+        }
+    }
 
     public void displayInfo() {
         System.out.println(" [NAME] " + this.name);

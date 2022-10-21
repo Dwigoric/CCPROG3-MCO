@@ -44,4 +44,28 @@ public class Crop {
     public boolean isAlive() {
         return this.isAlive;
     }
+
+    public int getCurrWater() {
+        return this.timesWatered;
+    }
+
+    public int getCurrFertilize() {
+        return this.timesFertilized;
+    }
+
+    public int getWaterNeeds() {
+        return this.waterNeeds;
+    }
+
+    public int getFertilizerNeeds() {
+        return this.fertilizerNeeds;
+    }
+
+    public int getProductsProduced() {
+        return this.productsProduced;
+    }
+
+    public int getExpYield() {
+        return this.productsProduced;
+    }
 }

@@ -29,7 +29,18 @@ public class Game {
                 case "B":
                 case "b":
                     player.plantSeed(0, 0, "turnip");
-
+                    break;
+                case "W":
+                case "w":
+                    player.waterCrop(0, 0);
+                    break;
+                case "F":
+                case "f":
+                    player.fertilizeCrop(0, 0);
+                    break;
+                case "H":
+                case "h":
+                    player.HarvestCrop(0, 0);
                     break;
                 case "A":
                 case "a":
