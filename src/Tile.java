@@ -1,31 +1,55 @@
-import java.util.Random;
-
 public class Tile {
-    private String state = "unplowed";
-    private Crop crop;
-
-    Random rand = new Random();
+    private boolean plowed = false;
+    private boolean rock = false;
+    private Crop crop = null;
 
     public Tile() {}
 
-    public String getState() {
-        return this.state;
+    public Tile(boolean isRock) {
+        this.rock = isRock;
     }
 
-    public void setState(String state) {
-        this.state = state;
-
-        if(state != "unplowed" && state != "plowed") {
-            this.crop = new Crop("Root Crop", 2, 1, 0, rand.nextInt(2) + 1, 5, 6, 5);
+    public boolean plant(Seed seed) {
+        if (!this.plowed || this.crop != null) {
+            return false;
         }
+
+        this.crop = new Crop(seed);
+        return true;
     }
 
-    public Crop getCrop () {
+    public boolean harvest() {
+        if (this.crop == null) {
+            return false;
+        }
+
+        this.plowed = false;
+        this.crop = null;
+        return true;
+    }
+
+    public boolean plow() {
+        if (this.plowed == true || this.rock == true) {
+            return false;
+        }
+        this.plowed = true;
+        return true;
+    }
+
+    public boolean isPlowed() {
+        return this.plowed;
+    }
+
+    public boolean isRock() {
+        return this.rock;
+    }
+
+    public Crop getCrop() {
         return this.crop;
     }
 
-    public void resetTile() {
-        this.state = "unplowed";
+    public void HarvestCrop() {
+        this.plowed = false;
         this.crop = null;
     }
 }

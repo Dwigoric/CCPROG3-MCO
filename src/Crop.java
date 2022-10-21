@@ -1,71 +1,52 @@
-public class Crop {    
-    private final String type;
-    private final int harvestTime;
-    private final int waterNeeds;
-    private final int fertilizerNeeds;
-    private final int productsProduced;
-    private final int cost;
-    private final int baseSellPrice;
-    private final float expYield;
+import java.util.Random;
 
-    private int currAge = 0;
-    private int timesWatered = 0;
-    private int timesFertilized = 0;
-    private boolean isAlive = true;
+public class Crop {
+    private final Seed seed;
+    private boolean alive = true;
+    private int age = 0;
+    private int waterCount = 0;
+    private int fertilizeCount = 0;
 
-    public Crop(String type, int harvestTime, int waterNeeds, int fertilizerNeeds,
-                int productsProduced, int cost, int baseSellPrice, float expYield) {
-        this.type = type;
-        this.harvestTime = harvestTime;
-        this.waterNeeds = waterNeeds;
-        this.fertilizerNeeds = fertilizerNeeds;
-        this.productsProduced = productsProduced;
-        this.cost = cost;
-        this.baseSellPrice = baseSellPrice;
-        this.expYield = expYield;
+    private int produce;
+    Random rand = new Random(System.currentTimeMillis());
+
+    public Crop(Seed seed) {
+        this.seed = seed;
+        this.produce = rand.nextInt(seed.getMaxProduce() + 1 - seed.getMinProduce()) + seed.getMinProduce();
     }
 
     public void addAge() {
-        this.currAge++;
-
-        if (this.currAge > harvestTime) {
-            this.isAlive = false;
+        if (this.age == this.seed.getHarvestTime()) {
+            this.alive = false;
         }
+
+        this.age++;
     }
 
     public void water() {
-        this.timesWatered++;
+        this.waterCount++;
     }
 
     public void fertilize() {
-        this.timesFertilized++;
+        this.fertilizeCount++;
+    }
+
+    public Seed getSeed() {
+        return this.seed;
     }
 
     public boolean isAlive() {
-        return this.isAlive;
+        return this.alive;
     }
 
-    public int getCurrWater() {
-        return this.timesWatered;
+    public int getProduce() {
+        return this.produce;
     }
 
-    public int getCurrFertilize() {
-        return this.timesFertilized;
-    }
-
-    public int getWaterNeeds() {
-        return this.waterNeeds;
-    }
-
-    public int getFertilizerNeeds() {
-        return this.fertilizerNeeds;
-    }
-
-    public int getProductsProduced() {
-        return this.productsProduced;
-    }
-
-    public int getExpYield() {
-        return this.productsProduced;
+    public boolean isHarvestReady() {
+        return this.alive &&
+               this.waterCount >= this.seed.getWaterNeeds() &&
+               this.fertilizeCount >= this.seed.getFertilizerNeeds() &&
+               this.age == this.seed.getHarvestTime();
     }
 }
