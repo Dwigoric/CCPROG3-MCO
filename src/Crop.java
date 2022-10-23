@@ -2,16 +2,19 @@ import java.util.Random;
 
 public class Crop {
     private final Seed seed;
-    private boolean alive = true;
+
     private int age = 0;
     private int waterCount = 0;
     private int fertilizeCount = 0;
+    private boolean alive = true;
 
     private int produce;
     Random rand = new Random(System.currentTimeMillis());
 
     public Crop(Seed seed) {
         this.seed = seed;
+
+        /* Randomize number of produce */
         this.produce = rand.nextInt(seed.getMaxProduce() + 1 - seed.getMinProduce()) + seed.getMinProduce();
     }
 
@@ -33,6 +36,14 @@ public class Crop {
 
     public Seed getSeed() {
         return this.seed;
+    }
+
+    public int getWaterCount () {
+        return this.waterCount;
+    }
+
+    public int getFertilizeCount () {
+        return this.fertilizeCount;
     }
 
     public boolean isAlive() {

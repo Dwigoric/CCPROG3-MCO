@@ -8,112 +8,121 @@ public class Game {
 
     public Game() {}
 
-    public void displayActions(int day) {
-        System.out.println("");
-        System.out.println(" ==========================================================");
-        System.out.println(" Day " + day + " plow | plant | water | fertilize | harvest | sleep");
-        System.out.println(" ==========================================================");
-        System.out.print(" [] ");
+    public void advanceDay() {
+        for (int i = 0; i < this.farm.getRows(); i++) {
+            for (int j = 0; j < this.farm.getColumns(); j++) {
+                Crop crop = this.farm.getTile(i, j).getCrop();
+
+                if (crop != null) {
+                    crop.addAge();
+                }
+            }
+        }
     }
 
-    public void initialize(int rows, int columns) {
-        this.farm = new Farm(rows, columns);
-        Seed turnip = new Seed("Turnip", "Root Crop", 2, 1, 0, 1, 2, 5, 6, 5);
+    public void displayActions() {
+        System.out.println();
+        System.out.println(" -----------------------------------------------------------");
+        System.out.println("  plow | plant | water | fertilize | harvest | sleep | exit");
+        System.out.println(" -----------------------------------------------------------");
+        System.out.print("  [] ");
+    }
 
-        this.player = new Player(farm);
-        this.seedList.add(turnip); // Turnip only in MCO 1
+    public void initialize() {
+        
+        /* MCO Phase 1 Specifications */
+        /* Farm is 1x1 */
+        this.farm = new Farm(1, 1); 
+
+        /* Turnip is the only crop */
+        Seed turnip = new Seed("Turnip", "Root Crop", 2, 1, 0,
+                   1, 2, 5, 6, 5);
+        this.seedList.add(turnip);
+
+        this.player = new Player(this.farm);
     }
 
     public void start() {
-         int day = 1;
-         boolean isQuit = false;
-         Tile currTile = farm.getTile(0, 0);
+        int day = 1;
+        boolean isQuit = false;
 
         Scanner sc = new Scanner(System.in);
 
         while(isQuit == false) {
-            player.displayInfo();
+            player.displayInfo(day);
             farm.displayFarm();
-            this.displayActions(day);
+            this.displayActions();
 
             switch(sc.nextLine()) {
-                case "pw":
-                    if(currTile.plow() == true) {
-                        System.out.println(" Tile is plowed");
+                case "plow":
+                    if(player.plow(0, 0) == true) {
+                        System.out.println("  [MESSAGE] Tile plowed");
                         sc.nextLine();
                     } else {
-                        System.out.println(" Tile is already plowed");
+                        System.out.println("  [MESSAGE] Tile is already plowed");
                         sc.nextLine();
                     }
                     
                     break;
-                
-                case "pt":
-                    if(currTile.isPlowed() == true && currTile.getCrop() == null) {
-                        currTile.plant(seedList.get(0)); // temp
-                        player.deductCoins(seedList.get(0).getCost());
-
-                        System.out.println(" Turnip planted");
+                case "plant":
+                    if(player.plant(0, 0, seedList.get(0)) == true) {
+                        System.out.println("  [MESSAGE] Turnip planted");
                         sc.nextLine();
                     } else {
-                        System.out.println(" Cant plant");
+                        System.out.println("  [MESSAGE] Cant plant");
                         sc.nextLine();
                     }
 
                     break;
-                case "wr":
-                    if(currTile.getCrop() != null) {
-                        currTile.getCrop().water();
-                        System.out.println(" Crop watered");
+                case "water":
+                    if(player.water(0, 0) == true) {
+                        System.out.println("  [MESSAGE] Crop watered");
                         sc.nextLine();
                     } else {
-                        System.out.println(" No plant to water");
+                        System.out.println("  [MESSAGE] No plant to water");
                         sc.nextLine();
                     }
 
                     break;
-                case "fe":
-                    if(currTile.getCrop() != null) {
-                        currTile.getCrop().fertilize();
-                        System.out.println(" Crop fertilized");
+                case "fertilize":
+                    if(player.fertilize(0, 0) == true) {
+                        System.out.println("  [MESSAGE] Crop fertilized");
                         sc.nextLine();
                     } else {
-                        System.out.println(" No plant to fertilize");
+                        System.out.println("  [MESSAGE] No plant to fertilize");
                         sc.nextLine();
                     }
                 
                     break;
-                case "ht":
-                    if(currTile.getCrop() == null) {
-                        System.out.println(" No plant to harvest");
+                case "harvest":
+                    if(player.harvest(0, 0) == true) {
+                        System.out.println("  [MESSAGE] Plant harvested");
                         sc.nextLine();
-                    } else if(currTile.getCrop().isAlive() == false) {
-                        System.out.println(" Plant died");
-                        sc.nextLine();
-                    } else if(currTile.getCrop().isHarvestReady() == true) {
-                        player.addCoins(currTile.getCrop().getProduce() * currTile.getCrop().getSeed().getBaseSellingPrice());
-                        player.addExperience(currTile.getCrop().getProduce() * currTile.getCrop().getSeed().getExpYield());
-                        currTile.HarvestCrop();
-                        
-                        System.out.println("Plant harvested");
+                    } else {
+                        System.out.println("  [MESSAGE] Cant harvest");
                         sc.nextLine();
                     }
                     
                     break;
-                case "sp":
-                    this.farm.advanceDay();
+                case "sleep":
+                    this.advanceDay();
                     day++;
 
-                    System.out.println("You slept");
+                    System.out.println("  [MESSAGE] You slept");
                     sc.nextLine();
+
+                    break;
+                case "exit":
+                    isQuit = true;
+                    
                     break;
                 default:
+                    /* none */
                     break;
             }
         }
 
-        System.out.print("Program Terminated");
-
+        System.out.print("  [MESSAGE] Program Terminated");
         sc.close();
     }
 }

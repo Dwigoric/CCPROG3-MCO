@@ -9,8 +9,17 @@ public class Tile {
         this.rock = isRock;
     }
 
+    public boolean plow() {
+        if (this.plowed == true || this.rock == true) {
+            return false;
+        }
+
+        this.plowed = true;
+        return true;
+    }
+
     public boolean plant(Seed seed) {
-        if (!this.plowed || this.crop != null) {
+        if (this.plowed == false || this.crop != null) {
             return false;
         }
 
@@ -18,22 +27,9 @@ public class Tile {
         return true;
     }
 
-    public boolean harvest() {
-        if (this.crop == null) {
-            return false;
-        }
-
+    public void harvest() {
         this.plowed = false;
         this.crop = null;
-        return true;
-    }
-
-    public boolean plow() {
-        if (this.plowed == true || this.rock == true) {
-            return false;
-        }
-        this.plowed = true;
-        return true;
     }
 
     public boolean isPlowed() {
@@ -46,10 +42,5 @@ public class Tile {
 
     public Crop getCrop() {
         return this.crop;
-    }
-
-    public void HarvestCrop() {
-        this.plowed = false;
-        this.crop = null;
     }
 }
