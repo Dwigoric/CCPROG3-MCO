@@ -96,7 +96,6 @@ public class Game {
                     break;
                 case "harvest":
                     if(player.harvest(0, 0) == true) {
-                        System.out.println("  [MESSAGE] Plant harvested");
                         sc.nextLine();
                     } else {
                         System.out.println("  [MESSAGE] Cant harvest");

@@ -91,6 +91,7 @@ public class Player {
             return false;
         }
 
+        System.out.println("  [MESSAGE] Harvested " + tile.getCrop().getProduce() + " " + tile.getCrop().getSeed().getName());
         this.addCoins(tile.getCrop().getProduce() * tile.getCrop().getSeed().getBaseSellingPrice());
         this.addExperience(tile.getCrop().getProduce() * tile.getCrop().getSeed().getExpYield());
         tile.harvest();
