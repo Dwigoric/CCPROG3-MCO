@@ -66,6 +66,11 @@ public class Player {
     }
 
     public boolean fertilize(int row, int column) {
+        if (this.objectCoins < 10) {
+            return false;
+        }
+        this.deductCoins(10);
+
         Tile tile = this.farm.getTile(row, column);
         if (tile.isPlowed() == false) {
             return false;

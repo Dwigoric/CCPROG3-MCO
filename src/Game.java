@@ -22,10 +22,10 @@ public class Game {
 
     public void displayActions() {
         System.out.println();
-        System.out.println(" -----------------------------------------------------------");
-        System.out.println("  plow | plant | water | fertilize | harvest | sleep | exit");
-        System.out.println(" -----------------------------------------------------------");
-        System.out.print("  [] ");
+        System.out.println(" -----------------------------------------------------------------------");
+        System.out.println("  plow | plant | water | fertilize | harvest | sleep | register | exit");
+        System.out.println(" -----------------------------------------------------------------------");
+        System.out.print("  > ");
     }
 
     public void initialize() {
