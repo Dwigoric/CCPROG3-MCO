@@ -8,7 +8,7 @@ public class Crop {
     private int fertilizeCount = 0;
     private boolean isAlive = true;
 
-    private int produce;
+    private final int produce;
     Random rand = new Random(System.currentTimeMillis());
 
     public Crop(Seed seed) {

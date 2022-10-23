@@ -107,7 +107,22 @@ public class Game {
                     this.advanceDay();
                     day++;
 
+                    int minCost = 0;
+                    for (Seed seed : seedList) {
+                        if (minCost < seed.getCost()) {
+                            minCost = seed.getCost();
+                        }
+                    }
+
                     System.out.println("  [MESSAGE] You slept");
+                    if (!this.farm.hasCrop() && this.player.getObjectCoins() < minCost) {
+                        isQuit = true;
+                        System.out.println("  [GAME OVER] You have no crops growing left after today, and can no longer buy new seeds.");
+                    }
+                    else if (this.farm.isAllWithered()) {
+                        isQuit = true;
+                        System.out.println("  [GAME OVER] All your farm plots are filled with withered crops.");
+                    }
                     sc.nextLine();
 
                     break;
