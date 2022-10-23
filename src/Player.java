@@ -4,8 +4,9 @@ import java.util.Arrays;
 public class Player {
     private final Farm farm;
 
-    private int objectCoins = 100;
+    private int level = 0;
     private float experience = 0;
+    private int objectCoins = 100;
 
     private int farmerType = 0;
     private final ArrayList<FarmerType> farmerTypes = new ArrayList<>(Arrays.asList(
@@ -102,6 +103,15 @@ public class Player {
         return true;
     }
 
+    public void addExperience(float amount) {
+        this.experience += amount;
+        this.level = (int) this.experience / 100;
+    }
+
+    public void addCoins(int amount) {
+        this.objectCoins += amount;
+    }
+
     public boolean deductCoins(int amount) {
         if (amount > this.objectCoins) {
             return false;
@@ -109,18 +119,6 @@ public class Player {
 
         this.objectCoins -= amount;
         return true;
-    }
-
-    public void addCoins(int amount) {
-        this.objectCoins += amount;
-    }
-
-    public float getExperience() {
-        return this.experience;
-    }
-
-    public void addExperience(float amount) {
-        this.experience += amount;
     }
 
     public boolean upgradeFarmer() {
@@ -135,7 +133,11 @@ public class Player {
     }
 
     public int getLevel() {
-        return (int)this.experience / 100;
+        return this.level;
+    }
+
+    public float getExperience() {
+        return this.experience;
     }
 
     public int getObjectCoins() {
