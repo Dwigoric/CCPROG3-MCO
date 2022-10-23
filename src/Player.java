@@ -145,6 +145,10 @@ public class Player {
         return this.experience;
     }
 
+    public FarmerType getType() {
+        return this.farmerTypes.get(this.farmerType);
+    }
+
     public int getObjectCoins() {
         return this.objectCoins;
     }

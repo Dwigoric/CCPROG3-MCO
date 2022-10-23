@@ -126,6 +126,19 @@ public class Game {
                     sc.nextLine();
 
                     break;
+                case "register":
+                    System.out.println("  [!] You are currently registered as a " + this.player.getType().getTypeName() + ". Are you sure you want to upgrade? \"Yes\" to confirm.");
+                    System.out.print("  > ");
+
+                    if (sc.nextLine().equalsIgnoreCase("yes") && this.player.upgradeFarmer() == true) {
+                        System.out.println("  [MESSAGE] You have successfully registered as " + this.player.getType().getTypeName() + "!");
+                    }
+                    else {
+                        System.out.println("  [MESSAGE] Upgrade failed. Please check your funds and current experience.");
+                    }
+                    sc.nextLine();
+
+                    break;
                 case "exit":
                     isQuit = true;
                     
