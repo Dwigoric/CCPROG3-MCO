@@ -6,7 +6,7 @@ public class Crop {
     private int age = 0;
     private int waterCount = 0;
     private int fertilizeCount = 0;
-    private boolean alive = true;
+    private boolean isAlive = true;
 
     private int produce;
     Random rand = new Random(System.currentTimeMillis());
@@ -20,7 +20,7 @@ public class Crop {
 
     public void addAge() {
         if (this.age == this.seed.getHarvestTime()) {
-            this.alive = false;
+            this.isAlive = false;
         }
 
         this.age++;
@@ -47,7 +47,7 @@ public class Crop {
     }
 
     public boolean isAlive() {
-        return this.alive;
+        return this.isAlive;
     }
 
     public int getProduce() {
@@ -55,7 +55,7 @@ public class Crop {
     }
 
     public boolean isHarvestReady() {
-        return this.alive &&
+        return this.isAlive &&
                this.waterCount >= this.seed.getWaterNeeds() &&
                this.fertilizeCount >= this.seed.getFertilizerNeeds() &&
                this.age == this.seed.getHarvestTime();

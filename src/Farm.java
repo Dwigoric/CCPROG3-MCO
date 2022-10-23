@@ -1,7 +1,7 @@
 public class Farm {
-    private final Tile[][] tiles;
     private final int rows;
     private final int columns;
+    private final Tile[][] tiles;
 
     public Farm(int rows, int columns) {
         this.tiles = new Tile[rows][columns];
@@ -15,16 +15,16 @@ public class Farm {
         }
     }
 
-    public Tile getTile(int row, int column) {
-        return this.tiles[row][column];
-    }
-
     public int getRows() {
         return this.rows;
     }
 
     public int getColumns() {
         return this.columns;
+    }
+
+    public Tile getTile(int row, int column) {
+        return this.tiles[row][column];
     }
 
     //assumes farm has only one tile and turnip is the only seed
@@ -49,7 +49,7 @@ public class Farm {
             }
             
         } else {
-            if(currTile.isRock() == true) {
+            if(currTile.hasRock() == true) {
                 System.out.print("     rock     ");
             } else if (currTile.isPlowed() == true) {
                 System.out.print("    plowed    ");
