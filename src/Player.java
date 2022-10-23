@@ -29,6 +29,10 @@ public class Player {
     }
 
     public boolean plant(int row, int column, Seed seed) {
+        if (seed.getCost() > this.objectCoins) {
+            return false;
+        }
+
         Tile tile = this.farm.getTile(row, column);
         if (tile.isPlowed() == false) {
             return false;
