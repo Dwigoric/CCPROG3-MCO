@@ -130,8 +130,8 @@ public class Player {
         FarmerType newType = this.farmerTypes.get(this.farmerType + 1);
 
         boolean check = this.farmerType < this.farmerTypes.size() &&
-                newType.getLevelRequirement() >= this.getLevel() &&
-                newType.getRegistrationFee() >= this.objectCoins;
+                this.getLevel() >= newType.getLevelRequirement() &&
+                this.objectCoins >= newType.getRegistrationFee();
 
         if (check == true) this.farmerType++;
         return check;
