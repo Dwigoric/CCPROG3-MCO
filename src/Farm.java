@@ -28,7 +28,6 @@ public class Farm {
      * @return  True if the farm has any crops, false otherwise.
      */
     public boolean hasCrop() {
-        // save this for after prototype
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.columns; j++) {
                 if (this.tiles[i][j].getCrop() != null) {
@@ -45,7 +44,6 @@ public class Farm {
      * @return  True if the farm has no available plots and all crops are dead, false otherwise.
      */
     public boolean isAllWithered() {
-        // save this for after prototype
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.columns; j++) {
                 Crop crop = this.tiles[i][j].getCrop();
