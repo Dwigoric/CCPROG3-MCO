@@ -32,6 +32,10 @@ public class Farm {
         }
     }
 
+    /**
+     * Checks whether the farm has any crops.
+     * @return  True if the farm has any crops, false otherwise.
+     */
     public boolean hasCrop() {
         // save this for after prototype
         for (int i = 0; i < this.rows; i++) {
@@ -45,6 +49,10 @@ public class Farm {
         return false;
     }
 
+    /**
+     * Checks whether the farm has no available plots and all crops are dead.
+     * @return  True if the farm has no available plots and all crops are dead, false otherwise.
+     */
     public boolean isAllWithered() {
         // save this for after prototype
         for (int i = 0; i < this.rows; i++) {

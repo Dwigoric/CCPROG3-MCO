@@ -19,9 +19,17 @@ public class Seed {
      */
     private final int waterNeeds;
     /**
+     * The water bonus limit of the seed.
+     */
+    private final int waterLimit;
+    /**
      * The minimum fertilizer level of the seed.
      */
     private final int fertilizerNeeds;
+    /**
+     * The fertilizer bonus limit of the seed.
+     */
+    private final int fertilizerLimit;
     /**
      * The minimum produce of the seed.
      */
@@ -104,6 +112,10 @@ public class Seed {
         return waterNeeds;
     }
 
+    /**
+     * Gets the water bonus limit of the seed.
+     * @return  The water bonus limit of the seed.
+     */
     public int getWaterLimit() {
         return waterLimit;
     }
@@ -116,6 +128,10 @@ public class Seed {
         return fertilizerNeeds;
     }
 
+    /**
+     * Gets the fertilizer bonus limit of the seed.
+     * @return  The fertilizer bonus limit of the seed.
+     */
     public int getFertilizerLimit() {
         return fertilizerLimit;
     }
