@@ -1,13 +1,29 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Game class.
+ * This class contains the main game loop.
+ */
 public class Game {
+    /**
+     * The player of the game.
+     */
     private Player player;
+    /**
+     * The farm used by the player.
+     */
     private Farm farm;
+    /**
+     * The list of seeds used in the game.
+     */
     private final ArrayList<Seed> seedList = new ArrayList<Seed>();
 
-    public Game() {}
-
+    /**
+     * Advances the day.
+     * This method is called at the end of each day.
+     * It advances the day, and updates the crops.
+     */
     public void advanceDay() {
         for (int i = 0; i < this.farm.getRows(); i++) {
             for (int j = 0; j < this.farm.getColumns(); j++) {
@@ -20,6 +36,9 @@ public class Game {
         }
     }
 
+    /**
+     * Displays actions available to the player.
+     */
     public void displayActions() {
         System.out.println();
         System.out.println(" -----------------------------------------------------------------------");
@@ -28,6 +47,9 @@ public class Game {
         System.out.print("  > ");
     }
 
+    /**
+     * Initializes the game.
+     */
     public void initialize() {
         
         /* MCO Phase 1 Specifications */
@@ -42,6 +64,9 @@ public class Game {
         this.player = new Player(this.farm);
     }
 
+    /**
+     * Runs the game.
+     */
     public void start() {
         int day = 1;
         boolean isQuit = false;

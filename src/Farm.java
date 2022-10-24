@@ -1,8 +1,25 @@
+/**
+ * The Farm class.
+ */
 public class Farm {
+    /**
+     * The number of rows in the farm.
+     */
     private final int rows;
+    /**
+     * The number of columns in the farm.
+     */
     private final int columns;
+    /**
+     * The plots (Tiles) in the farm.
+     */
     private final Tile[][] tiles;
 
+    /**
+     * Creates a new Farm.
+     * @param rows      The number of rows in the farm.
+     * @param columns   The number of columns in the farm.
+     */
     public Farm(int rows, int columns) {
         this.tiles = new Tile[rows][columns];
         this.rows = rows;
@@ -15,19 +32,35 @@ public class Farm {
         }
     }
 
+    /**
+     * Gets the number of rows in the farm.
+     * @return  The number of rows in the farm.
+     */
     public int getRows() {
         return this.rows;
     }
 
+    /**
+     * Gets the number of columns in the farm.
+     * @return  The number of columns in the farm.
+     */
     public int getColumns() {
         return this.columns;
     }
 
+    /**
+     * Gets a tile in the farm.
+     * @param row       The row of the tile.
+     * @param column    The column of the tile.
+     * @return  The tile at the specified row and column.
+     */
     public Tile getTile(int row, int column) {
         return this.tiles[row][column];
     }
 
-    //assumes farm has only one tile and turnip is the only seed
+    /**
+     * Displays the farm (assumption of only one tile), and Turnip is the only seed.
+     */
     public void displayFarm() {
         Tile currTile = this.tiles[0][0];
 
@@ -66,6 +99,10 @@ public class Farm {
         System.out.println("\n");
     }
 
+    /**
+     * Checks whether the Farm has any crops.
+     * @return  True if the Farm has any crops, false otherwise.
+     */
     public boolean hasCrop() {
         // save this for after prototype
         for (int i = 0; i < this.rows; i++) {
@@ -79,6 +116,10 @@ public class Farm {
         return false;
     }
 
+    /**
+     * Checks whether the Farm has no available plots and all crops are dead.
+     * @return  True if the Farm has no available plots and all crops are dead, false otherwise.
+     */
     public boolean isAllWithered() {
         // save this for after prototype
         for (int i = 0; i < this.rows; i++) {

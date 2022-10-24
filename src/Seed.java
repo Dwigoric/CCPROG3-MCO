@@ -1,15 +1,61 @@
+/**
+ * The Seed class.
+ */
 public class Seed {
+    /**
+     * The name of the seed.
+     */
     private final String name;
+    /**
+     * The type of the seed.
+     */
     private final String type;
+    /**
+     * The harvest time of the seed.
+     */
     private final int harvestTime;
+    /**
+     * The minimum water level of the seed.
+     */
     private final int waterNeeds;
+    /**
+     * The minimum fertilizer level of the seed.
+     */
     private final int fertilizerNeeds;
+    /**
+     * The minimum produce of the seed.
+     */
     private final int minProduce;
+    /**
+     * The maximum produce of the seed.
+     */
     private final int maxProduce;
+    /**
+     * The cost of the seed.
+     */
     private final int cost;
+    /**
+     * The base value of the seed.
+     */
     private final int baseSellingPrice;
+    /**
+     * The experience gained from harvest the crop from this seed.
+     */
     private final float expYield;
 
+    /**
+     * The Seed class constructor.
+     * @param name              The name of the seed.
+     * @param type              The type of the seed.
+     * @param harvestTime       The harvest time of the seed.
+     * @param waterNeeds        The minimum water level of the seed.
+     * @param fertilizerNeeds   The minimum fertilizer level of the seed.
+     * @param minProduce        The minimum produce of the seed.
+     * @param maxProduce        The maximum produce of the seed.
+     * @param cost              The cost of the seed.
+     * @param baseSellingPrice  The base value of the seed.
+     * @param expYield          The experience gained from harvest the crop from this seed.
+     */
     public Seed(String name, String type, int harvestTime, int waterNeeds,int fertilizerNeeds,
                 int minProduce, int maxProduce, int cost, int baseSellingPrice, float expYield) {
         this.name = name;
@@ -24,42 +70,82 @@ public class Seed {
         this.expYield = expYield;
     }
 
+    /**
+     * Gets the name of the seed.
+     * @return  The name of the seed.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Gets the type of the seed.
+     * @return  The type of the seed.
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * Gets the harvest time of the seed.
+     * @return  The harvest time of the seed.
+     */
     public int getHarvestTime() {
         return harvestTime;
     }
 
+    /**
+     * Gets the minimum water level of the seed.
+     * @return  The minimum water level of the seed.
+     */
     public int getWaterNeeds() {
         return waterNeeds;
     }
 
+    /**
+     * Gets the minimum fertilizer level of the seed.
+     * @return  The minimum fertilizer level of the seed.
+     */
     public int getFertilizerNeeds() {
         return fertilizerNeeds;
     }
 
+    /**
+     * Gets the minimum produce of the seed.
+     * @return  The minimum produce of the seed.
+     */
     public int getMinProduce() {
         return minProduce;
     }
 
+    /**
+     * Gets the maximum produce of the seed.
+     * @return  The maximum produce of the seed.
+     */
     public int getMaxProduce() {
         return maxProduce;
     }
 
+    /**
+     * Gets the cost of the seed.
+     * @return  The cost of the seed.
+     */
     public int getCost() {
         return cost;
     }
 
+    /**
+     * Gets the base value of the seed.
+     * @return  The base value of the seed.
+     */
     public int getBaseSellingPrice() {
         return baseSellingPrice;
     }
 
+    /**
+     * Gets the experience gained from harvest the crop from this seed.
+     * @return  The experience gained from harvest the crop from this seed.
+     */
     public float getExpYield() {
         return expYield;
     }

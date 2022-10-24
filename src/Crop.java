@@ -1,16 +1,41 @@
 import java.util.Random;
 
+/**
+ * The Crop class.
+ */
 public class Crop {
+    /**
+     * The seed of the crop.
+     */
     private final Seed seed;
 
+    /**
+     * The current growth stage of the crop.
+     */
     private int age = 0;
+    /**
+     * The current water level of the crop.
+     */
     private int waterCount = 0;
+    /**
+     * The current fertilizer level of the crop.
+     */
     private int fertilizeCount = 0;
+    /**
+     * Whether the crop is dead or not.
+     */
     private boolean isAlive = true;
 
+    /**
+     * The amount of produce the crop will yield when harvested.
+     */
     private final int produce;
     Random rand = new Random(System.currentTimeMillis());
 
+    /**
+     * Constructs a new Crop.
+     * @param seed  The seed of the crop.
+     */
     public Crop(Seed seed) {
         this.seed = seed;
 
@@ -18,6 +43,9 @@ public class Crop {
         this.produce = rand.nextInt(seed.getMaxProduce() + 1 - seed.getMinProduce()) + seed.getMinProduce();
     }
 
+    /**
+     * Adds age to the crop.
+     */
     public void addAge() {
         if (this.age == this.seed.getHarvestTime()) {
             this.isAlive = false;
@@ -26,34 +54,64 @@ public class Crop {
         this.age++;
     }
 
+    /**
+     * Adds water to the crop.
+     */
     public void water() {
         this.waterCount++;
     }
 
+    /**
+     * Adds fertilizer to the crop.
+     */
     public void fertilize() {
         this.fertilizeCount++;
     }
 
+    /**
+     * Gets the seed of the crop.
+     * @return  The seed of the crop.
+     */
     public Seed getSeed() {
         return this.seed;
     }
 
+    /**
+     * Gets the water level of the crop.
+     * @return  The water level of the crop.
+     */
     public int getWaterCount () {
         return this.waterCount;
     }
 
+    /**
+     * Gets the fertilizer level of the crop.
+     * @return  The fertilizer level of the crop.
+     */
     public int getFertilizeCount () {
         return this.fertilizeCount;
     }
 
+    /**
+     * Gets whether the crop is alive or not.
+     * @return  True if the crop is alive, false otherwise.
+     */
     public boolean isAlive() {
         return this.isAlive;
     }
 
+    /**
+     * Gets the amount of produce the crop will yield when harvested.
+     * @return  The amount of produce the crop will yield when harvested.
+     */
     public int getProduce() {
         return this.produce;
     }
 
+    /**
+     * Gets whether the crop is ready to be harvested or not.
+     * @return  True if the crop is ready to be harvested, false otherwise.
+     */
     public boolean isHarvestReady() {
         return this.isAlive &&
                this.waterCount >= this.seed.getWaterNeeds() &&

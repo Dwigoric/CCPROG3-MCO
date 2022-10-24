@@ -1,14 +1,34 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * The Player class.
+ */
 public class Player {
+    /**
+     * The Farm owned by the player.
+     */
     private final Farm farm;
 
+    /**
+     * The player level.
+     */
     private int level = 0;
+    /**
+     * The player experience.
+     */
     private float experience = 0;
+    /**
+     * The player money.
+     */
     private int objectCoins = 100;
-
+    /**
+     * The player's current farmer type.
+     */
     private int farmerType = 0;
+    /**
+     * The list of farmer types available to the player.
+     */
     private final ArrayList<FarmerType> farmerTypes = new ArrayList<>(Arrays.asList(
             new FarmerType("Farmer", 0, 0, 0, 0, 0, 0),
             new FarmerType("Registered Farmer", 5, 1, 1, 0, 0, 200),
@@ -16,10 +36,20 @@ public class Player {
             new FarmerType("Legendary Farmer", 15, 4, 3, 2, 1, 400)
     ));
 
+    /**
+     * The Player class constructor.
+     * @param farm The farm owned by the player.
+     */
     public Player(Farm farm) {
         this.farm = farm;
     }
 
+    /**
+     * Plows a tile.
+     * @param row       The row of the tile.
+     * @param column    The column of the tile.
+     * @return  True if the tile was successfully plowed, false otherwise.
+     */
     public boolean plow(int row, int column) {
         if (this.farm.getTile(row, column).isPlowed()) {
             return false;
@@ -29,6 +59,13 @@ public class Player {
         return this.farm.getTile(row, column).plow();
     }
 
+    /**
+     * Plants a seed on a tile.
+     * @param row       The row of the tile.
+     * @param column    The column of the tile.
+     * @param seed      The seed to plant.
+     * @return  True if the seed was successfully planted, false otherwise.
+     */
     public boolean plant(int row, int column, Seed seed) {
         if (seed.getCost() > this.objectCoins) {
             return false;
@@ -49,6 +86,12 @@ public class Player {
         return true;
     }
 
+    /**
+     * Waters a tile.
+     * @param row       The row of the tile.
+     * @param column    The column of the tile.
+     * @return  True if the tile was successfully watered, false otherwise.
+     */
     public boolean water(int row, int column) {
         Tile tile = this.farm.getTile(row, column);
         if (!tile.isPlowed()) {
@@ -65,6 +108,12 @@ public class Player {
         return true;
     }
 
+    /**
+     * Fertilizes a tile.
+     * @param row       The row of the tile.
+     * @param column    The column of the tile.
+     * @return  True if the tile was successfully fertilized, false otherwise.
+     */
     public boolean fertilize(int row, int column) {
         if (this.objectCoins < 10) {
             return false;
@@ -86,6 +135,12 @@ public class Player {
         return true;
     }
 
+    /**
+     * Harvests a crop from a tile, if applicable.
+     * @param row       The row of the tile.
+     * @param column    The column of the tile.
+     * @return  True if the crop, if present, was successfully harvested, false otherwise.
+     */
     public boolean harvest(int row, int column) {
         Tile tile = this.farm.getTile(row, column);
         if (tile.getCrop() == null) {
@@ -93,11 +148,7 @@ public class Player {
         }
 
         Crop crop = tile.getCrop();
-        if (crop.isAlive() == false) {
-            return false;
-        }
-
-        if(crop.isHarvestReady() == false) {
+        if (crop.isHarvestReady() == false) {
             return false;
         }
 
@@ -108,15 +159,28 @@ public class Player {
         return true;
     }
 
+    /**
+     * Adds experience to the player.
+     * @param amount    The amount of experience to add.
+     */
     public void addExperience(float amount) {
         this.experience += amount;
         this.level = (int) this.experience / 100;
     }
 
+    /**
+     * Adds coins to the player.
+     * @param amount    The amount of coins to add.
+     */
     public void addCoins(int amount) {
         this.objectCoins += amount;
     }
 
+    /**
+     * Deducts coins from the player.
+     * @param amount    The amount of coins to deduct.
+     * @return  True if the coins were successfully deducted, false otherwise.
+     */
     public boolean deductCoins(int amount) {
         if (amount > this.objectCoins) {
             return false;
@@ -126,6 +190,10 @@ public class Player {
         return true;
     }
 
+    /**
+     * Tries to upgrade the current farmer type of the player.
+     * @return  True if the farmer type was successfully upgraded, false otherwise.
+     */
     public boolean upgradeFarmer() {
         FarmerType newType = this.farmerTypes.get(this.farmerType + 1);
 
@@ -137,22 +205,42 @@ public class Player {
         return check;
     }
 
+    /**
+     * Gets the current level of the player.
+     * @return  The current level of the player.
+     */
     public int getLevel() {
         return this.level;
     }
 
+    /**
+     * Gets the current experience of the player.
+     * @return  The current experience of the player.
+     */
     public float getExperience() {
         return this.experience;
     }
 
+    /**
+     * Gets the farmer type of the player.
+     * @return  The farmer type of the player.
+     */
     public FarmerType getType() {
         return this.farmerTypes.get(this.farmerType);
     }
 
+    /**
+     * Gets the current coins of the player.
+     * @return  The current coins of the player.
+     */
     public int getObjectCoins() {
         return this.objectCoins;
     }
 
+    /**
+     * Displays the player's information.
+     * @param day  The current day.
+     */
     public void displayInfo(int day) {
         String infoLine;
 
