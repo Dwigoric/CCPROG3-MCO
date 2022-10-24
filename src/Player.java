@@ -142,6 +142,10 @@ public class Player {
      * @return  True if the crop, if present, was successfully harvested, false otherwise.
      */
     public boolean harvest(int row, int column) {
+        float HarvestTotal;
+        float WaterBonus;
+        float FertilizerBonus;
+
         Tile tile = this.farm.getTile(row, column);
         if (tile.getCrop() == null) {
             return false;
@@ -152,9 +156,27 @@ public class Player {
             return false;
         }
 
-        System.out.println("  [MESSAGE] Harvested " + tile.getCrop().getProduce() + " " + tile.getCrop().getSeed().getName());
-        this.addCoins(tile.getCrop().getProduce() * tile.getCrop().getSeed().getBaseSellingPrice());
+        /* Selling Price Computation */
+        HarvestTotal = crop.getProduce() * (crop.getSeed().getBaseSellingPrice() + farmerTypes.get(farmerType).getBonusEarnings());
+        
+        if(crop.getWaterCount() > crop.getSeed().getWaterLimit() + farmerTypes.get(farmerType).getWaterBonusLimitIncrease()) {
+            WaterBonus = HarvestTotal * 0.2f * (crop.getSeed().getWaterLimit() + farmerTypes.get(farmerType).getWaterBonusLimitIncrease() - 1);
+        } else {
+            WaterBonus = HarvestTotal * 0.2f * (crop.getWaterCount() - 1);
+        }
+        
+        if(crop.getFertilizeCount() > crop.getSeed().getFertilizerLimit() + farmerTypes.get(farmerType).getFertilizerBonusLimitIncrease()) {
+            FertilizerBonus = HarvestTotal * 0.2f * (crop.getSeed().getFertilizerLimit() + farmerTypes.get(farmerType).getFertilizerBonusLimitIncrease());
+        } else {
+            FertilizerBonus = HarvestTotal * 0.5f * (crop.getFertilizeCount());
+        }
+
+        /* Player Information Update */
+        this.addCoins((int)(HarvestTotal + WaterBonus + FertilizerBonus));
         this.addExperience(tile.getCrop().getProduce() * tile.getCrop().getSeed().getExpYield());
+    
+        System.out.println("  [MESSAGE] Harvested " + tile.getCrop().getProduce() + " " + tile.getCrop().getSeed().getName()
+                            + " and sold for " + (int)(HarvestTotal + WaterBonus + FertilizerBonus) + " ObjectCoins");
         tile.harvest();
         return true;
     }
@@ -244,11 +266,11 @@ public class Player {
     public void displayInfo(int day) {
         String infoLine;
 
-        infoLine = String.format("  Type: %s | ObjectCoins: %d | XP: %f | Day: %d", 
-            this.farmerTypes.get(farmerType).getTypeName(), this.objectCoins, this.experience, day);
+        infoLine = String.format("  Type: %s | ObjectCoins: %d | Level: %d | XP: %f | Day: %d", 
+            this.farmerTypes.get(farmerType).getTypeName(), this.objectCoins, this.level, this.experience, day);
 
-        System.out.println(" -----------------------------------------------------------");
+        System.out.println(" -----------------------------------------------------------------------");
         System.out.println(infoLine);
-        System.out.println(" -----------------------------------------------------------");
+        System.out.println(" -----------------------------------------------------------------------");
     }
 }

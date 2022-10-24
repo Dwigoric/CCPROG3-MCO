@@ -56,13 +56,15 @@ public class Seed {
      * @param baseSellingPrice  The base value of the seed.
      * @param expYield          The experience gained from harvest the crop from this seed.
      */
-    public Seed(String name, String type, int harvestTime, int waterNeeds,int fertilizerNeeds,
-                int minProduce, int maxProduce, int cost, int baseSellingPrice, float expYield) {
+    public Seed(String name, String type, int harvestTime, int waterNeeds, int waterLimit, int fertilizerNeeds,
+                int fertilizerLimit, int minProduce, int maxProduce, int cost, int baseSellingPrice, float expYield) {
         this.name = name;
         this.type = type;
         this.harvestTime = harvestTime;
         this.waterNeeds = waterNeeds;
+        this.waterLimit = waterLimit;
         this.fertilizerNeeds = fertilizerNeeds;
+        this.fertilizerLimit = fertilizerLimit;
         this.minProduce = minProduce;
         this.maxProduce = maxProduce;
         this.cost = cost;
@@ -102,12 +104,20 @@ public class Seed {
         return waterNeeds;
     }
 
+    public int getWaterLimit() {
+        return waterLimit;
+    }
+
     /**
      * Gets the minimum fertilizer level of the seed.
      * @return  The minimum fertilizer level of the seed.
      */
     public int getFertilizerNeeds() {
         return fertilizerNeeds;
+    }
+
+    public int getFertilizerLimit() {
+        return fertilizerLimit;
     }
 
     /**

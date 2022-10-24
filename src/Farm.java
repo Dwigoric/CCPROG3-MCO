@@ -32,6 +32,33 @@ public class Farm {
         }
     }
 
+    public boolean hasCrop() {
+        // save this for after prototype
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.columns; j++) {
+                if (this.tiles[i][j].getCrop() != null) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public boolean isAllWithered() {
+        // save this for after prototype
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.columns; j++) {
+                Crop crop = this.tiles[i][j].getCrop();
+                if (crop == null || crop.isAlive()) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
     /**
      * Gets the number of rows in the farm.
      * @return  The number of rows in the farm.
@@ -97,40 +124,5 @@ public class Farm {
         System.out.printf(" %38s%n", "+-----------------+");
 
         System.out.println("\n");
-    }
-
-    /**
-     * Checks whether the Farm has any crops.
-     * @return  True if the Farm has any crops, false otherwise.
-     */
-    public boolean hasCrop() {
-        // save this for after prototype
-        for (int i = 0; i < this.rows; i++) {
-            for (int j = 0; j < this.columns; j++) {
-                if (this.tiles[i][j].getCrop() != null) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Checks whether the Farm has no available plots and all crops are dead.
-     * @return  True if the Farm has no available plots and all crops are dead, false otherwise.
-     */
-    public boolean isAllWithered() {
-        // save this for after prototype
-        for (int i = 0; i < this.rows; i++) {
-            for (int j = 0; j < this.columns; j++) {
-                Crop crop = this.tiles[i][j].getCrop();
-                if (crop == null || crop.isAlive()) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
     }
 }

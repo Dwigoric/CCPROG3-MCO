@@ -57,7 +57,7 @@ public class Game {
         this.farm = new Farm(1, 1); 
 
         /* Turnip is the only crop */
-        Seed turnip = new Seed("Turnip", "Root Crop", 2, 1, 0,
+        Seed turnip = new Seed("Turnip", "Root Crop", 2, 1, 2, 0, 1,
                    1, 2, 5, 6, 5);
         this.seedList.add(turnip);
 
@@ -67,11 +67,9 @@ public class Game {
     /**
      * Runs the game.
      */
-    public void start() {
+    public void start(Scanner sc) {
         int day = 1;
         boolean isQuit = false;
-
-        Scanner sc = new Scanner(System.in);
 
         while(isQuit == false) {
             player.displayInfo(day);
@@ -142,11 +140,15 @@ public class Game {
                     System.out.println("  [MESSAGE] You slept");
                     if (!this.farm.hasCrop() && this.player.getObjectCoins() < minCost) {
                         isQuit = true;
-                        System.out.println("  [GAME OVER] You have no crops growing left after today, and can no longer buy new seeds.");
+                        System.out.println("\n  [GAME OVER] You have no crops growing left after today, and can no longer buy new seeds.");
                     }
                     else if (this.farm.isAllWithered()) {
                         isQuit = true;
-                        System.out.println("  [GAME OVER] All your farm plots are filled with withered crops.");
+
+                        player.displayInfo(day);
+                        farm.displayFarm();
+                        this.displayActions();
+                        System.out.println("\n  [GAME OVER] All your farm plots are filled with withered crops.");
                     }
                     sc.nextLine();
 
@@ -173,8 +175,5 @@ public class Game {
                     break;
             }
         }
-
-        System.out.print("  [MESSAGE] Program Terminated");
-        sc.close();
     }
 }
