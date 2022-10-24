@@ -4,31 +4,13 @@ import java.util.Random;
  * The Crop class.
  */
 public class Crop {
-    /**
-     * The seed of the crop.
-     */
     private final Seed seed;
 
-    /**
-     * The current growth stage of the crop.
-     */
     private int age = 0;
-    /**
-     * The current water level of the crop.
-     */
     private int waterCount = 0;
-    /**
-     * The current fertilizer level of the crop.
-     */
     private int fertilizeCount = 0;
-    /**
-     * Whether the crop is dead or not.
-     */
     private boolean isAlive = true;
 
-    /**
-     * The amount of produce the crop will yield when harvested.
-     */
     private final int produce;
     Random rand = new Random(System.currentTimeMillis());
 

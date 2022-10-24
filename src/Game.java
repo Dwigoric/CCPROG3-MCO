@@ -6,17 +6,8 @@ import java.util.Scanner;
  * This class contains the main game loop.
  */
 public class Game {
-    /**
-     * The player of the game.
-     */
     private Player player;
-    /**
-     * The farm used by the player.
-     */
     private Farm farm;
-    /**
-     * The list of seeds used in the game.
-     */
     private final ArrayList<Seed> seedList = new ArrayList<Seed>();
 
     /**

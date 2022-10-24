@@ -2,17 +2,8 @@
  * The Farm class.
  */
 public class Farm {
-    /**
-     * The number of rows in the farm.
-     */
     private final int rows;
-    /**
-     * The number of columns in the farm.
-     */
     private final int columns;
-    /**
-     * The plots (Tiles) in the farm.
-     */
     private final Tile[][] tiles;
 
     /**

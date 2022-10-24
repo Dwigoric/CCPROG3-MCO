@@ -2,33 +2,12 @@
  * The FarmerType class.
  */
 public class FarmerType {
-    /**
-     * The name of the farmer type.
-     */
     private final String typeName;
-    /**
-     * The level requirement of the farmer type.
-     */
     private final int levelRequirement;
-    /**
-     * The farmer type bonus coins on crop harvest.
-     */
     private final int bonusEarnings;
-    /**
-     * The seed cost reduction of the farmer type.
-     */
     private final int seedCostReduction;
-    /**
-     * The water bonus limit increase of the farmer type.
-     */
     private final int waterBonusLimitIncrease;
-    /**
-     * The fertilizer bonus limit increase of the farmer type.
-     */
     private final int fertilizerBonusLimitIncrease;
-    /**
-     * The registration fee of the farmer type.
-     */
     private final int registrationFee;
 
     /**

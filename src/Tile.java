@@ -2,17 +2,8 @@
  * The Tile class.
  */
 public class Tile {
-    /**
-     * Whether the tile is plowed.
-     */
     private boolean isPlowed = false;
-    /**
-     * Whether the tile has a rock.
-     */
     private boolean hasRock = false;
-    /**
-     * The crop on the tile.
-     */
     private Crop crop = null;
 
     public Tile() {}

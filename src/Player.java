@@ -5,30 +5,12 @@ import java.util.Arrays;
  * The Player class.
  */
 public class Player {
-    /**
-     * The Farm owned by the player.
-     */
     private final Farm farm;
 
-    /**
-     * The player level.
-     */
     private int level = 0;
-    /**
-     * The player experience.
-     */
     private float experience = 0;
-    /**
-     * The player money.
-     */
     private int objectCoins = 100;
-    /**
-     * The player's current farmer type.
-     */
     private int farmerType = 0;
-    /**
-     * The list of farmer types available to the player.
-     */
     private final ArrayList<FarmerType> farmerTypes = new ArrayList<>(Arrays.asList(
             new FarmerType("Farmer", 0, 0, 0, 0, 0, 0),
             new FarmerType("Registered Farmer", 5, 1, 1, 0, 0, 200),

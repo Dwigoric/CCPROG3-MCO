@@ -2,53 +2,17 @@
  * The Seed class.
  */
 public class Seed {
-    /**
-     * The name of the seed.
-     */
     private final String name;
-    /**
-     * The type of the seed.
-     */
     private final String type;
-    /**
-     * The harvest time of the seed.
-     */
     private final int harvestTime;
-    /**
-     * The minimum water level of the seed.
-     */
     private final int waterNeeds;
-    /**
-     * The water bonus limit of the seed.
-     */
     private final int waterLimit;
-    /**
-     * The minimum fertilizer level of the seed.
-     */
     private final int fertilizerNeeds;
-    /**
-     * The fertilizer bonus limit of the seed.
-     */
     private final int fertilizerLimit;
-    /**
-     * The minimum produce of the seed.
-     */
     private final int minProduce;
-    /**
-     * The maximum produce of the seed.
-     */
     private final int maxProduce;
-    /**
-     * The cost of the seed.
-     */
     private final int cost;
-    /**
-     * The base value of the seed.
-     */
     private final int baseSellingPrice;
-    /**
-     * The experience gained from harvest the crop from this seed.
-     */
     private final float expYield;
 
     /**
