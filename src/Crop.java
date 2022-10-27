@@ -29,7 +29,9 @@ public class Crop {
      * Adds age to the crop.
      */
     public void addAge() {
-        if (this.age == this.seed.getHarvestTime()) {
+        if (this.age == this.seed.getHarvestTime() - 1 && (this.waterCount < this.seed.getWaterNeeds() || this.fertilizeCount < this.seed.getFertilizerNeeds())) {
+            this.isAlive = false;
+        } else if (this.age == this.seed.getHarvestTime()) {
             this.isAlive = false;
         }
 
