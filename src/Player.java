@@ -37,7 +37,7 @@ public class Player {
             return false;
         }
 
-        this.experience += 0.5f;
+        this.addExperience(0.5f);
         return this.farm.getTile(row, column).plow();
     }
 
@@ -86,7 +86,7 @@ public class Player {
         }
 
         crop.water();
-        this.experience += 0.5f;
+        this.addExperience(0.5f);
         return true;
     }
 
@@ -113,7 +113,7 @@ public class Player {
         }
 
         crop.fertilize();
-        this.experience += 4.0;
+        this.addExperience(4.0f);
         return true;
     }
 
