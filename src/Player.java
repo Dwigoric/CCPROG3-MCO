@@ -100,7 +100,6 @@ public class Player {
         if (this.objectCoins < 10) {
             return false;
         }
-        this.deductCoins(10);
 
         Tile tile = this.farm.getTile(row, column);
         if (tile.isPlowed() == false) {
@@ -112,6 +111,7 @@ public class Player {
             return false;
         }
 
+        this.deductCoins(10);
         crop.fertilize();
         this.addExperience(4.0f);
         return true;
