@@ -34,6 +34,7 @@ public class Crop {
         /* Crop does not meet water/fertilize requirement on harvest day */
         if (this.age == this.seed.getHarvestTime() && (this.waterCount < this.seed.getWaterNeeds() || this.fertilizeCount < this.seed.getFertilizerNeeds())) {
             this.isAlive = false;
+
         /* Crop age exceeds harvest time */
         } else if (this.age > this.seed.getHarvestTime()) {
             this.isAlive = false;
@@ -99,9 +100,7 @@ public class Crop {
      * @return  True if the crop is ready to be harvested, false otherwise.
      */
     public boolean isHarvestReady() {
-        return this.isAlive &&
-               this.waterCount >= this.seed.getWaterNeeds() &&
-               this.fertilizeCount >= this.seed.getFertilizerNeeds() &&
-               this.age == this.seed.getHarvestTime();
+        return this.isAlive && this.age == this.seed.getHarvestTime() &&
+               this.waterCount >= this.seed.getWaterNeeds() && this.fertilizeCount >= this.seed.getFertilizerNeeds();
     }
 }

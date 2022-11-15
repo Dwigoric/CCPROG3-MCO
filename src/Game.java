@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -7,8 +8,17 @@ import java.util.Scanner;
  */
 public class Game {
     private Player player;
+    private PlayerView playerView;
+    private PlayerController playerController;
+
     private Farm farm;
     private final ArrayList<Seed> seedList = new ArrayList<Seed>();
+    private final ArrayList<FarmerType> farmerTypes = new ArrayList<>(Arrays.asList(
+            new FarmerType("Farmer", 0, 0, 0, 0, 0, 0),
+            new FarmerType("Registered Farmer", 5, 1, 1, 0, 0, 200),
+            new FarmerType("Distinguished Farmer", 10, 2, 2, 1, 0, 300),
+            new FarmerType("Legendary Farmer", 15, 4, 3, 2, 1, 400)
+    ));
 
     /**
      * Advances the day.
@@ -28,143 +38,52 @@ public class Game {
     }
 
     /**
-     * Displays actions available to the player.
-     */
-    public void displayActions() {
-        System.out.println();
-        System.out.println(" -----------------------------------------------------------------------");
-        System.out.println("  plow | plant | water | fertilize | harvest | sleep | register | exit");
-        System.out.println(" -----------------------------------------------------------------------");
-        System.out.print("  > ");
-    }
-
-    /**
      * Initializes the game.
      */
-    public void initialize() {
+    public Game() {
+        this.farm = new Farm(5, 10); // pede ba landscape or kailangan portrait
         
-        /* MCO Phase 1 Specifications */
-        /* Farm is 1x1 */
-        this.farm = new Farm(1, 1); 
+        this.player = new Player(this.farm, farmerTypes.get(0));
+        this.playerView = new PlayerView();
+        this.playerController = new PlayerController(this.player, this.playerView);
 
-        /* Turnip is the only crop */
+        /* Create seeds */
         Seed turnip = new Seed("Turnip", "Root Crop", 2, 1, 2, 0, 1,
-                   1, 2, 5, 6, 5);
-        this.seedList.add(turnip);
+            1, 2, 5, 6, 5);
 
-        this.player = new Player(this.farm);
+        Seed carrot = new Seed("Carrot", "Root Crop", 3, 1, 2, 0, 1,
+            1, 2, 10, 9, 7.5f);
+
+        Seed potato = new Seed("Potato", "Root crop", 5, 3, 4, 1, 2,
+            1, 10, 20, 3, 12.5f);
+
+        Seed rose = new Seed("Rose", "Flower", 1, 1, 2, 0, 1,
+            1, 1, 5, 5, 2.5f);
+
+        Seed tulips = new Seed("Tulips", "Flower", 2, 2, 3, 0, 1,
+            1, 1, 10, 9, 5);
+
+        Seed sunflower = new Seed("Sunflower", "Flower", 3, 2, 3, 1, 2,
+            1, 1, 20, 19, 7.5f);
+
+        Seed mango = new Seed("Mango", "Fruit tree", 10, 7, 7, 4, 4,
+            5, 10, 100, 8, 25);
+
+        Seed apple = new Seed("Apple", "Fruit tree",10, 7, 7, 5, 5,
+            10, 15, 200, 5, 25);
+        
+        /* Add seeds to list */
+        this.seedList.add(turnip);
+        this.seedList.add(carrot);
+        this.seedList.add(potato);
+        this.seedList.add(rose);
+        this.seedList.add(tulips);
+        this.seedList.add(sunflower);
+        this.seedList.add(mango);
+        this.seedList.add(apple);
     }
 
-    /**
-     * Runs the game.
-     */
-    public void start(Scanner sc) {
-        int day = 1;
-        boolean isQuit = false;
-
-        while(isQuit == false) {
-            player.displayInfo(day);
-            farm.displayFarm();
-            this.displayActions();
-
-            switch(sc.nextLine()) {
-                case "plow":
-                    if(player.plow(0, 0) == true) {
-                        System.out.println("  [MESSAGE] Tile plowed");
-                        sc.nextLine();
-                    } else {
-                        System.out.println("  [MESSAGE] Tile is already plowed");
-                        sc.nextLine();
-                    }
-                    
-                    break;
-                case "plant":
-                    if(player.plant(0, 0, seedList.get(0)) == true) {
-                        System.out.println("  [MESSAGE] Turnip planted");
-                        sc.nextLine();
-                    } else {
-                        System.out.println("  [MESSAGE] Cant plant");
-                        sc.nextLine();
-                    }
-
-                    break;
-                case "water":
-                    if(player.water(0, 0) == true) {
-                        System.out.println("  [MESSAGE] Crop watered");
-                        sc.nextLine();
-                    } else {
-                        System.out.println("  [MESSAGE] No plant to water");
-                        sc.nextLine();
-                    }
-
-                    break;
-                case "fertilize":
-                    if(player.fertilize(0, 0) == true) {
-                        System.out.println("  [MESSAGE] Crop fertilized");
-                        sc.nextLine();
-                    } else {
-                        System.out.println("  [MESSAGE] No plant to fertilize");
-                        sc.nextLine();
-                    }
-                
-                    break;
-                case "harvest":
-                    if(player.harvest(0, 0) == true) {
-                        sc.nextLine();
-                    } else {
-                        System.out.println("  [MESSAGE] Cant harvest");
-                        sc.nextLine();
-                    }
-                    
-                    break;
-                case "sleep":
-                    this.advanceDay();
-                    day++;
-
-                    int minCost = 0;
-                    for (Seed seed : seedList) {
-                        if (minCost < seed.getCost()) {
-                            minCost = seed.getCost();
-                        }
-                    }
-
-                    System.out.println("  [MESSAGE] You slept");
-                    if (!this.farm.hasCrop() && this.player.getObjectCoins() < minCost) {
-                        isQuit = true;
-                        System.out.println("\n  [GAME OVER] You have no crops growing left after today, and can no longer buy new seeds.");
-                    }
-                    else if (this.farm.isAllWithered()) {
-                        isQuit = true;
-
-                        player.displayInfo(day);
-                        farm.displayFarm();
-                        this.displayActions();
-                        System.out.println("\n  [GAME OVER] All your farm plots are filled with withered crops.");
-                    }
-                    sc.nextLine();
-
-                    break;
-                case "register":
-                    System.out.println("  [!] You are currently registered as a " + this.player.getType().getTypeName() + ". Are you sure you want to upgrade? \"Yes\" to confirm.");
-                    System.out.print("  > ");
-
-                    if (sc.nextLine().equalsIgnoreCase("yes") && this.player.upgradeFarmer() == true) {
-                        System.out.println("  [MESSAGE] You have successfully registered as " + this.player.getType().getTypeName() + "!");
-                    }
-                    else {
-                        System.out.println("  [MESSAGE] Upgrade failed. Please check your funds and current experience.");
-                    }
-                    sc.nextLine();
-
-                    break;
-                case "exit":
-                    isQuit = true;
-                    
-                    break;
-                default:
-                    /* none */
-                    break;
-            }
-        }
+    public PlayerController getPlayerController() {
+        return this.playerController;
     }
 }

@@ -31,7 +31,7 @@ public class Tile {
      * @return  True if the seed was successfully planted, false otherwise.
      */
     public boolean plant(Seed seed) {
-        if (this.isPlowed == false || this.crop != null) {
+        if (!this.isPlowed || this.crop != null) {
             return false;
         }
 

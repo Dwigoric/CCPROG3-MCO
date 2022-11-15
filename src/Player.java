@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * The Player class.
@@ -9,21 +8,18 @@ public class Player {
 
     private int level = 0;
     private float experience = 0;
-    private int objectCoins = 100;
-    private int farmerType = 0;
-    private final ArrayList<FarmerType> farmerTypes = new ArrayList<>(Arrays.asList(
-            new FarmerType("Farmer", 0, 0, 0, 0, 0, 0),
-            new FarmerType("Registered Farmer", 5, 1, 1, 0, 0, 200),
-            new FarmerType("Distinguished Farmer", 10, 2, 2, 1, 0, 300),
-            new FarmerType("Legendary Farmer", 15, 4, 3, 2, 1, 400)
-    ));
+    private float objectCoins = 100;
+
+    private int farmerTypeLevel = 0;
+    private FarmerType farmerType;
 
     /**
      * The Player class constructor.
      * @param farm The farm owned by the player.
      */
-    public Player(Farm farm) {
+    public Player(Farm farm, FarmerType farmerType) {
         this.farm = farm;
+        this.farmerType = farmerType;
     }
 
     /**
@@ -124,6 +120,9 @@ public class Player {
      * @return  True if the crop, if present, was successfully harvested, false otherwise.
      */
     public boolean harvest(int row, int column) {
+        int WaterBonusLimit;
+        int FertilizerBonusLimit;
+        
         float HarvestTotal;
         float WaterBonus;
         float FertilizerBonus;
@@ -139,26 +138,29 @@ public class Player {
         }
 
         /* Selling Price Computation */
-        HarvestTotal = crop.getProduce() * (crop.getSeed().getBaseSellingPrice() + farmerTypes.get(farmerType).getBonusEarnings());
+        WaterBonusLimit = crop.getSeed().getWaterLimit() + farmerType.getWaterBonusLimitIncrease();
+        FertilizerBonusLimit = crop.getSeed().getFertilizerLimit() + farmerType.getFertilizerBonusLimitIncrease();
+
+        HarvestTotal = crop.getProduce() * (crop.getSeed().getBaseSellingPrice() + farmerType.getBonusEarnings());
         
-        if(crop.getWaterCount() > crop.getSeed().getWaterLimit() + farmerTypes.get(farmerType).getWaterBonusLimitIncrease()) {
-            WaterBonus = HarvestTotal * 0.2f * (crop.getSeed().getWaterLimit() + farmerTypes.get(farmerType).getWaterBonusLimitIncrease() - 1);
+        if(crop.getWaterCount() > WaterBonusLimit) {
+            WaterBonus = HarvestTotal * 0.2f * (WaterBonusLimit - 1);
         } else {
             WaterBonus = HarvestTotal * 0.2f * (crop.getWaterCount() - 1);
         }
         
-        if(crop.getFertilizeCount() > crop.getSeed().getFertilizerLimit() + farmerTypes.get(farmerType).getFertilizerBonusLimitIncrease()) {
-            FertilizerBonus = HarvestTotal * 0.2f * (crop.getSeed().getFertilizerLimit() + farmerTypes.get(farmerType).getFertilizerBonusLimitIncrease());
+        if(crop.getFertilizeCount() > FertilizerBonusLimit) {
+            FertilizerBonus = HarvestTotal * 0.5f * (FertilizerBonusLimit);
         } else {
             FertilizerBonus = HarvestTotal * 0.5f * (crop.getFertilizeCount());
         }
 
         /* Player Information Update */
-        this.addCoins((int)(HarvestTotal + WaterBonus + FertilizerBonus));
-        this.addExperience(tile.getCrop().getProduce() * tile.getCrop().getSeed().getExpYield());
+        this.addCoins(HarvestTotal + WaterBonus + FertilizerBonus);
+        this.addExperience(crop.getSeed().getExpYield());
     
         System.out.println("  [MESSAGE] Harvested " + tile.getCrop().getProduce() + " " + tile.getCrop().getSeed().getName()
-                            + " and sold for " + (int)(HarvestTotal + WaterBonus + FertilizerBonus) + " ObjectCoins");
+                            + " and sold for " + HarvestTotal + WaterBonus + FertilizerBonus + " ObjectCoins");
         tile.harvest();
         return true;
     }
@@ -176,7 +178,7 @@ public class Player {
      * Adds coins to the player.
      * @param amount    The amount of coins to add.
      */
-    public void addCoins(int amount) {
+    public void addCoins(float amount) {
         this.objectCoins += amount;
     }
 
@@ -198,14 +200,17 @@ public class Player {
      * Tries to upgrade the current farmer type of the player.
      * @return  True if the farmer type was successfully upgraded, false otherwise.
      */
-    public boolean upgradeFarmer() {
-        FarmerType newType = this.farmerTypes.get(this.farmerType + 1);
+    public boolean upgradeFarmer(ArrayList<FarmerType> farmerTypes) {
+        FarmerType newType = farmerTypes.get(this.farmerTypeLevel + 1);
 
-        boolean check = this.farmerType < this.farmerTypes.size() &&
-                this.getLevel() >= newType.getLevelRequirement() &&
-                this.objectCoins >= newType.getRegistrationFee();
+        boolean check = this.farmerTypeLevel + 1 < farmerTypes.size() && 
+                        this.level >= newType.getLevelRequirement() && this.objectCoins >= newType.getRegistrationFee();
 
-        if (check == true) this.farmerType++;
+        if (check == true) {
+            this.farmerTypeLevel++;
+            this.farmerType = farmerTypes.get(this.farmerTypeLevel);
+        }
+
         return check;
     }
 
@@ -226,33 +231,14 @@ public class Player {
     }
 
     /**
-     * Gets the farmer type of the player.
-     * @return  The farmer type of the player.
-     */
-    public FarmerType getType() {
-        return this.farmerTypes.get(this.farmerType);
-    }
-
-    /**
      * Gets the current coins of the player.
      * @return  The current coins of the player.
      */
-    public int getObjectCoins() {
+    public float getObjectCoins() {
         return this.objectCoins;
     }
 
-    /**
-     * Displays the player's information.
-     * @param day  The current day.
-     */
-    public void displayInfo(int day) {
-        String infoLine;
-
-        infoLine = String.format("  Type: %s | ObjectCoins: %d | Level: %d | XP: %f | Day: %d", 
-            this.farmerTypes.get(farmerType).getTypeName(), this.objectCoins, this.level, this.experience, day);
-
-        System.out.println(" -----------------------------------------------------------------------");
-        System.out.println(infoLine);
-        System.out.println(" -----------------------------------------------------------------------");
+    public FarmerType getFarmerType() {
+        return this.farmerType;
     }
 }
