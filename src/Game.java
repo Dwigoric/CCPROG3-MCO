@@ -8,10 +8,8 @@ import java.util.Scanner;
  */
 public class Game {
     private Player player;
-    private PlayerView playerView;
-    private PlayerController playerController;
-
     private Farm farm;
+    
     private final ArrayList<Seed> seedList = new ArrayList<Seed>();
     private final ArrayList<FarmerType> farmerTypes = new ArrayList<>(Arrays.asList(
             new FarmerType("Farmer", 0, 0, 0, 0, 0, 0),
@@ -44,8 +42,6 @@ public class Game {
         this.farm = new Farm(5, 10); // pede ba landscape or kailangan portrait
         
         this.player = new Player(this.farm, farmerTypes.get(0));
-        this.playerView = new PlayerView();
-        this.playerController = new PlayerController(this.player, this.playerView);
 
         /* Create seeds */
         Seed turnip = new Seed("Turnip", "Root Crop", 2, 1, 2, 0, 1,
@@ -81,9 +77,5 @@ public class Game {
         this.seedList.add(sunflower);
         this.seedList.add(mango);
         this.seedList.add(apple);
-    }
-
-    public PlayerController getPlayerController() {
-        return this.playerController;
     }
 }
