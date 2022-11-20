@@ -8,6 +8,7 @@ import java.util.Arrays;
 public class Game {
     private final Player player;
     private final Farm farm;
+    private int day = 1;
     
     private final ArrayList<Seed> seedList = new ArrayList<>(Arrays.asList(
             new Seed("Turnip", "Root Crop", 2, 1, 2, 0,
@@ -53,6 +54,8 @@ public class Game {
      * It advances the day, and updates the crops.
      */
     public void advanceDay() {
+        this.day++;
+
         for (int i = 0; i < this.farm.getRows(); i++) {
             for (int j = 0; j < this.farm.getColumns(); j++) {
                 Crop crop = this.farm.getTile(i, j).getCrop();
@@ -62,5 +65,29 @@ public class Game {
                 }
             }
         }
+    }
+
+    /**
+     * Gets the player.
+     * @return  The player.
+     */
+    public Player getPlayer() {
+        return player;
+    }
+
+    /**
+     * Gets the farm.
+     * @return  The farm.
+     */
+    public Farm getFarm() {
+        return farm;
+    }
+
+    /**
+     * Gets the day.
+     * @return  The day.
+     */
+    public int getDay() {
+        return day;
     }
 }
