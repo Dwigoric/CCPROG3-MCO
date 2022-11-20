@@ -10,10 +10,7 @@ public class GameController {
         this.game = game;
         this.gameView = gameView;
 
-        this.gameView.setDay(this.game.getDay());
-        this.gameView.setFarmerType(this.game.getPlayer().getFarmerType());
-        this.gameView.setObjectCoins(this.game.getPlayer().getObjectCoins());
-        this.gameView.setLevel(this.game.getPlayer().getLevel(), this.game.getPlayer().getExperience());
+        this.updateGameView();
 
         this.gameView.setFarmTileListener(event -> {
             JButton farmTileBtn = (JButton) event.getSource();
@@ -21,5 +18,12 @@ public class GameController {
                 // TODO: Add action listener for the button
             });
         });
+    }
+
+    private void updateGameView() {
+        this.gameView.setDay(this.game.getDay());
+        this.gameView.setFarmerType(this.game.getPlayer().getFarmerType());
+        this.gameView.setObjectCoins(this.game.getPlayer().getObjectCoins());
+        this.gameView.setLevel(this.game.getPlayer().getLevel(), this.game.getPlayer().getExperience());
     }
 }
