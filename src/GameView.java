@@ -104,6 +104,7 @@ public class GameView {
             for(int j = 0; j <10; j++) {
                 farmTilesBtn[i][j] = new JButton();
                 farmTilesBtn[i][j].addActionListener(farmTileListener);
+                farmTilesBtn[i][j].putClientProperty("location", new int[] {i, j});
                 farmTilesBtn[i][j].setBorderPainted(false);
 
                 mainPanel.add(farmTilesBtn[i][j]);

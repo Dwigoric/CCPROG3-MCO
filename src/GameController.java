@@ -12,11 +12,17 @@ public class GameController {
 
         this.updateGameView();
 
-        this.gameView.setFarmTileListener(event -> {
-            JButton farmTileBtn = (JButton) event.getSource();
-            this.gameView.addButton(btnEvent -> {
-                // TODO: Add action listener for the button
-            });
+        this.gameView.setFarmTileListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                JButton farmTileBtn = (JButton) event.getSource();
+                int[] location = (int[]) farmTileBtn.getClientProperty("location");
+                game.getPlayer().plow(location[0], location[1]);
+
+                gameView.addButton(btnEvent -> {
+                    // TODO: Add action listener for the button
+                });
+            }
         });
 
         this.gameView.updateSouthPanel();
