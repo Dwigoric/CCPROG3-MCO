@@ -18,6 +18,8 @@ public class GameController {
                 // TODO: Add action listener for the button
             });
         });
+
+        this.gameView.updateSouthPanel();
     }
 
     private void updateGameView() {
