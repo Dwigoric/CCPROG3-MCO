@@ -10,8 +10,6 @@ public class GameController {
         this.game = game;
         this.gameView = gameView;
 
-        this.updateGameView();
-
         this.gameView.setFarmTileListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
@@ -25,6 +23,13 @@ public class GameController {
             }
         });
 
+        for(int i = 0; i < 5; i++) {
+            for(int j = 0; j < 10; j++) {
+                this.gameView.updateFarmTileListener(i, j);
+            }
+        }
+
+        this.updateGameView();
         this.gameView.updateSouthPanel();
     }
 

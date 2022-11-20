@@ -29,6 +29,7 @@ public class Player {
      * @return  True if the tile was successfully plowed, false otherwise.
      */
     public boolean plow(int row, int column) {
+        System.out.println("test");
         if (this.farm.getTile(row, column).isPlowed()) {
             return false;
         }

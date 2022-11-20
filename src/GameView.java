@@ -18,6 +18,7 @@ public class GameView {
     private JFrame mainFrame;
     private JPanel mainPanel;
 
+    private JPanel farmPanel;
     private JPanel southPanel;
     private JPanel actionPanel;
 
@@ -32,6 +33,7 @@ public class GameView {
     private ImageIcon imgTilePlowed = new ImageIcon("res/tile_plowed.png");
     private ImageIcon imgActions = new ImageIcon("res/button_action.png");
 
+    JButton[][] farmTilesBtn = new JButton[5][10];
     ActionListener farmTileListener;
     
     public GameView() {
@@ -97,22 +99,21 @@ public class GameView {
     }
 
     public void initializeFarmPanel() {
-        JPanel mainPanel = new JPanel(new GridLayout(5, 10));
-        JButton[][] farmTilesBtn = new JButton[5][10];
+        this.farmPanel = new JPanel(new GridLayout(5, 10));
 
         for(int i = 0; i < 5; i++) {
-            for(int j = 0; j <10; j++) {
+            for(int j = 0; j < 10; j++) {
                 farmTilesBtn[i][j] = new JButton();
                 farmTilesBtn[i][j].addActionListener(farmTileListener);
                 farmTilesBtn[i][j].putClientProperty("location", new int[] {i, j});
                 farmTilesBtn[i][j].setBorderPainted(false);
 
-                mainPanel.add(farmTilesBtn[i][j]);
+                this.farmPanel.add(farmTilesBtn[i][j]);
             }
         }
 
-        mainPanel.setOpaque(false);
-        this.mainPanel.add(mainPanel, BorderLayout.CENTER);
+        this.farmPanel.setOpaque(false);
+        this.mainPanel.add(farmPanel, BorderLayout.CENTER);
     }
 
     public void addButton(ActionListener e) {
@@ -153,5 +154,9 @@ public class GameView {
 
     public void setFarmTileListener(ActionListener e) {
         this.farmTileListener = e;
+    }
+
+    public void updateFarmTileListener(int row, int col) {
+        this.farmTilesBtn[row][col].addActionListener(this.farmTileListener);
     }
 }
