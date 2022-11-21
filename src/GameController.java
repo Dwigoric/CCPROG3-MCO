@@ -56,7 +56,7 @@ public class GameController {
                 public void actionPerformed(ActionEvent event) {
                     JButton farmTileBtn = (JButton) event.getSource();
                     int[] location = (int[]) farmTileBtn.getClientProperty("location");
-                    game.getPlayer().plant(location[0], location[1], game.getSeed(1));
+                    game.getPlayer().plant(location[0], location[1], game.getSeed(1)); // carrot only
                     updateTile(location[0], location[1]);      
                 }
             }, row, col);
