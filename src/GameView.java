@@ -157,6 +157,11 @@ public class GameView {
     }
 
     public void updateFarmTileListener(int row, int col) {
+        // Remove old listener(s)
+        for (ActionListener actionListener : this.farmTilesBtn[row][col].getActionListeners()) {
+            this.farmTilesBtn[row][col].removeActionListener(actionListener);
+        }
+        // Add new listener
         this.farmTilesBtn[row][col].addActionListener(this.farmTileListener);
     }
 }
