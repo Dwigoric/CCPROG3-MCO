@@ -77,7 +77,11 @@ public class GameView {
         JPanel leftPanel = new JPanel(new BorderLayout());
         JPanel rightPanel = new JPanel(new BorderLayout());
 
-        leftPanel.setPreferredSize(new Dimension(600, 100));
+        mainPanel.setPreferredSize(new Dimension(1180, 31));
+        mainPanel.setBackground(Color.decode("#414141"));
+        mainPanel.setOpaque(true);
+
+        leftPanel.setPreferredSize(new Dimension(600,31));
         leftPanel.setOpaque(false);
 
         rightPanel.setOpaque(false);
@@ -88,10 +92,6 @@ public class GameView {
         rightPanel.add(this.farmerTypeLbl, BorderLayout.PAGE_START);
         rightPanel.add(this.dayLbl, BorderLayout.CENTER);
 
-        mainPanel.setPreferredSize(new Dimension(1200, 100));
-        mainPanel.setBackground(Color.decode("#414141"));
-        mainPanel.setOpaque(true);
-
         mainPanel.add(leftPanel, BorderLayout.LINE_START);
         mainPanel.add(rightPanel, BorderLayout.LINE_END);
 
@@ -100,19 +100,22 @@ public class GameView {
 
     public void initializeFarmPanel() {
         this.farmPanel = new JPanel(new GridLayout(5, 10));
+        this.farmPanel.setBorder(new EmptyBorder(10, 0, 10, 0));
+        this.farmPanel.setOpaque(false);
 
         for(int i = 0; i < 5; i++) {
             for(int j = 0; j < 10; j++) {
                 farmTilesBtn[i][j] = new JButton();
-                farmTilesBtn[i][j].addActionListener(farmTileListener);
-                farmTilesBtn[i][j].putClientProperty("location", new int[] {i, j});
+                farmTilesBtn[i][j].setPreferredSize(new Dimension(118, 104));
                 farmTilesBtn[i][j].setBorderPainted(false);
 
+                farmTilesBtn[i][j].addActionListener(farmTileListener);
+                farmTilesBtn[i][j].putClientProperty("location", new int[] {i, j});
+                
                 this.farmPanel.add(farmTilesBtn[i][j]);
             }
         }
 
-        this.farmPanel.setOpaque(false);
         this.mainPanel.add(farmPanel, BorderLayout.CENTER);
     }
 
@@ -121,11 +124,14 @@ public class GameView {
         button.addActionListener(e);
 
         this.actionPanel.add(button);
-        this.mainFrame.remove(this.southPanel);
-        this.mainFrame.add(this.actionPanel, BorderLayout.PAGE_END);
+
+        if (this.southPanel.isDisplayable()) {
+            this.mainFrame.remove(this.southPanel);
+            this.mainFrame.add(this.actionPanel, BorderLayout.PAGE_END);
+        }
     }
 
-    public void resetActionPanel() {
+    public void hideResetActionPanel() {
         this.actionPanel.removeAll();
         this.mainFrame.remove(this.actionPanel);
         this.mainFrame.add(this.southPanel, BorderLayout.PAGE_END);
@@ -152,16 +158,17 @@ public class GameView {
         this.dayLbl.setText("Day " + day);
     }
 
-    public void setFarmTileListener(ActionListener e) {
-        this.farmTileListener = e;
-    }
-
-    public void updateFarmTileListener(int row, int col) {
-        // Remove old listener(s)
+    public void changeFarmTileListener(ActionListener e, int row, int col) {
+        // pede ba to magcheck ng isa lang?
         for (ActionListener actionListener : this.farmTilesBtn[row][col].getActionListeners()) {
             this.farmTilesBtn[row][col].removeActionListener(actionListener);
         }
-        // Add new listener
-        this.farmTilesBtn[row][col].addActionListener(this.farmTileListener);
+
+        this.farmTilesBtn[row][col].addActionListener(e);
+    }
+
+    // temp
+    public void setTileText(String s, int row, int col) {
+        this.farmTilesBtn[row][col].setText(s);
     }
 }
