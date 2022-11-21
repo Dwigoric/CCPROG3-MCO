@@ -10,21 +10,19 @@ public class GameController {
         this.game = game;
         this.gameView = gameView;
 
-        // initial state
-        for(int i = 0; i < 5; i++) {
-            for(int j = 0; j < 10; j++) {
-                this.updateTile(i, j);
-                this.gameView.changeFarmTileListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent event) {
-                        JButton farmTileBtn = (JButton) event.getSource();
-                        int[] location = (int[]) farmTileBtn.getClientProperty("location");
-                        game.getPlayer().plow(location[0], location[1]);
-                        updateTile(location[0], location[1]);      
+        for (JButton actionButton : gameView.getActionButtons()) {
+            actionButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (actionButton.getText().equals("Next Day")) {
+                        game.advanceDay();
+                        updateGameView();
                     }
-                }, i, j);
-            }
+                }
+            });
         }
+
+        this.updateFarmTiles();
 
         this.updateGameView();
         this.gameView.updateSouthPanel();
@@ -36,6 +34,23 @@ public class GameController {
         this.gameView.setFarmerType(this.game.getPlayer().getFarmerType());
         this.gameView.setObjectCoins(this.game.getPlayer().getObjectCoins());
         this.gameView.setLevel(this.game.getPlayer().getLevel(), this.game.getPlayer().getExperience());
+    }
+
+    private void updateFarmTiles() {
+        for(int i = 0; i < 5; i++) {
+            for(int j = 0; j < 10; j++) {
+                this.updateTile(i, j);
+                this.gameView.changeFarmTileListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent event) {
+                        JButton farmTileBtn = (JButton) event.getSource();
+                        int[] location = (int[]) farmTileBtn.getClientProperty("location");
+                        game.getPlayer().plow(location[0], location[1]);
+                        updateTile(location[0], location[1]);
+                    }
+                }, i, j);
+            }
+        }
     }
 
     private void updateTile(int row, int col) {

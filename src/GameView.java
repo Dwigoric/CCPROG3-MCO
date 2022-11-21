@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
@@ -21,6 +24,12 @@ public class GameView {
     private JPanel farmPanel;
     private JPanel southPanel;
     private JPanel actionPanel;
+
+    // arbitrary list of action buttons
+    private final ArrayList<JButton> actionButtons = new ArrayList<>(Arrays.asList(
+            new JButton("Next Day"),
+            new JButton("Upgrade Farmer")
+    ));
 
     // Player information panel elements
     private JLabel levelAndExperienceLbl = new JLabel("Level Experience");
@@ -169,5 +178,9 @@ public class GameView {
     // temp
     public void setTileText(String s, int row, int col) {
         this.farmTilesBtn[row][col].setText(s);
+    }
+
+    public ArrayList<JButton> getActionButtons() {
+        return this.actionButtons;
     }
 }
