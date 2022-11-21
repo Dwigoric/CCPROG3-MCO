@@ -48,7 +48,7 @@ public class GameController {
         } else if (tile.getCrop() != null) {
             Crop crop = tile.getCrop();
 
-            this.gameView.setTileText(crop.getSeed().getName(), row, col);
+            this.gameView.setTileText(crop.isAlive() ? crop.getSeed().getName() : "withered", row, col);
         } else if (tile.isPlowed()) {
             this.gameView.setTileText("plowed", row, col);
             this.gameView.changeFarmTileListener(new ActionListener() {

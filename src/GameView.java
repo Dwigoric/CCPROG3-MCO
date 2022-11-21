@@ -159,7 +159,6 @@ public class GameView {
     }
 
     public void changeFarmTileListener(ActionListener e, int row, int col) {
-        // pede ba to magcheck ng isa lang?
         for (ActionListener actionListener : this.farmTilesBtn[row][col].getActionListeners()) {
             this.farmTilesBtn[row][col].removeActionListener(actionListener);
         }
