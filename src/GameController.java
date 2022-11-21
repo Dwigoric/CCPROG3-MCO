@@ -16,8 +16,7 @@ public class GameController {
                 JButton farmTileBtn = (JButton) event.getSource();
                 int[] location = (int[]) farmTileBtn.getClientProperty("location");
                 System.out.print("Attempting to plow tile at (" + location[0] + ", " + location[1] + ")... ");
-                game.getPlayer().plow(location[0], location[1]);
-                System.out.println(game.getFarm().getTile(location[0], location[1]).isPlowed() ? "Success!" : "Failed!");
+                System.out.println(game.getPlayer().plow(location[0], location[1]) ? "Success!" : "Failed!");
 
                 gameView.addButton(btnEvent -> {
                     // TODO: Add action listener for the button
