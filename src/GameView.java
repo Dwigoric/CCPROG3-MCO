@@ -62,7 +62,7 @@ public class GameView {
         // Farm panel
         initializeFarmPanel();
 
-        // Action panel (buttons) replaces south panel when there is a valid action in the tile)
+        // Action panel (buttons) replaces south panel when there is a valid action in the tile
         initializeBottomPanel();
         this.updateBottomPanel();
 

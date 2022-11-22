@@ -28,6 +28,7 @@ public class Game {
             new Seed("Apple", "Fruit tree",10, 7, 7, 5,
                     5, 10, 15, 200, 5, 25)
     ));
+    
     private final ArrayList<FarmerType> farmerTypes = new ArrayList<>(Arrays.asList(
             new FarmerType("Farmer", 0, 0, 0,
                     0, 0, 0),

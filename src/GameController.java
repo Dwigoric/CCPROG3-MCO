@@ -12,10 +12,11 @@ public class GameController {
 
         this.gameView.initializeMiscListener(
             new ActionListener() {
-            @Override
+                @Override
                 public void actionPerformed(ActionEvent e) {
                     game.advanceDay();
                     gameView.resetActionPanel();
+                    gameView.updateBottomPanel();
                     updateAllFarmTiles();
 
                     gameView.updatePlayerInfo(game.getPlayer().getLevel(), game.getPlayer().getExperience(),
@@ -31,7 +32,8 @@ public class GameController {
                                               game.getPlayer().getObjectCoins(), game.getPlayer().getFarmerType(),
                                               game.getDay());
                 }
-            });
+            }
+        );
 
         this.updateAllFarmTiles();
         this.gameView.updatePlayerInfo(this.game.getPlayer().getLevel(), this.game.getPlayer().getExperience(),
