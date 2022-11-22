@@ -43,7 +43,7 @@ public class Game {
      * Initializes the game.
      */
     public Game() {
-        this.farm = new Farm(5, 10); // pede ba landscape or kailangan portrait
+        this.farm = new Farm(5, 10);
         this.player = new Player(this.farm, farmerTypes.get(0));
     }
 
@@ -92,5 +92,9 @@ public class Game {
 
     public Seed getSeed(int index) {
         return seedList.get(index);
+    }
+
+    public ArrayList<FarmerType> getFarmerTypeList() {
+        return this.farmerTypes;
     }
 }

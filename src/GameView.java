@@ -1,7 +1,5 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 
@@ -25,17 +23,14 @@ public class GameView {
     private JPanel southPanel;
     private JPanel actionPanel;
 
-    // arbitrary list of action buttons
-    private final ArrayList<JButton> actionButtons = new ArrayList<>(Arrays.asList(
-            new JButton("Next Day"),
-            new JButton("Upgrade Farmer")
-    ));
-
     // Player information panel elements
-    private JLabel levelAndExperienceLbl = new JLabel("Level Experience");
-    private JLabel objectCoinsLbl = new JLabel("objectCoins");
-    private JLabel farmerTypeLbl = new JLabel("Farmer");
-    private JLabel dayLbl = new JLabel("Day");
+    private JLabel levelAndExperienceLbl = new JLabel();
+    private JLabel objectCoinsLbl = new JLabel();
+    private JLabel farmerTypeLbl = new JLabel();
+    private JLabel dayLbl = new JLabel();
+
+    private JButton sleepBtn;
+    private JButton upgradeFarmerBtn;
 
     // Farm panel elements
     private ImageIcon imgTileUnplowed = new ImageIcon("res/tile_unplowed.png");
@@ -43,6 +38,7 @@ public class GameView {
     private ImageIcon imgActions = new ImageIcon("res/button_action.png");
 
     JButton[][] farmTilesBtn = new JButton[5][10];
+    
     ActionListener farmTileListener;
     
     public GameView() {
@@ -67,15 +63,10 @@ public class GameView {
         initializeFarmPanel();
 
         // Action panel (buttons) replaces south panel when there is a valid action in the tile)
-        this.actionPanel = new JPanel(new FlowLayout());
-        this.actionPanel.setPreferredSize(new Dimension(1200, 100));
-        actionPanel.setOpaque(false);
+        initializeBottomPanel();
+        this.updateBottomPanel();
 
-        this.southPanel = new JPanel(new BorderLayout());
-        this.southPanel.setPreferredSize(new Dimension(1200, 100));
-        this.southPanel.setOpaque(false);
-
-        this.mainPanel.add(this.southPanel, BorderLayout.PAGE_END);
+        //this.mainPanel.add(this.southPanel, BorderLayout.PAGE_END);
 
         this.mainFrame.add(this.mainPanel, BorderLayout.CENTER);
         this.mainFrame.setVisible(true);
@@ -84,7 +75,12 @@ public class GameView {
     public void initializeInfoPanel() {
         JPanel mainPanel = new JPanel(new BorderLayout());
         JPanel leftPanel = new JPanel(new BorderLayout());
-        JPanel rightPanel = new JPanel(new BorderLayout());
+        JPanel leftLeftPanel = new JPanel(new BorderLayout());
+        JPanel leftRightPanel = new JPanel(new BorderLayout());
+        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+        this.sleepBtn = new JButton("Sleep");
+        this.upgradeFarmerBtn = new JButton("Upgrade Farmer");
 
         mainPanel.setPreferredSize(new Dimension(1180, 31));
         mainPanel.setBackground(Color.decode("#414141"));
@@ -93,13 +89,29 @@ public class GameView {
         leftPanel.setPreferredSize(new Dimension(600,31));
         leftPanel.setOpaque(false);
 
+        leftLeftPanel.setPreferredSize(new Dimension(300,31));
+        leftLeftPanel.setOpaque(false);
+
+        leftRightPanel.setPreferredSize(new Dimension(300,31));
+        leftRightPanel.setOpaque(false);
+
         rightPanel.setOpaque(false);
 
-        leftPanel.add(this.levelAndExperienceLbl, BorderLayout.PAGE_START);
-        leftPanel.add(this.objectCoinsLbl, BorderLayout.CENTER);
+        leftLeftPanel.add(this.levelAndExperienceLbl, BorderLayout.PAGE_START);
+        leftLeftPanel.add(this.objectCoinsLbl, BorderLayout.CENTER);
 
-        rightPanel.add(this.farmerTypeLbl, BorderLayout.PAGE_START);
-        rightPanel.add(this.dayLbl, BorderLayout.CENTER);
+        leftRightPanel.add(this.farmerTypeLbl, BorderLayout.PAGE_START);
+        leftRightPanel.add(this.dayLbl, BorderLayout.CENTER);
+
+        leftPanel.add(leftLeftPanel, BorderLayout.LINE_START);
+        leftPanel.add(leftRightPanel, BorderLayout.LINE_END);
+
+        this.sleepBtn.setPreferredSize(new Dimension(292,25));
+        this.upgradeFarmerBtn.setPreferredSize(new Dimension(292,25));
+
+        rightPanel.setPreferredSize(new Dimension(600,25));
+        rightPanel.add(sleepBtn);
+        rightPanel.add(upgradeFarmerBtn);
 
         mainPanel.add(leftPanel, BorderLayout.LINE_START);
         mainPanel.add(rightPanel, BorderLayout.LINE_END);
@@ -109,8 +121,8 @@ public class GameView {
 
     public void initializeFarmPanel() {
         this.farmPanel = new JPanel(new GridLayout(5, 10));
-        this.farmPanel.setBorder(new EmptyBorder(10, 0, 10, 0));
-        this.farmPanel.setOpaque(false);
+        this.farmPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
+        this.farmPanel.setBackground(Color.decode("#313131"));
 
         for(int i = 0; i < 5; i++) {
             for(int j = 0; j < 10; j++) {
@@ -128,43 +140,38 @@ public class GameView {
         this.mainPanel.add(farmPanel, BorderLayout.CENTER);
     }
 
-    public void addButton(ActionListener e) {
-        JButton button = new JButton();
-        button.addActionListener(e);
+    public void initializeBottomPanel() {
+        this.actionPanel = new JPanel(new FlowLayout());
+        this.actionPanel.setPreferredSize(new Dimension(1200, 100));
+        this.actionPanel.setBackground(Color.decode("#313131"));
+        this.actionPanel.setOpaque(true);
 
-        this.actionPanel.add(button);
+        this.southPanel = new JPanel(new BorderLayout());
+        this.southPanel.setPreferredSize(new Dimension(1200, 100));
+        this.southPanel.setBackground(Color.decode("#313131"));
+        this.southPanel.setOpaque(true);
+    }
 
-        if (this.southPanel.isDisplayable()) {
+    public void updateBottomPanel() {
+        Component[] componentList = this.actionPanel.getComponents();
+        boolean hasButton = false;
+
+        for(Component c : componentList) {
+            if (c instanceof JButton) {
+                hasButton = true;
+            }
+        }
+
+        if (hasButton) {
             this.mainFrame.remove(this.southPanel);
             this.mainFrame.add(this.actionPanel, BorderLayout.PAGE_END);
+        } else {
+            this.mainFrame.remove(this.actionPanel);
+            this.mainFrame.add(this.southPanel, BorderLayout.PAGE_END);
         }
-    }
 
-    public void hideResetActionPanel() {
-        this.actionPanel.removeAll();
-        this.mainFrame.remove(this.actionPanel);
-        this.mainFrame.add(this.southPanel, BorderLayout.PAGE_END);
-    }
-
-    public void updateSouthPanel() {
-        this.southPanel.validate();
-        this.southPanel.repaint();
-    }
-
-    public void setLevel(int level, float experience) {
-        this.levelAndExperienceLbl.setText("Level: " + level + " (" + experience + ")");
-    }
-
-    public void setObjectCoins(float objectCoins) {
-        this.objectCoinsLbl.setText("ObjectCoins: " + objectCoins);
-    }
-
-    public void setFarmerType(FarmerType farmerType) {
-        this.farmerTypeLbl.setText(farmerType.getTypeName());
-    }
-
-    public void setDay(int day) {
-        this.dayLbl.setText("Day " + day);
+        this.mainFrame.revalidate();
+        this.mainFrame.repaint();
     }
 
     public void changeFarmTileListener(ActionListener e, int row, int col) {
@@ -175,12 +182,32 @@ public class GameView {
         this.farmTilesBtn[row][col].addActionListener(e);
     }
 
+    public void initializeMiscListener(ActionListener s, ActionListener e) {
+        this.sleepBtn.addActionListener(s);
+        this.upgradeFarmerBtn.addActionListener(e);
+    }
+
+    public void resetActionPanel() {
+        this.actionPanel.removeAll();
+    }
+
+    public void addActionButton(ActionListener e, String name) {
+        JButton actionBtn = new JButton(name);
+
+        actionBtn.setPreferredSize(new Dimension(104, 104));
+        actionBtn.addActionListener(e);
+        this.actionPanel.add(actionBtn);
+    }
+
+    public void updatePlayerInfo(int level, float experience, float objectCoins, FarmerType farmerType, int day) {
+        this.levelAndExperienceLbl.setText("Level: " + level + " (" + experience + ")");
+        this.objectCoinsLbl.setText("ObjectCoins: " + objectCoins);
+        this.farmerTypeLbl.setText(farmerType.getTypeName());
+        this.dayLbl.setText("Day " + day);
+    }
+
     // temp
     public void setTileText(String s, int row, int col) {
         this.farmTilesBtn[row][col].setText(s);
-    }
-
-    public ArrayList<JButton> getActionButtons() {
-        return this.actionButtons;
     }
 }

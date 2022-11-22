@@ -165,6 +165,18 @@ public class Player {
         return true;
     }
 
+    public boolean pickaxe(int row, int column) {
+        if (this.farm.getTile(row, column).hasRock()) {
+            this.farm.getTile(row, column).pickaxed();
+            this.addCoins(-50);
+            this.addExperience(15);
+
+            return true;
+        }
+        
+        return false;
+    }
+
     /**
      * Adds experience to the player.
      * @param amount    The amount of experience to add.

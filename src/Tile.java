@@ -47,6 +47,10 @@ public class Tile {
         this.crop = null;
     }
 
+    public void pickaxed() {
+        this.hasRock = false;
+    }
+
     /**
      * Whether the tile is plowed.
      * @return  True if the tile is plowed, false otherwise.
