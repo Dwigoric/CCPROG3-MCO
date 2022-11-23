@@ -29,6 +29,9 @@ public class GameView {
 
     JButton[][] farmTilesBtn = new JButton[5][10];
     
+    // Action Buttons
+    private ImageIcon imgWater = new ImageIcon("res/water_button.png");
+
     ActionListener farmTileListener;
     
     public GameView() {
@@ -184,9 +187,11 @@ public class GameView {
     }
 
     public void addActionButton(ActionListener e, String name) {
-        JButton actionBtn = new JButton(name);
+        JButton actionBtn = new JButton(scaleImage(imgWater, 95, 95));
 
-        actionBtn.setPreferredSize(new Dimension(104, 104));
+        actionBtn.setBorderPainted(false);
+        actionBtn.setMargin(new Insets(0, 0, 0, 0));
+        actionBtn.setPreferredSize(new Dimension(95, 95));
         actionBtn.addActionListener(e);
         this.actionPanel.add(actionBtn);
     }
@@ -205,6 +210,10 @@ public class GameView {
 
     public void setUpgradeFarmerButtonEnabled(boolean enabled) {
         this.upgradeFarmerBtn.setEnabled(enabled);
+    }
+
+    private Icon scaleImage(ImageIcon i, int width, int height) {
+        return new ImageIcon((i.getImage()).getScaledInstance(width, height, java.awt.Image.SCALE_DEFAULT));
     }
 
     /* FOR END GAME MECHANICS */
