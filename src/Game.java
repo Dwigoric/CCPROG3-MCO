@@ -6,8 +6,8 @@ import java.util.Arrays;
  * This class contains the main game loop.
  */
 public class Game {
-    private final Player player;
-    private final Farm farm;
+    private Player player;
+    private Farm farm;
     private int day = 1;
     
     private final ArrayList<Seed> seedList = new ArrayList<>(Arrays.asList(
@@ -97,5 +97,11 @@ public class Game {
 
     public ArrayList<FarmerType> getFarmerTypeList() {
         return this.farmerTypes;
+    }
+
+    public void reset() {
+        this.day = 1;
+        this.farm = new Farm(5, 10);
+        this.player = new Player(this.farm, farmerTypes.get(0));
     }
 }

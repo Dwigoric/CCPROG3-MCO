@@ -9,22 +9,36 @@ public class GameController {
         this.game = game;
         this.gameView = gameView;
 
+        ActionListener gameRestartListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                game.reset();
+                gameView.reset();
+
+                updateAllFarmTiles();
+                updateNorthPanel();
+                gameView.updateBottomPanel();
+            }
+        };
+
         this.gameView.initializeMiscListener(
             new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (game.getPlayer().getObjectCoins() < 5 && !game.getFarm().hasCrop()) {
-                        gameView.endGame("You have no more crops and no more money to buy more!");
-
-                        // TODO: retry and exit buttons
+                        gameView.endGame(
+                                "You have no more crops and no more money to buy more!",
+                                gameRestartListener
+                        );
 
                         return;
                     }
 
                     if (game.getFarm().isAllWithered()) {
-                        gameView.endGame("All of your crops have died!");
-
-                        // TODO: retry and exit buttons
+                        gameView.endGame(
+                                "All of your crops have died!",
+                                gameRestartListener
+                        );
 
                         return;
                     }

@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
@@ -217,7 +218,7 @@ public class GameView {
     }
 
     /* FOR END GAME MECHANICS */
-    public void endGame(String reason) {
+    public void endGame(String reason, ActionListener restartListener) {
         this.mainPanel.removeAll();
 
         // Set up end game panel
@@ -231,9 +232,45 @@ public class GameView {
         endGamePanel.add(endGameLbl);
 
         // Add end game text
-        this.mainPanel.add(endGamePanel);
+        this.mainPanel.add(endGamePanel, BorderLayout.CENTER);
+
+
+        // Set up button panel
+        JPanel buttonPanel = new JPanel(new GridBagLayout());
+        buttonPanel.setBackground(Color.decode("#313131"));
+
+        // Restart button
+        JButton restartBtn = new JButton("Restart");
+        restartBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                restartListener.actionPerformed(e);
+            }
+        });
+        buttonPanel.add(restartBtn);
+
+        // Exit button
+        JButton exitBtn = new JButton("Exit");
+        exitBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        buttonPanel.add(exitBtn);
+
+        // Add button panel
+        this.mainPanel.add(buttonPanel, BorderLayout.PAGE_END);
 
         this.mainFrame.revalidate();
         this.mainFrame.repaint();
+    }
+
+    public void reset() {
+        this.mainPanel.removeAll();
+        this.initializeInfoPanel();
+        this.initializeFarmPanel();
+        this.initializeBottomPanel();
+        this.updateBottomPanel();
     }
 }
