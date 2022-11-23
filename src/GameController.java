@@ -59,6 +59,7 @@ public class GameController {
             public void actionPerformed(ActionEvent event) {
                 game.getPlayer().shovel(row, col);
 
+                gameView.resetActionPanel();
                 updateTile(row, col);
                 updatePlayerInfo();
                 gameView.updateBottomPanel();
