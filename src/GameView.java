@@ -186,6 +186,7 @@ public class GameView {
     public void initializeMiscListener(ActionListener s, ActionListener e) {
         this.sleepBtn.addActionListener(s);
         this.upgradeFarmerBtn.addActionListener(e);
+        this.upgradeFarmerBtn.setEnabled(false);
     }
 
     public void resetActionPanel() {
@@ -210,5 +211,9 @@ public class GameView {
     // temp
     public void setTileText(String s, int row, int col) {
         this.farmTilesBtn[row][col].setText(s);
+    }
+
+    public void setUpgradeFarmerButtonEnabled(boolean enabled) {
+        this.upgradeFarmerBtn.setEnabled(enabled);
     }
 }

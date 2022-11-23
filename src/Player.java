@@ -222,20 +222,20 @@ public class Player {
 
     /**
      * Tries to upgrade the current farmer type of the player.
-     * @return  True if the farmer type was successfully upgraded, false otherwise.
      */
-    public boolean upgradeFarmer(ArrayList<FarmerType> farmerTypes) {
-        FarmerType newType = farmerTypes.get(this.farmerTypeLevel + 1);
-
-        boolean check = this.farmerTypeLevel + 1 < farmerTypes.size() && 
-                        this.level >= newType.getLevelRequirement() && this.objectCoins >= newType.getRegistrationFee();
-
-        if (check == true) {
+    public void upgradeFarmer(ArrayList<FarmerType> farmerTypes) {
+        if (this.canUpgradeFarmer(farmerTypes)) {
             this.farmerTypeLevel++;
             this.farmerType = farmerTypes.get(this.farmerTypeLevel);
         }
 
-        return check;
+    }
+
+    public boolean canUpgradeFarmer(ArrayList<FarmerType> farmerTypes) {
+        FarmerType newType = farmerTypes.get(this.farmerTypeLevel + 1);
+
+        return this.farmerTypeLevel + 1 < farmerTypes.size() &&
+                this.level >= newType.getLevelRequirement() && this.objectCoins >= newType.getRegistrationFee();
     }
 
     /**

@@ -50,6 +50,7 @@ public class GameController {
         gameView.updatePlayerInfo(game.getPlayer().getLevel(), game.getPlayer().getExperience(),
                 game.getPlayer().getObjectCoins(), game.getPlayer().getFarmerType(),
                 game.getDay());
+        gameView.setUpgradeFarmerButtonEnabled(game.getPlayer().canUpgradeFarmer(game.getFarmerTypeList()));
     }
 
     private void updateTile(int row, int col) {
@@ -84,7 +85,7 @@ public class GameController {
                         }, "Pickaxe");
                     }
 
-                    gameView.addActionButton(shovelButtonAL, "Shovel");
+                    if (game.getPlayer().getObjectCoins() >= 7) gameView.addActionButton(shovelButtonAL, "Shovel");
 
                     gameView.updateBottomPanel();
                     updateTile(row, col);
@@ -148,7 +149,7 @@ public class GameController {
                             }, "Harvest");
                         }
 
-                        gameView.addActionButton(shovelButtonAL, "Shovel");
+                        if (game.getPlayer().getObjectCoins() >= 7) gameView.addActionButton(shovelButtonAL, "Shovel");
 
                         gameView.updateBottomPanel();
                         updateTile(row, col);
@@ -281,7 +282,7 @@ public class GameController {
                         }, game.getSeed(7).getName());
                     }
 
-                    gameView.addActionButton(shovelButtonAL, "Shovel");
+                    if (game.getPlayer().getObjectCoins() >= 7) gameView.addActionButton(shovelButtonAL, "Shovel");
 
                     updateTile(row, col);
                     updatePlayerInfo();
@@ -308,7 +309,7 @@ public class GameController {
                         }
                     }, "Plow");
 
-                    gameView.addActionButton(shovelButtonAL, "Shovel");
+                    if (game.getPlayer().getObjectCoins() >= 7) gameView.addActionButton(shovelButtonAL, "Shovel");
 
                     updateTile(row, col);
                     updatePlayerInfo();
