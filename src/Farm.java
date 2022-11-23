@@ -24,6 +24,15 @@ public class Farm {
     }
 
     /**
+     * Reset tile
+     * @param row       The row of the tile.
+     * @param column    The column of the tile.
+     */
+    public void reset(int row, int column) {
+        this.tiles[row][column] = new Tile();
+    }
+
+    /**
      * Checks whether the farm has any crops.
      * @return  True if the farm has any crops, false otherwise.
      */

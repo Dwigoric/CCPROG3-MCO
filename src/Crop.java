@@ -96,6 +96,14 @@ public class Crop {
     }
 
     /**
+     * Gets the age of the crop.
+     * @return  The age of the crop.
+     */
+    public int getAge() {
+        return this.age;
+    }
+
+    /**
      * Gets whether the crop is ready to be harvested or not.
      * @return  True if the crop is ready to be harvested, false otherwise.
      */

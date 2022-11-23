@@ -51,6 +51,18 @@ public class GameController {
 
     private void updateTile(int row, int col) {
         Tile tile = this.game.getFarm().getTile(row, col);
+        ActionListener shovelButtonAL = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                game.getPlayer().shovel(row, col);
+
+                gameView.updateBottomPanel();
+                updateTile(row, col);
+                gameView.updatePlayerInfo(game.getPlayer().getLevel(), game.getPlayer().getExperience(),
+                        game.getPlayer().getObjectCoins(), game.getPlayer().getFarmerType(),
+                        game.getDay());
+            }
+        };
 
         // change to change img
         if(tile.hasRock()) { // Tile has rock; show pickaxe
@@ -60,7 +72,7 @@ public class GameController {
                 public void actionPerformed(ActionEvent event) {
                     JButton farmTileBtn = (JButton) event.getSource();
                     int[] location = (int[]) farmTileBtn.getClientProperty("location");
-                    
+
                     gameView.resetActionPanel();
 
                     if (game.getPlayer().getObjectCoins() >= 50) {
@@ -71,17 +83,19 @@ public class GameController {
                                 updateTile(row, col);
                             }
                         }, "Pickaxe");
-                    } 
+                    }
+
+                    gameView.addActionButton(shovelButtonAL, "Shovel");
 
                     gameView.updateBottomPanel();
-                    updateTile(location[0], location[1]);
+                    updateTile(row, col);
                     gameView.updatePlayerInfo(game.getPlayer().getLevel(), game.getPlayer().getExperience(),
-                                                game.getPlayer().getObjectCoins(), game.getPlayer().getFarmerType(),
-                                                game.getDay());
+                            game.getPlayer().getObjectCoins(), game.getPlayer().getFarmerType(),
+                            game.getDay());
                 }
             }, row, col);
 
-        } else if (tile.getCrop() != null) { // Tile has crop; show water, fertilize, shovel?
+        } else if (tile.getCrop() != null) { // Tile has crop; show water, fertilize, shovel
             Crop crop = tile.getCrop();
             this.gameView.setTileText(crop.isAlive() ? crop.getSeed().getName() : "withered", row, col);
 
@@ -91,46 +105,62 @@ public class GameController {
                     public void actionPerformed(ActionEvent event) {
                         JButton farmTileBtn = (JButton) event.getSource();
                         int[] location = (int[]) farmTileBtn.getClientProperty("location");
-    
+
                         gameView.resetActionPanel();
+
+                        Tile farmTile = game.getFarm().getTile(location[0], location[1]);
+                        if (farmTile.getCrop().getAge() != farmTile.getCrop().getSeed().getHarvestTime()) {
+                            gameView.addActionButton(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent event) {
+                                    game.getPlayer().water(location[0], location[1]);
+
+                                    updateTile(row, col);
+                                    gameView.updatePlayerInfo(game.getPlayer().getLevel(), game.getPlayer().getExperience(),
+                                            game.getPlayer().getObjectCoins(), game.getPlayer().getFarmerType(),
+                                            game.getDay());
+                                }
+                            }, "Water");
+                        }
     
-                        gameView.addActionButton(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent event) {
-                                game.getPlayer().water(location[0], location[1]);
-                                updateTile(row, col);
-                            }
-                        }, "Water");
-    
-                        if(game.getPlayer().getObjectCoins() >= 10) {
+                        if (game.getPlayer().getObjectCoins() >= 10 &&
+                                farmTile.getCrop().getAge() != farmTile.getCrop().getSeed().getHarvestTime()) {
                             gameView.addActionButton(new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent event) {
                                     game.getPlayer().fertilize(location[0], location[1]);
+
                                     updateTile(row, col);
+                                    gameView.updatePlayerInfo(game.getPlayer().getLevel(), game.getPlayer().getExperience(),
+                                            game.getPlayer().getObjectCoins(), game.getPlayer().getFarmerType(),
+                                            game.getDay());
                                 }
                             }, "Fertilizer");
                         }
     
-                        if(crop.isHarvestReady()) {
+                        if (crop.isHarvestReady()) {
                             gameView.addActionButton(new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent event) {
                                     game.getPlayer().harvest(location[0], location[1]);
+
                                     updateTile(row, col);
+                                    gameView.updatePlayerInfo(game.getPlayer().getLevel(), game.getPlayer().getExperience(),
+                                            game.getPlayer().getObjectCoins(), game.getPlayer().getFarmerType(),
+                                            game.getDay());
                                 }
                             }, "Harvest");
                         }
-                        
+
+                        gameView.addActionButton(shovelButtonAL, "Shovel");
+
                         gameView.updateBottomPanel();
-                        updateTile(location[0], location[1]);
+                        updateTile(row, col);
                         gameView.updatePlayerInfo(game.getPlayer().getLevel(), game.getPlayer().getExperience(),
-                                                  game.getPlayer().getObjectCoins(), game.getPlayer().getFarmerType(),
-                                                  game.getDay());
+                                game.getPlayer().getObjectCoins(), game.getPlayer().getFarmerType(),
+                                game.getDay());
                     }
                 }, row, col);
-            } else {
-                
             }
 
         } else if (tile.isPlowed()) { // Tile is plowed; show all possible seed that can be planted
@@ -138,11 +168,9 @@ public class GameController {
             this.gameView.changeFarmTileListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent event) {
-                    JButton farmTileBtn = (JButton) event.getSource();
-                    int[] location = (int[]) farmTileBtn.getClientProperty("location");
-
                     gameView.resetActionPanel();
 
+                    // TODO: update button list when object coins change
                     // Add Plant action to seeds that can be bought with the current objectcoins only
                     if (game.getPlayer().getObjectCoins() >= 5) {
                         // Turnip
@@ -252,7 +280,9 @@ public class GameController {
                         }
                     }
 
-                    updateTile(location[0], location[1]);
+                    gameView.addActionButton(shovelButtonAL, "Shovel");
+
+                    updateTile(row, col);
                     gameView.updateBottomPanel();
                 }
             }, row, col);
@@ -265,12 +295,15 @@ public class GameController {
                     JButton farmTileBtn = (JButton) event.getSource();
                     int[] location = (int[]) farmTileBtn.getClientProperty("location");
 
-                    game.getPlayer().plow(location[0], location[1]);
+                    // TODO: also need to add shovel option for unplowed tiles
 
-                    updateTile(location[0], location[1]);
+                    game.getPlayer().plow(row, col);
+
+                    gameView.updateBottomPanel();
+                    updateTile(row, col);
                     gameView.updatePlayerInfo(game.getPlayer().getLevel(), game.getPlayer().getExperience(),
-                                              game.getPlayer().getObjectCoins(), game.getPlayer().getFarmerType(),
-                                              game.getDay());
+                            game.getPlayer().getObjectCoins(), game.getPlayer().getFarmerType(),
+                            game.getDay());
                 }
             }, row, col);
         }
