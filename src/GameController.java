@@ -130,8 +130,10 @@ public class GameController {
                                 public void actionPerformed(ActionEvent event) {
                                     game.getPlayer().harvest(row, col);
 
+                                    gameView.resetActionPanel();
                                     updateTile(row, col);
                                     updateNorthPanel();
+                                    gameView.updateBottomPanel();
                                 }
                             }, "Harvest");
                         }
