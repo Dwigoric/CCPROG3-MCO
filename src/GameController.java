@@ -166,7 +166,6 @@ public class GameController {
                 public void actionPerformed(ActionEvent event) {
                     gameView.resetActionPanel();
 
-                    // TODO: update button list when object coins change
                     // Add Plant action to seeds that can be bought with the current objectcoins only
                     if (game.getPlayer().getObjectCoins() >= 5) {
                         // Turnip
