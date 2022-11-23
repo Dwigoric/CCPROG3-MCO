@@ -1,4 +1,3 @@
-import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -36,9 +35,7 @@ public class GameController {
         );
 
         this.updateAllFarmTiles();
-        this.gameView.updatePlayerInfo(this.game.getPlayer().getLevel(), this.game.getPlayer().getExperience(),
-                                       this.game.getPlayer().getObjectCoins(), this.game.getPlayer().getFarmerType(),
-                                       this.game.getDay());
+        this.updatePlayerInfo();
     }
 
     private void updateAllFarmTiles() {
