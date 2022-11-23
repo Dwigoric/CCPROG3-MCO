@@ -5,6 +5,10 @@ public class GameController {
     private final Game game;
     private final GameView gameView;
 
+    // Misc listeners
+    private final ActionListener sleepListener;
+    private final ActionListener upgradeFarmerListener;
+
     public GameController(Game game, GameView gameView) {
         this.game = game;
         this.gameView = gameView;
@@ -15,49 +19,51 @@ public class GameController {
                 game.reset();
                 gameView.reset();
 
+                updateMiscListeners();
                 updateAllFarmTiles();
                 updateNorthPanel();
                 gameView.updateBottomPanel();
             }
         };
 
-        this.gameView.initializeMiscListener(
-            new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if (game.getPlayer().getObjectCoins() < 5 && !game.getFarm().hasCrop()) {
-                        gameView.endGame(
-                                "You have no more crops and no more money to buy more!",
-                                gameRestartListener
-                        );
+        this.sleepListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (game.getPlayer().getObjectCoins() < 5 && !game.getFarm().hasCrop()) {
+                    gameView.endGame(
+                            "You have no more crops and no more money to buy more!",
+                            gameRestartListener
+                    );
 
-                        return;
-                    }
-
-                    if (game.getFarm().isAllWithered()) {
-                        gameView.endGame(
-                                "All of your crops have died!",
-                                gameRestartListener
-                        );
-
-                        return;
-                    }
-
-                    game.advanceDay();
-                    gameView.resetActionPanel();
-                    gameView.updateBottomPanel();
-                    updateAllFarmTiles();
-                    updateNorthPanel();
+                    return;
                 }
-            }, 
-            new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    game.getPlayer().upgradeFarmer(game.getFarmerTypeList());
-                    updateNorthPanel();
+
+                if (game.getFarm().isAllWithered()) {
+                    gameView.endGame(
+                            "All of your crops have died!",
+                            gameRestartListener
+                    );
+
+                    return;
                 }
+
+                game.advanceDay();
+                gameView.resetActionPanel();
+                gameView.updateBottomPanel();
+                updateAllFarmTiles();
+                updateNorthPanel();
             }
-        );
+        };
+
+        this.upgradeFarmerListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                game.getPlayer().upgradeFarmer(game.getFarmerTypeList());
+                updateNorthPanel();
+            }
+        };
+
+        this.gameView.initializeMiscListener(this.sleepListener, this.upgradeFarmerListener);
 
         this.updateAllFarmTiles();
         this.updateNorthPanel();
@@ -76,6 +82,10 @@ public class GameController {
                 game.getPlayer().getObjectCoins(), game.getPlayer().getFarmerType(),
                 game.getDay());
         gameView.setUpgradeFarmerButtonEnabled(game.getPlayer().canUpgradeFarmer(game.getFarmerTypeList()));
+    }
+
+    private void updateMiscListeners() {
+        gameView.initializeMiscListener(sleepListener, upgradeFarmerListener);
     }
 
     private void updateTile(int row, int col) {

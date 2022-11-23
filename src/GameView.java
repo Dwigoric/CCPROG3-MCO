@@ -241,12 +241,7 @@ public class GameView {
 
         // Restart button
         JButton restartBtn = new JButton("Restart");
-        restartBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                restartListener.actionPerformed(e);
-            }
-        });
+        restartBtn.addActionListener(restartListener);
         buttonPanel.add(restartBtn);
 
         // Exit button
