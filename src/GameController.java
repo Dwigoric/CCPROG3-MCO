@@ -17,25 +17,20 @@ public class GameController {
                     gameView.resetActionPanel();
                     gameView.updateBottomPanel();
                     updateAllFarmTiles();
-
-                    gameView.updatePlayerInfo(game.getPlayer().getLevel(), game.getPlayer().getExperience(),
-                                              game.getPlayer().getObjectCoins(), game.getPlayer().getFarmerType(),
-                                              game.getDay());
+                    updateNorthPanel();
                 }
             }, 
             new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     game.getPlayer().upgradeFarmer(game.getFarmerTypeList());
-                    gameView.updatePlayerInfo(game.getPlayer().getLevel(), game.getPlayer().getExperience(),
-                                              game.getPlayer().getObjectCoins(), game.getPlayer().getFarmerType(),
-                                              game.getDay());
+                    updateNorthPanel();
                 }
             }
         );
 
         this.updateAllFarmTiles();
-        this.updatePlayerInfo();
+        this.updateNorthPanel();
     }
 
     private void updateAllFarmTiles() {
@@ -46,7 +41,7 @@ public class GameController {
         }
     }
 
-    private void updatePlayerInfo() {
+    private void updateNorthPanel() {
         gameView.updatePlayerInfo(game.getPlayer().getLevel(), game.getPlayer().getExperience(),
                 game.getPlayer().getObjectCoins(), game.getPlayer().getFarmerType(),
                 game.getDay());
@@ -62,7 +57,7 @@ public class GameController {
 
                 gameView.resetActionPanel();
                 updateTile(row, col);
-                updatePlayerInfo();
+                updateNorthPanel();
                 gameView.updateBottomPanel();
             }
         };
@@ -89,9 +84,7 @@ public class GameController {
 
                     gameView.updateBottomPanel();
                     updateTile(row, col);
-                    gameView.updatePlayerInfo(game.getPlayer().getLevel(), game.getPlayer().getExperience(),
-                            game.getPlayer().getObjectCoins(), game.getPlayer().getFarmerType(),
-                            game.getDay());
+                    updateNorthPanel();
                 }
             }, row, col);
 
@@ -113,9 +106,7 @@ public class GameController {
                                     game.getPlayer().water(row, col);
 
                                     updateTile(row, col);
-                                    gameView.updatePlayerInfo(game.getPlayer().getLevel(), game.getPlayer().getExperience(),
-                                            game.getPlayer().getObjectCoins(), game.getPlayer().getFarmerType(),
-                                            game.getDay());
+                                    updateNorthPanel();
                                 }
                             }, "Water");
                         }
@@ -128,9 +119,7 @@ public class GameController {
                                     game.getPlayer().fertilize(row, col);
 
                                     updateTile(row, col);
-                                    gameView.updatePlayerInfo(game.getPlayer().getLevel(), game.getPlayer().getExperience(),
-                                            game.getPlayer().getObjectCoins(), game.getPlayer().getFarmerType(),
-                                            game.getDay());
+                                    updateNorthPanel();
                                 }
                             }, "Fertilizer");
                         }
@@ -142,9 +131,7 @@ public class GameController {
                                     game.getPlayer().harvest(row, col);
 
                                     updateTile(row, col);
-                                    gameView.updatePlayerInfo(game.getPlayer().getLevel(), game.getPlayer().getExperience(),
-                                            game.getPlayer().getObjectCoins(), game.getPlayer().getFarmerType(),
-                                            game.getDay());
+                                    updateNorthPanel();
                                 }
                             }, "Harvest");
                         }
@@ -153,9 +140,7 @@ public class GameController {
 
                         gameView.updateBottomPanel();
                         updateTile(row, col);
-                        gameView.updatePlayerInfo(game.getPlayer().getLevel(), game.getPlayer().getExperience(),
-                                game.getPlayer().getObjectCoins(), game.getPlayer().getFarmerType(),
-                                game.getDay());
+                        updateNorthPanel();
                     }
                 }, row, col);
             }
@@ -176,7 +161,7 @@ public class GameController {
                                 game.getPlayer().plant(row, col, game.getSeed(0));
                                 updateTile(row, col);
 
-                                updatePlayerInfo();
+                                updateNorthPanel();
                                 gameView.resetActionPanel();
                                 gameView.updateBottomPanel();
                             }
@@ -189,7 +174,7 @@ public class GameController {
                                 game.getPlayer().plant(row, col, game.getSeed(3));
                                 updateTile(row, col);
 
-                                updatePlayerInfo();
+                                updateNorthPanel();
                                 gameView.resetActionPanel();
                                 gameView.updateBottomPanel();
                             }
@@ -204,7 +189,7 @@ public class GameController {
                                 game.getPlayer().plant(row, col, game.getSeed(1));
                                 updateTile(row, col);
 
-                                updatePlayerInfo();
+                                updateNorthPanel();
                                 gameView.resetActionPanel();
                                 gameView.updateBottomPanel();
                             }
@@ -217,7 +202,7 @@ public class GameController {
                                 game.getPlayer().plant(row, col, game.getSeed(4));
                                 updateTile(row, col);
 
-                                updatePlayerInfo();
+                                updateNorthPanel();
                                 gameView.resetActionPanel();
                                 gameView.updateBottomPanel();
                             }
@@ -232,7 +217,7 @@ public class GameController {
                                 game.getPlayer().plant(row, col, game.getSeed(2));
                                 updateTile(row, col);
 
-                                updatePlayerInfo();
+                                updateNorthPanel();
                                 gameView.resetActionPanel();
                                 gameView.updateBottomPanel();
                             }
@@ -245,7 +230,7 @@ public class GameController {
                                 game.getPlayer().plant(row, col, game.getSeed(5));
                                 updateTile(row, col);
 
-                                updatePlayerInfo();
+                                updateNorthPanel();
                                 gameView.resetActionPanel();
                                 gameView.updateBottomPanel();
                             }
@@ -260,7 +245,7 @@ public class GameController {
                                 game.getPlayer().plant(row, col, game.getSeed(6));
                                 updateTile(row, col);
 
-                                updatePlayerInfo();
+                                updateNorthPanel();
                                 gameView.resetActionPanel();
                                 gameView.updateBottomPanel();
                             }
@@ -275,7 +260,7 @@ public class GameController {
                                 game.getPlayer().plant(row, col, game.getSeed(7));
                                 updateTile(row, col);
 
-                                updatePlayerInfo();
+                                updateNorthPanel();
                                 gameView.resetActionPanel();
                                 gameView.updateBottomPanel();
                             }
@@ -285,7 +270,7 @@ public class GameController {
                     if (game.getPlayer().getObjectCoins() >= 7) gameView.addActionButton(shovelButtonAL, "Shovel");
 
                     updateTile(row, col);
-                    updatePlayerInfo();
+                    updateNorthPanel();
                     gameView.updateBottomPanel();
                 }
             }, row, col);
@@ -304,7 +289,7 @@ public class GameController {
                             updateTile(row, col);
 
                             gameView.resetActionPanel();
-                            updatePlayerInfo();
+                            updateNorthPanel();
                             gameView.updateBottomPanel();
                         }
                     }, "Plow");
@@ -312,7 +297,7 @@ public class GameController {
                     if (game.getPlayer().getObjectCoins() >= 7) gameView.addActionButton(shovelButtonAL, "Shovel");
 
                     updateTile(row, col);
-                    updatePlayerInfo();
+                    updateNorthPanel();
                     gameView.updateBottomPanel();
                 }
             }, row, col);
