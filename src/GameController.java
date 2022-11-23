@@ -70,16 +70,13 @@ public class GameController {
             this.gameView.changeFarmTileListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent event) {
-                    JButton farmTileBtn = (JButton) event.getSource();
-                    int[] location = (int[]) farmTileBtn.getClientProperty("location");
-
                     gameView.resetActionPanel();
 
                     if (game.getPlayer().getObjectCoins() >= 50) {
                         gameView.addActionButton(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent event) {
-                                game.getPlayer().pickaxe(location[0], location[1]);
+                                game.getPlayer().pickaxe(row, col);
                                 updateTile(row, col);
                             }
                         }, "Pickaxe");
@@ -103,17 +100,14 @@ public class GameController {
                 this.gameView.changeFarmTileListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent event) {
-                        JButton farmTileBtn = (JButton) event.getSource();
-                        int[] location = (int[]) farmTileBtn.getClientProperty("location");
-
                         gameView.resetActionPanel();
 
-                        Tile farmTile = game.getFarm().getTile(location[0], location[1]);
+                        Tile farmTile = game.getFarm().getTile(row, col);
                         if (farmTile.getCrop().getAge() != farmTile.getCrop().getSeed().getHarvestTime()) {
                             gameView.addActionButton(new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent event) {
-                                    game.getPlayer().water(location[0], location[1]);
+                                    game.getPlayer().water(row, col);
 
                                     updateTile(row, col);
                                     gameView.updatePlayerInfo(game.getPlayer().getLevel(), game.getPlayer().getExperience(),
@@ -128,7 +122,7 @@ public class GameController {
                             gameView.addActionButton(new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent event) {
-                                    game.getPlayer().fertilize(location[0], location[1]);
+                                    game.getPlayer().fertilize(row, col);
 
                                     updateTile(row, col);
                                     gameView.updatePlayerInfo(game.getPlayer().getLevel(), game.getPlayer().getExperience(),
@@ -142,7 +136,7 @@ public class GameController {
                             gameView.addActionButton(new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent event) {
-                                    game.getPlayer().harvest(location[0], location[1]);
+                                    game.getPlayer().harvest(row, col);
 
                                     updateTile(row, col);
                                     gameView.updatePlayerInfo(game.getPlayer().getLevel(), game.getPlayer().getExperience(),
@@ -292,9 +286,6 @@ public class GameController {
             this.gameView.changeFarmTileListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent event) {
-                    JButton farmTileBtn = (JButton) event.getSource();
-                    int[] location = (int[]) farmTileBtn.getClientProperty("location");
-
                     // TODO: also need to add shovel option for unplowed tiles
 
                     game.getPlayer().plow(row, col);
