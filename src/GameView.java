@@ -1,18 +1,8 @@
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.BorderLayout;
+import javax.swing.*;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-
-import javax.swing.ImageIcon;
 import javax.swing.border.EmptyBorder;
 
 public class GameView {
@@ -215,5 +205,26 @@ public class GameView {
 
     public void setUpgradeFarmerButtonEnabled(boolean enabled) {
         this.upgradeFarmerBtn.setEnabled(enabled);
+    }
+
+    /* FOR END GAME MECHANICS */
+    public void endGame(String reason) {
+        this.mainPanel.removeAll();
+
+        // Set up end game panel
+        JPanel endGamePanel = new JPanel(new GridBagLayout());
+        endGamePanel.setBackground(Color.decode("#313131"));
+
+        JLabel endGameLbl = new JLabel(reason);
+        endGameLbl.setForeground(Color.decode("#bdc3c7"));
+        endGameLbl.setFont(new Font("Arial", Font.BOLD, 30));
+
+        endGamePanel.add(endGameLbl);
+
+        // Add end game text
+        this.mainPanel.add(endGamePanel);
+
+        this.mainFrame.revalidate();
+        this.mainFrame.repaint();
     }
 }

@@ -13,6 +13,22 @@ public class GameController {
             new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    if (game.getPlayer().getObjectCoins() < 5 && !game.getFarm().hasCrop()) {
+                        gameView.endGame("You have no more crops and no more money to buy more!");
+
+                        // TODO: retry and exit buttons
+
+                        return;
+                    }
+
+                    if (game.getFarm().isAllWithered()) {
+                        gameView.endGame("All of your crops have died!");
+
+                        // TODO: retry and exit buttons
+
+                        return;
+                    }
+
                     game.advanceDay();
                     gameView.resetActionPanel();
                     gameView.updateBottomPanel();
