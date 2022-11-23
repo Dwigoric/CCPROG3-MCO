@@ -164,11 +164,11 @@ public class GameView {
         }
 
         if (hasButton) {
-            this.mainFrame.remove(this.southPanel);
-            this.mainFrame.add(this.actionPanel, BorderLayout.PAGE_END);
+            this.mainPanel.remove(this.southPanel);
+            this.mainPanel.add(this.actionPanel, BorderLayout.PAGE_END);
         } else {
-            this.mainFrame.remove(this.actionPanel);
-            this.mainFrame.add(this.southPanel, BorderLayout.PAGE_END);
+            this.mainPanel.remove(this.actionPanel);
+            this.mainPanel.add(this.southPanel, BorderLayout.PAGE_END);
         }
 
         this.mainFrame.revalidate();
