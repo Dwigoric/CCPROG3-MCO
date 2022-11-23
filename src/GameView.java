@@ -71,7 +71,7 @@ public class GameView {
         JPanel leftPanel = new JPanel(new BorderLayout());
         JPanel leftLeftPanel = new JPanel(new BorderLayout());
         JPanel leftRightPanel = new JPanel(new BorderLayout());
-        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel rightPanel = new JPanel(new GridBagLayout());
 
         this.sleepBtn = new JButton("Sleep");
         this.upgradeFarmerBtn = new JButton("Upgrade Farmer");
