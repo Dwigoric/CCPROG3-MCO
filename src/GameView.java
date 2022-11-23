@@ -159,6 +159,7 @@ public class GameView {
         for(Component c : componentList) {
             if (c instanceof JButton) {
                 hasButton = true;
+                break;
             }
         }
 
