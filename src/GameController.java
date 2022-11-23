@@ -63,8 +63,7 @@ public class GameController {
             }
         };
 
-        this.gameView.initializeMiscListener(this.sleepListener, this.upgradeFarmerListener);
-
+        this.updateMiscListeners();
         this.updateAllFarmTiles();
         this.updateNorthPanel();
     }
@@ -85,7 +84,7 @@ public class GameController {
     }
 
     private void updateMiscListeners() {
-        gameView.initializeMiscListener(sleepListener, upgradeFarmerListener);
+        this.gameView.initializeMiscListener(this.sleepListener, this.upgradeFarmerListener);
     }
 
     private void updateTile(int row, int col) {
