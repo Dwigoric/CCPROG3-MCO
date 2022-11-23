@@ -167,7 +167,7 @@ public class Player {
 
     public boolean pickaxe(int row, int column) {
         if (this.farm.getTile(row, column).hasRock()) {
-            this.farm.getTile(row, column).pickaxed();
+            this.farm.getTile(row, column).pickaxe();
             this.addCoins(-50);
             this.addExperience(15);
 

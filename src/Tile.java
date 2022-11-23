@@ -47,7 +47,7 @@ public class Tile {
         this.crop = null;
     }
 
-    public void pickaxed() {
+    public void pickaxe() {
         this.hasRock = false;
     }
 
