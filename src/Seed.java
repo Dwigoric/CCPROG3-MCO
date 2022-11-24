@@ -14,6 +14,7 @@ public class Seed {
     private final int cost;
     private final int baseSellingPrice;
     private final float expYield;
+    private final boolean isTree;
 
     /**
      * The Seed class constructor.
@@ -28,8 +29,9 @@ public class Seed {
      * @param baseSellingPrice  The base value of the seed.
      * @param expYield          The experience gained from harvest the crop from this seed.
      */
-    public Seed(String name, String type, int harvestTime, int waterNeeds, int waterLimit, int fertilizerNeeds,
-                int fertilizerLimit, int minProduce, int maxProduce, int cost, int baseSellingPrice, float expYield) {
+    public Seed(String name, String type, int harvestTime, int waterNeeds, int waterLimit,
+                int fertilizerNeeds, int fertilizerLimit, int minProduce, int maxProduce,
+                int cost, int baseSellingPrice, float expYield, boolean isTree) {
         this.name = name;
         this.type = type;
         this.harvestTime = harvestTime;
@@ -42,6 +44,7 @@ public class Seed {
         this.cost = cost;
         this.baseSellingPrice = baseSellingPrice;
         this.expYield = expYield;
+        this.isTree = isTree;
     }
 
     /**
@@ -138,5 +141,13 @@ public class Seed {
      */
     public float getExpYield() {
         return expYield;
+    }
+
+    /**
+     * Gets whether the seed is a tree.
+     * @return  Whether the seed is a tree.
+     */
+    public boolean isTree() {
+        return isTree;
     }
 }
