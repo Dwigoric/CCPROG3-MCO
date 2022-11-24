@@ -111,55 +111,15 @@ public class Farm {
      * @return  True if a tree can be planted on the specified tile, false otherwise.
      */
     public boolean canPlantTree(int row, int column) {
-        boolean check;
+        if (row == 0 || column == 0 || row == this.rows - 1 || column == this.columns - 1) return false;
 
-        if (row == 0) {
-            if (column == 0) check = this.isEmpty(row, column + 1) &&
-                    this.isEmpty(row + 1, column) &&
-                    this.isEmpty(row + 1, column + 1);
-            else if (column == this.columns - 1) check = this.isEmpty(row, column - 1) &&
-                    this.isEmpty(row + 1, column) &&
-                    this.isEmpty(row + 1, column - 1);
-            else check = this.isEmpty(row, column - 1) &&
-                    this.isEmpty(row, column + 1) &&
-                    this.isEmpty(row + 1, column - 1) &&
-                    this.isEmpty(row + 1, column) &&
-                    this.isEmpty(row + 1, column + 1);
-        } else if (column == 0) {
-            if (row == this.rows - 1) check = this.isEmpty(row - 1, column) &&
-                    this.isEmpty(row - 1, column + 1) &&
-                    this.isEmpty(row, column + 1);
-            else check = this.isEmpty(row - 1, column) &&
-                    this.isEmpty(row - 1, column + 1) &&
-                    this.isEmpty(row, column + 1) &&
-                    this.isEmpty(row + 1, column) &&
-                    this.isEmpty(row + 1, column + 1);
-        } else if (row == this.rows - 1) {
-            if (column == this.columns - 1) check = this.isEmpty(row - 1, column) &&
-                    this.isEmpty(row - 1, column - 1) &&
-                    this.isEmpty(row, column - 1);
-            else check = this.isEmpty(row - 1, column - 1) &&
-                    this.isEmpty(row - 1, column) &&
-                    this.isEmpty(row - 1, column + 1) &&
-                    this.isEmpty(row, column - 1) &&
-                    this.isEmpty(row, column + 1);
-        } else if (column == this.columns - 1) {
-            check = this.isEmpty(row - 1, column - 1) &&
-                    this.isEmpty(row - 1, column) &&
-                    this.isEmpty(row, column - 1) &&
-                    this.isEmpty(row + 1, column - 1) &&
-                    this.isEmpty(row + 1, column);
-        } else {
-            check = this.isEmpty(row - 1, column - 1) &&
-                    this.isEmpty(row - 1, column) &&
-                    this.isEmpty(row - 1, column + 1) &&
-                    this.isEmpty(row, column - 1) &&
-                    this.isEmpty(row, column + 1) &&
-                    this.isEmpty(row + 1, column - 1) &&
-                    this.isEmpty(row + 1, column) &&
-                    this.isEmpty(row + 1, column + 1);
-        }
-
-        return check;
+        return this.isEmpty(row - 1, column - 1) &&
+                this.isEmpty(row - 1, column) &&
+                this.isEmpty(row - 1, column + 1) &&
+                this.isEmpty(row, column - 1) &&
+                this.isEmpty(row, column + 1) &&
+                this.isEmpty(row + 1, column - 1) &&
+                this.isEmpty(row + 1, column) &&
+                this.isEmpty(row + 1, column + 1);
     }
 }
