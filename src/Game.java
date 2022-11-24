@@ -11,22 +11,22 @@ public class Game {
     private int day = 1;
     
     private final ArrayList<Seed> seedList = new ArrayList<>(Arrays.asList(
-            new Seed("Turnip", "Root Crop", 2, 1, 2, 0,
-                    1, 1, 2, 5, 6, 5, false),
-            new Seed("Carrot", "Root Crop", 3, 1, 2, 0,
-                    1, 1, 2, 10, 9, 7.5f, false),
-            new Seed("Potato", "Root crop", 5, 3, 4, 1,
-                    2, 1, 10, 20, 3, 12.5f, false),
-            new Seed("Rose", "Flower", 1, 1, 2, 0,
-                    1, 1, 1, 5, 5, 2.5f, false),
-            new Seed("Tulips", "Flower", 2, 2, 3, 0,
-                    1, 1, 1, 10, 9, 5, false),
-            new Seed("Sunflower", "Flower", 3, 2, 3, 1,
-                    2, 1, 1, 20, 19, 7.5f, false),
-            new Seed("Mango", "Fruit tree", 10, 7, 7, 4,
-                    4, 5, 10, 100, 8, 25, false),
-            new Seed("Apple", "Fruit tree",10, 7, 7, 5,
-                    5, 10, 15, 200, 5, 25, false)
+            new Seed("Turnip", "Root Crop", 2, 1, 2, 0, 1,
+                    1, 2, 5, 6, 5, false, false),
+            new Seed("Carrot", "Root Crop", 3, 1, 2, 0, 1,
+                    1, 2, 10, 9, 7.5f, false, false),
+            new Seed("Potato", "Root crop", 5, 3, 4, 1, 2,
+                    1, 10, 20, 3, 12.5f, false, false),
+            new Seed("Rose", "Flower", 1, 1, 2, 0, 1,
+                    1, 1, 5, 5, 2.5f, true, false),
+            new Seed("Tulips", "Flower", 2, 2, 3, 0, 1,
+                    1, 1, 10, 9, 5, true, false),
+            new Seed("Sunflower", "Flower", 3, 2, 3, 1, 2,
+                    1, 1, 20, 19, 7.5f, true, false),
+            new Seed("Mango", "Fruit tree", 10, 7, 7, 4, 4,
+                    5, 10, 100, 8, 25, false,true),
+            new Seed("Apple", "Fruit tree",10, 7, 7, 5, 5,
+                    10, 15, 200, 5, 25, false, true)
     ));
     
     private final ArrayList<FarmerType> farmerTypes = new ArrayList<>(Arrays.asList(

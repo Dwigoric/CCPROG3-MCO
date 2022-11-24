@@ -159,11 +159,12 @@ public class Player {
         }
 
         /* Player Information Update */
-        this.addCoins(HarvestTotal + WaterBonus + FertilizerBonus);
+        float finalPrice = (HarvestTotal + WaterBonus + FertilizerBonus) * (crop.getSeed().isFlower() ? 1.1f : 1.0f);
+        this.addCoins(finalPrice);
         this.addExperience(crop.getSeed().getExpYield());
     
-        System.out.println("  [MESSAGE] Harvested " + tile.getCrop().getProduce() + " " + tile.getCrop().getSeed().getName()
-                            + " and sold for " + HarvestTotal + WaterBonus + FertilizerBonus + " ObjectCoins");
+        System.out.println("  [MESSAGE] Harvested " + tile.getCrop().getProduce() + " " +
+                            tile.getCrop().getSeed().getName() + " and sold for " + finalPrice + " ObjectCoins");
         tile.harvest();
         return true;
     }

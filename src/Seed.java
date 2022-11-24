@@ -14,6 +14,7 @@ public class Seed {
     private final int cost;
     private final int baseSellingPrice;
     private final float expYield;
+    private final boolean isFlower;
     private final boolean isTree;
 
     /**
@@ -31,7 +32,7 @@ public class Seed {
      */
     public Seed(String name, String type, int harvestTime, int waterNeeds, int waterLimit,
                 int fertilizerNeeds, int fertilizerLimit, int minProduce, int maxProduce,
-                int cost, int baseSellingPrice, float expYield, boolean isTree) {
+                int cost, int baseSellingPrice, float expYield, boolean isFlower, boolean isTree) {
         this.name = name;
         this.type = type;
         this.harvestTime = harvestTime;
@@ -44,6 +45,7 @@ public class Seed {
         this.cost = cost;
         this.baseSellingPrice = baseSellingPrice;
         this.expYield = expYield;
+        this.isFlower = isFlower;
         this.isTree = isTree;
     }
 
@@ -141,6 +143,14 @@ public class Seed {
      */
     public float getExpYield() {
         return expYield;
+    }
+
+    /**
+     * Gets whether the seed is a tree.
+     * @return  Whether the seed is a tree.
+     */
+    public boolean isFlower() {
+        return isFlower;
     }
 
     /**
