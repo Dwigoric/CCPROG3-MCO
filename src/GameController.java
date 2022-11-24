@@ -1,6 +1,8 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.xml.transform.Templates;
+
 public class GameController {
     private final Game game;
     private final GameView gameView;
@@ -129,7 +131,14 @@ public class GameController {
 
         } else if (tile.getCrop() != null) { // Tile has crop; show water, fertilize, shovel
             Crop crop = tile.getCrop();
-            this.gameView.setTileText(crop.isAlive() ? crop.getSeed().getName() : "withered", row, col);
+
+            // template
+            if (crop.getSeed().getName() == "Apple" || crop.getSeed().getName() == "Mango") {
+                gameView.setTileText(crop.isAlive() ? crop.getSeed().getName() : "withered", row, col);
+                
+            } else {
+                gameView.setTileIcon(crop.getSeed().getName(), row, col);
+            }
 
             if (crop.isAlive()) {
                 this.gameView.changeFarmTileListener(new ActionListener() {
@@ -187,7 +196,7 @@ public class GameController {
             }
 
         } else if (tile.isPlowed()) { // Tile is plowed; show all possible seed that can be planted
-            gameView.setTileText("plowed", row, col);
+            gameView.setTileIcon("plowed", row, col);
             this.gameView.changeFarmTileListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent event) {
@@ -317,7 +326,7 @@ public class GameController {
             }, row, col);
 
         } else { // Tile is unplowed; no action buttons
-            //gameView.setTileText("unplowed", row, col);
+            gameView.setTileIcon("unplowed", row, col);
             this.gameView.changeFarmTileListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent event) {
@@ -343,5 +352,7 @@ public class GameController {
                 }
             }, row, col);
         }
+
+        //gameView.setFarmTileSelected(row, col);
     }
 }

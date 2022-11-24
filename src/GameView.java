@@ -25,7 +25,17 @@ public class GameView {
 
     // Farm panel elements
     private ImageIcon imgTileUnplowed = new ImageIcon("res/tile_unplowed.png");
+    private ImageIcon imgTileUnplowedSelected = new ImageIcon("res/tile_unplowed_selected.png");
     private ImageIcon imgTilePlowed = new ImageIcon("res/tile_plowed.png");
+
+    private ImageIcon imgTileTurnip = new ImageIcon("res/tile_turnip.png");
+    private ImageIcon imgTileCarrot = new ImageIcon("res/tile_carrot.png");
+    private ImageIcon imgTilePotato = new ImageIcon("res/tile_potato.png");
+    private ImageIcon imgTileRose = new ImageIcon("res/tile_rose.png");
+    private ImageIcon imgTileTulips = new ImageIcon("res/tile_tulips.png");
+    private ImageIcon imgTileSunflower = new ImageIcon("res/tile_sunflower.png");
+    private ImageIcon imgTileMango = new ImageIcon("res/tile_mango.png");
+    private ImageIcon imgTileApple = new ImageIcon("res/tile_apple.png");
 
     JButton[][] farmTilesBtn = new JButton[5][10];
     
@@ -126,7 +136,7 @@ public class GameView {
             for(int j = 0; j < 10; j++) {
                 farmTilesBtn[i][j] = new JButton();
                 //farmTilesBtn[i][j].setPreferredSize(new Dimension(118, 104));
-                farmTilesBtn[i][j].setIcon(scaleImage(imgTileUnplowed, 118, 102));
+                farmTilesBtn[i][j].setIcon(scaleImage(imgTileUnplowed, 116, 94));
                 farmTilesBtn[i][j].setBorderPainted(false);
 
                 farmTilesBtn[i][j].addActionListener(farmTileListener);
@@ -232,6 +242,52 @@ public class GameView {
         this.objectCoinsLbl.setText("ObjectCoins: " + objectCoins);
         this.farmerTypeLbl.setText(farmerType.getTypeName());
         this.dayLbl.setText("Day " + day);
+    }
+
+    public void setTileIcon(String s, int row, int col) {
+        switch(s) {
+            case "unplowed":
+                this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileUnplowed, 116, 94));
+                break;
+            case "plowed":
+                this.farmTilesBtn[row][col].setIcon(scaleImage(imgTilePlowed, 116, 94));
+                break;
+            case "Turnip":
+                this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileTurnip, 116, 94));
+                break;
+            case "Carrot":
+                this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileCarrot, 116, 94));
+                break;
+            case "Potato":
+                this.farmTilesBtn[row][col].setIcon(scaleImage(imgTilePotato, 116, 94));
+                break;
+            case "Rose":
+                this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileRose, 116, 94));
+                break;
+            case "Tulips":
+                this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileTulips, 116, 94));
+                break;
+            case "Sunflower":
+                this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileRose, 116, 94));
+                break;
+            case "Mango":
+                this.farmTilesBtn[row][col].setIcon(scaleImage(imgTilePotato, 116, 94));
+                break;
+            case "Apple":
+                this.farmTilesBtn[row + 1][col - 1].setIcon(scaleImage(imgTileRose, 116, 94));
+                this.farmTilesBtn[row + 1][col].setIcon(scaleImage(imgTileRose, 116, 94));
+                this.farmTilesBtn[row + 1][col + 1].setIcon(scaleImage(imgTileRose, 116, 94));
+
+                this.farmTilesBtn[row][col - 1].setIcon(scaleImage(imgTileRose, 116, 94));
+                this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileRose, 116, 94));
+                this.farmTilesBtn[row][col + 1].setIcon(scaleImage(imgTileRose, 116, 94));
+
+                this.farmTilesBtn[row - 1][col - 1].setIcon(scaleImage(imgTileRose, 116, 94));
+                this.farmTilesBtn[row - 1][col].setIcon(scaleImage(imgTileRose, 116, 94));
+                this.farmTilesBtn[row - 1][col + 1].setIcon(scaleImage(imgTileRose, 116, 94));
+                break;
+        }
+        
     }
 
     // temp
