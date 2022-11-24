@@ -280,7 +280,7 @@ public class GameController {
 
                     if (game.getPlayer().getObjectCoins() >= 100) {
                         // Mango tree
-                        gameView.addActionButton(new ActionListener() {
+                        if (game.getFarm().canPlantTree(row, col)) gameView.addActionButton(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent event) {
                                 game.getPlayer().plant(row, col, game.getSeed(6));
@@ -295,7 +295,7 @@ public class GameController {
 
                     if (game.getPlayer().getObjectCoins() >= 200) {
                         // Apple tree
-                        gameView.addActionButton(new ActionListener() {
+                        if (game.getFarm().canPlantTree(row, col)) gameView.addActionButton(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent event) {
                                 game.getPlayer().plant(row, col, game.getSeed(7));

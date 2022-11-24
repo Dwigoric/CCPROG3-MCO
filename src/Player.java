@@ -49,13 +49,16 @@ public class Player {
             return false;
         }
 
-        Tile tile = this.farm.getTile(row, column);
-        if (tile.isPlowed() == false) {
+        if (seed.isTree() && !this.farm.canPlantTree(row, column)) {
             return false;
         }
 
-        Crop crop = tile.getCrop();
-        if (crop != null) {
+        Tile tile = this.farm.getTile(row, column);
+        if (!tile.isPlowed() || tile.hasRock()) {
+            return false;
+        }
+
+        if (tile.getCrop() != null) {
             return false;
         }
 
