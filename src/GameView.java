@@ -26,12 +26,16 @@ public class GameView {
     // Farm panel elements
     private ImageIcon imgTileUnplowed = new ImageIcon("res/tile_unplowed.png");
     private ImageIcon imgTilePlowed = new ImageIcon("res/tile_plowed.png");
-    private ImageIcon imgActions = new ImageIcon("res/button_action.png");
 
     JButton[][] farmTilesBtn = new JButton[5][10];
     
     // Action Buttons
     private ImageIcon imgWater = new ImageIcon("res/water_button.png");
+    private ImageIcon imgFertilize = new ImageIcon("res/fertilize_button.png");
+    private ImageIcon imgHarvest = new ImageIcon("res/harvest_button.png");
+    private ImageIcon imgPlow = new ImageIcon("res/plow_button.png");
+    private ImageIcon imgShovel = new ImageIcon("res/shovel_button.png");
+    private ImageIcon imgPickaxe = new ImageIcon("res/pickaxe_button.png");
 
     ActionListener farmTileListener;
     
@@ -115,13 +119,14 @@ public class GameView {
 
     public void initializeFarmPanel() {
         this.farmPanel = new JPanel(new GridLayout(5, 10));
-        this.farmPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
+        this.farmPanel.setBorder(new EmptyBorder(10, 0, 5, 0));
         this.farmPanel.setBackground(Color.decode("#313131"));
 
         for(int i = 0; i < 5; i++) {
             for(int j = 0; j < 10; j++) {
                 farmTilesBtn[i][j] = new JButton();
-                farmTilesBtn[i][j].setPreferredSize(new Dimension(118, 104));
+                //farmTilesBtn[i][j].setPreferredSize(new Dimension(118, 104));
+                farmTilesBtn[i][j].setIcon(scaleImage(imgTileUnplowed, 118, 102));
                 farmTilesBtn[i][j].setBorderPainted(false);
 
                 farmTilesBtn[i][j].addActionListener(farmTileListener);
@@ -188,12 +193,37 @@ public class GameView {
     }
 
     public void addActionButton(ActionListener e, String name) {
-        JButton actionBtn = new JButton(scaleImage(imgWater, 95, 95));
+        JButton actionBtn = new JButton();
 
         actionBtn.setBorderPainted(false);
         actionBtn.setMargin(new Insets(0, 0, 0, 0));
         actionBtn.setPreferredSize(new Dimension(95, 95));
         actionBtn.addActionListener(e);
+
+        switch (name) {
+            case "water":
+                actionBtn.setIcon(scaleImage(imgWater, 95, 95));
+                break;
+            case "fertilizer":
+                actionBtn.setIcon(scaleImage(imgFertilize, 95, 95));
+                break;
+            case "harvest":
+                actionBtn.setIcon(scaleImage(imgHarvest, 95, 95));
+                break;
+            case "plow":
+                actionBtn.setIcon(scaleImage(imgPlow, 95, 95));
+                break;
+            case "shovel":
+                actionBtn.setIcon(scaleImage(imgShovel, 95, 95));
+                break;
+            case "pickaxe":
+                actionBtn.setIcon(scaleImage(imgPickaxe, 95, 95));
+                break;
+            default:
+                // none
+                break;
+        }
+        
         this.actionPanel.add(actionBtn);
     }
 

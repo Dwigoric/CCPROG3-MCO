@@ -116,10 +116,10 @@ public class GameController {
                                 game.getPlayer().pickaxe(row, col);
                                 updateTile(row, col);
                             }
-                        }, "Pickaxe");
+                        }, "pickaxe");
                     }
 
-                    if (game.getPlayer().getObjectCoins() >= 7) gameView.addActionButton(shovelButtonAL, "Shovel");
+                    if (game.getPlayer().getObjectCoins() >= 7) gameView.addActionButton(shovelButtonAL, "shovel");
 
                     gameView.updateBottomPanel();
                     updateTile(row, col);
@@ -147,7 +147,7 @@ public class GameController {
                                     updateTile(row, col);
                                     updateNorthPanel();
                                 }
-                            }, "Water");
+                            }, "water");
                         }
     
                         if (game.getPlayer().getObjectCoins() >= 10 &&
@@ -160,7 +160,7 @@ public class GameController {
                                     updateTile(row, col);
                                     updateNorthPanel();
                                 }
-                            }, "Fertilizer");
+                            }, "fertilizer");
                         }
     
                         if (crop.isHarvestReady()) {
@@ -174,10 +174,10 @@ public class GameController {
                                     updateNorthPanel();
                                     gameView.updateBottomPanel();
                                 }
-                            }, "Harvest");
+                            }, "harvest");
                         }
 
-                        if (game.getPlayer().getObjectCoins() >= 7) gameView.addActionButton(shovelButtonAL, "Shovel");
+                        if (game.getPlayer().getObjectCoins() >= 7) gameView.addActionButton(shovelButtonAL, "shovel");
 
                         gameView.updateBottomPanel();
                         updateTile(row, col);
@@ -308,7 +308,7 @@ public class GameController {
                         }, game.getSeed(7).getName());
                     }
 
-                    if (game.getPlayer().getObjectCoins() >= 7) gameView.addActionButton(shovelButtonAL, "Shovel");
+                    if (game.getPlayer().getObjectCoins() >= 7) gameView.addActionButton(shovelButtonAL, "shovel");
 
                     updateTile(row, col);
                     updateNorthPanel();
@@ -317,7 +317,7 @@ public class GameController {
             }, row, col);
 
         } else { // Tile is unplowed; no action buttons
-            gameView.setTileText("unplowed", row, col);
+            //gameView.setTileText("unplowed", row, col);
             this.gameView.changeFarmTileListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent event) {
@@ -333,9 +333,9 @@ public class GameController {
                             updateNorthPanel();
                             gameView.updateBottomPanel();
                         }
-                    }, "Plow");
+                    }, "plow");
 
-                    if (game.getPlayer().getObjectCoins() >= 7) gameView.addActionButton(shovelButtonAL, "Shovel");
+                    if (game.getPlayer().getObjectCoins() >= 7) gameView.addActionButton(shovelButtonAL, "shovel");
 
                     updateTile(row, col);
                     updateNorthPanel();
