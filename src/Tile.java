@@ -4,6 +4,7 @@
 public class Tile {
     private boolean isPlowed = false;
     private boolean hasRock = false;
+    private boolean isOccupiedByTree = false;
     private Crop crop = null;
 
     public Tile() {}
@@ -49,6 +50,22 @@ public class Tile {
 
     public void pickaxe() {
         this.hasRock = false;
+    }
+
+    /**
+     * Sets whether the tile is occupied by a tree.
+     * @param state    True if the tile is occupied by a tree, false otherwise.
+     */
+    public void setTreeState(boolean state) {
+        this.isOccupiedByTree = state;
+    }
+
+    /**
+     * Gets whether the tile is occupied by a tree.
+     * @return  True if the tile is occupied by a tree, false otherwise.
+     */
+    public boolean isOccupiedByTree() {
+        return isOccupiedByTree;
     }
 
     /**
