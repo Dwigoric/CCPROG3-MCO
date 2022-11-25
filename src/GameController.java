@@ -253,64 +253,64 @@ public class GameController {
                                 gameView.updateBottomPanel();
                             }
                         }, game.getSeed(4).getName());
-                    }
 
-                    if (game.getPlayer().getObjectCoins() >= 20) {
-                        // Potato
-                        gameView.addActionButton(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent event) {
-                                game.getPlayer().plant(row, col, game.getSeed(2));
-                                updateTile(row, col);
+                        if (game.getPlayer().getObjectCoins() >= 20) {
+                            // Potato
+                            gameView.addActionButton(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent event) {
+                                    game.getPlayer().plant(row, col, game.getSeed(2));
+                                    updateTile(row, col);
 
-                                updateNorthPanel();
-                                gameView.resetActionPanel();
-                                gameView.updateBottomPanel();
+                                    updateNorthPanel();
+                                    gameView.resetActionPanel();
+                                    gameView.updateBottomPanel();
+                                }
+                            }, game.getSeed(2).getName());
+
+                            // Sunflower
+                            gameView.addActionButton(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent event) {
+                                    game.getPlayer().plant(row, col, game.getSeed(5));
+                                    updateTile(row, col);
+
+                                    updateNorthPanel();
+                                    gameView.resetActionPanel();
+                                    gameView.updateBottomPanel();
+                                }
+                            }, game.getSeed(5).getName());
+
+                            if (game.getPlayer().getObjectCoins() >= 100) {
+                                // Mango tree
+                                if (game.getFarm().canPlantTree(row, col)) gameView.addActionButton(new ActionListener() {
+                                    @Override
+                                    public void actionPerformed(ActionEvent event) {
+                                        game.getPlayer().plant(row, col, game.getSeed(6));
+                                        updateTile(row, col);
+
+                                        updateNorthPanel();
+                                        gameView.resetActionPanel();
+                                        gameView.updateBottomPanel();
+                                    }
+                                }, game.getSeed(6).getName());
+
+                                if (game.getPlayer().getObjectCoins() >= 200) {
+                                    // Apple tree
+                                    if (game.getFarm().canPlantTree(row, col)) gameView.addActionButton(new ActionListener() {
+                                        @Override
+                                        public void actionPerformed(ActionEvent event) {
+                                            game.getPlayer().plant(row, col, game.getSeed(7));
+                                            updateTile(row, col);
+
+                                            updateNorthPanel();
+                                            gameView.resetActionPanel();
+                                            gameView.updateBottomPanel();
+                                        }
+                                    }, game.getSeed(7).getName());
+                                }
                             }
-                        }, game.getSeed(2).getName());
-
-                        // Sunflower
-                        gameView.addActionButton(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent event) {
-                                game.getPlayer().plant(row, col, game.getSeed(5));
-                                updateTile(row, col);
-
-                                updateNorthPanel();
-                                gameView.resetActionPanel();
-                                gameView.updateBottomPanel();
-                            }
-                        }, game.getSeed(5).getName());
-                    }
-
-                    if (game.getPlayer().getObjectCoins() >= 100) {
-                        // Mango tree
-                        if (game.getFarm().canPlantTree(row, col)) gameView.addActionButton(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent event) {
-                                game.getPlayer().plant(row, col, game.getSeed(6));
-                                updateTile(row, col);
-
-                                updateNorthPanel();
-                                gameView.resetActionPanel();
-                                gameView.updateBottomPanel();
-                            }
-                        }, game.getSeed(6).getName());
-                    }
-
-                    if (game.getPlayer().getObjectCoins() >= 200) {
-                        // Apple tree
-                        if (game.getFarm().canPlantTree(row, col)) gameView.addActionButton(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent event) {
-                                game.getPlayer().plant(row, col, game.getSeed(7));
-                                updateTile(row, col);
-
-                                updateNorthPanel();
-                                gameView.resetActionPanel();
-                                gameView.updateBottomPanel();
-                            }
-                        }, game.getSeed(7).getName());
+                        }
                     }
 
                     if (game.getPlayer().getObjectCoins() >= 7) gameView.addActionButton(shovelButtonAL, "shovel");
