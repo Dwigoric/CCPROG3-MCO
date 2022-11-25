@@ -101,18 +101,7 @@ public class Farm {
     public boolean isEmpty(int row, int column) {
         Tile tile = this.tiles[row][column];
 
-        return !tile.hasRock() && !tile.isOccupiedByTree() && tile.getCrop() == null;
-    }
-
-    public void setSurroundingTilesTreeState(int row, int col, boolean state) {
-        this.getTile(row - 1, col - 1).setTreeState(state);
-        this.getTile(row - 1, col).setTreeState(state);
-        this.getTile(row - 1, col + 1).setTreeState(state);
-        this.getTile(row, col - 1).setTreeState(state);
-        this.getTile(row, col + 1).setTreeState(state);
-        this.getTile(row + 1, col - 1).setTreeState(state);
-        this.getTile(row + 1, col).setTreeState(state);
-        this.getTile(row + 1, col + 1).setTreeState(state);
+        return !tile.hasRock() && tile.getCrop() == null;
     }
 
     /**

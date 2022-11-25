@@ -165,8 +165,6 @@ public class Player {
     
         System.out.println("  [MESSAGE] Harvested " + tile.getCrop().getProduce() + " " +
                             tile.getCrop().getSeed().getName() + " and sold for " + finalPrice + " ObjectCoins");
-
-        if (crop.getSeed().isTree()) this.farm.setSurroundingTilesTreeState(row, column, false);
         tile.harvest();
         return true;
     }
@@ -190,10 +188,7 @@ public class Player {
         if (this.objectCoins < 7) return false;
         this.deductCoins(7);
 
-        if (crop != null) {
-            if (crop.getSeed().isTree()) this.farm.setSurroundingTilesTreeState(row, column, false);
-            this.farm.reset(row, column);
-        }
+        if (crop != null) this.farm.reset(row, column);
 
         return true;
     }
