@@ -21,7 +21,7 @@ public class GameController {
                 game.reset();
                 gameView.reset();
 
-                updateMiscListeners();
+                gameView.initializeMiscListener(sleepListener, upgradeFarmerListener);
                 updateAllFarmTiles();
                 updateNorthPanel();
                 gameView.updateBottomPanel();
@@ -65,7 +65,7 @@ public class GameController {
             }
         };
 
-        this.updateMiscListeners();
+        this.gameView.initializeMiscListener(this.sleepListener, this.upgradeFarmerListener);
         this.updateAllFarmTiles();
         this.updateNorthPanel();
     }
@@ -83,10 +83,6 @@ public class GameController {
                 game.getPlayer().getObjectCoins(), game.getPlayer().getFarmerType(),
                 game.getDay());
         gameView.setUpgradeFarmerButtonEnabled(game.getPlayer().canUpgradeFarmer(game.getFarmerTypeList()));
-    }
-
-    private void updateMiscListeners() {
-        this.gameView.initializeMiscListener(this.sleepListener, this.upgradeFarmerListener);
     }
 
     private void updateTile(int row, int col) {
