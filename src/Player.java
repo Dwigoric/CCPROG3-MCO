@@ -45,7 +45,7 @@ public class Player {
      * @return  True if the seed was successfully planted, false otherwise.
      */
     public boolean plant(int row, int column, Seed seed) {
-        if (seed.getCost() > this.objectCoins) {
+        if (seed.getCost() - this.farmerType.getSeedCostReduction() > this.objectCoins) {
             return false;
         }
 
@@ -63,7 +63,7 @@ public class Player {
         }
 
         tile.plant(seed);
-        this.deductCoins(seed.getCost());
+        this.deductCoins(seed.getCost() - this.farmerType.getSeedCostReduction());
         return true;
     }
 

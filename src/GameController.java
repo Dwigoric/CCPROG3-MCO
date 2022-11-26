@@ -30,7 +30,9 @@ public class GameController {
         this.sleepListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (game.getPlayer().getObjectCoins() < 5 && !game.getFarm().hasCrop()) {
+                if (game.getPlayer().getObjectCoins() < 5 - game.getPlayer().getFarmerType().getSeedCostReduction() &&
+                        !game.getFarm().hasCrop())
+                {
                     gameView.endGame("You have no more crops and no more money to buy more!", gameRestartListener);
 
                     return;
@@ -204,9 +206,10 @@ public class GameController {
                 @Override
                 public void actionPerformed(ActionEvent event) {
                     gameView.resetActionPanel();
+                    int seedCostReduction = game.getPlayer().getFarmerType().getSeedCostReduction();
 
                     // Add Plant action to seeds that can be bought with the current objectcoins only
-                    if (game.getPlayer().getObjectCoins() >= 5) {
+                    if (game.getPlayer().getObjectCoins() >= 5 - seedCostReduction) {
                         // Turnip
                         gameView.addActionButton(new ActionListener() {
                             @Override
@@ -236,7 +239,7 @@ public class GameController {
                         }, game.getSeed(3).getName());
                     }
 
-                    if (game.getPlayer().getObjectCoins() >= 10) {
+                    if (game.getPlayer().getObjectCoins() >= 10 - seedCostReduction) {
                         // Carrot
                         gameView.addActionButton(new ActionListener() {
                             @Override
@@ -265,7 +268,7 @@ public class GameController {
                             }
                         }, game.getSeed(4).getName());
 
-                        if (game.getPlayer().getObjectCoins() >= 20) {
+                        if (game.getPlayer().getObjectCoins() >= 20 - seedCostReduction) {
                             // Potato
                             gameView.addActionButton(new ActionListener() {
                                 @Override
@@ -294,7 +297,7 @@ public class GameController {
                                 }
                             }, game.getSeed(5).getName());
 
-                            if (game.getPlayer().getObjectCoins() >= 100) {
+                            if (game.getPlayer().getObjectCoins() >= 100 - seedCostReduction) {
                                 // Mango tree
                                 if (game.getFarm().canPlantTree(row, col)) gameView.addActionButton(new ActionListener() {
                                     @Override
@@ -309,7 +312,7 @@ public class GameController {
                                     }
                                 }, game.getSeed(6).getName());
 
-                                if (game.getPlayer().getObjectCoins() >= 200) {
+                                if (game.getPlayer().getObjectCoins() >= 200 - seedCostReduction) {
                                     // Apple tree
                                     if (game.getFarm().canPlantTree(row, col)) gameView.addActionButton(new ActionListener() {
                                         @Override
