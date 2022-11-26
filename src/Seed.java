@@ -3,7 +3,6 @@
  */
 public class Seed {
     private final String name;
-    private final String type;
     private final int harvestTime;
     private final int waterNeeds;
     private final int waterLimit;
@@ -20,7 +19,6 @@ public class Seed {
     /**
      * The Seed class constructor.
      * @param name              The name of the seed.
-     * @param type              The type of the seed.
      * @param harvestTime       The harvest time of the seed.
      * @param waterNeeds        The minimum water level of the seed.
      * @param fertilizerNeeds   The minimum fertilizer level of the seed.
@@ -29,12 +27,13 @@ public class Seed {
      * @param cost              The cost of the seed.
      * @param baseSellingPrice  The base value of the seed.
      * @param expYield          The experience gained from harvest the crop from this seed.
+     * @param isFlower          Whether the seed is a flower.
+     * @param isTree            Whether the seed is a tree.
      */
-    public Seed(String name, String type, int harvestTime, int waterNeeds, int waterLimit,
+    public Seed(String name, int harvestTime, int waterNeeds, int waterLimit,
                 int fertilizerNeeds, int fertilizerLimit, int minProduce, int maxProduce,
                 int cost, int baseSellingPrice, float expYield, boolean isFlower, boolean isTree) {
         this.name = name;
-        this.type = type;
         this.harvestTime = harvestTime;
         this.waterNeeds = waterNeeds;
         this.waterLimit = waterLimit;
@@ -55,14 +54,6 @@ public class Seed {
      */
     public String getName() {
         return name;
-    }
-
-    /**
-     * Gets the type of the seed.
-     * @return  The type of the seed.
-     */
-    public String getType() {
-        return type;
     }
 
     /**
