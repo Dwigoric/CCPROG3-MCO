@@ -35,13 +35,14 @@ public class GameController {
                     return;
                 }
 
+                game.advanceDay();
+
                 if (game.getFarm().isAllWithered()) {
-                    gameView.endGame("All of your crops have died!", gameRestartListener);
+                    gameView.endGame("All of your crops have withered!", gameRestartListener);
 
                     return;
                 }
 
-                game.advanceDay();
                 gameView.resetActionPanel();
                 gameView.updateBottomPanel();
                 
