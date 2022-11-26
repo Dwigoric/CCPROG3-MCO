@@ -45,12 +45,21 @@ public class GameView {
     private ImageIcon imgTileApple = new ImageIcon("res/tile_apple.png");
 
     // Action Buttons GUI
-    private ImageIcon imgWater = new ImageIcon("res/water_button.png");
-    private ImageIcon imgFertilize = new ImageIcon("res/fertilize_button.png");
-    private ImageIcon imgHarvest = new ImageIcon("res/harvest_button.png");
-    private ImageIcon imgPlow = new ImageIcon("res/plow_button.png");
-    private ImageIcon imgShovel = new ImageIcon("res/shovel_button.png");
-    private ImageIcon imgPickaxe = new ImageIcon("res/pickaxe_button.png");
+    private ImageIcon imgWater = new ImageIcon("res/button_water.png");
+    private ImageIcon imgFertilize = new ImageIcon("res/button_fertilize.png");
+    private ImageIcon imgHarvest = new ImageIcon("res/button_harvest.png");
+    private ImageIcon imgPlow = new ImageIcon("res/button_plow.png");
+    private ImageIcon imgShovel = new ImageIcon("res/button_shovel.png");
+    private ImageIcon imgPickaxe = new ImageIcon("res/button_pickaxe.png");
+
+    private ImageIcon imgBtnTurnip = new ImageIcon("res/button_turnip.png");
+    private ImageIcon imgBtnCarrot = new ImageIcon("res/button_carrot.png");
+    private ImageIcon imgBtnPotato = new ImageIcon("res/button_potato.png");
+    private ImageIcon imgBtnRose = new ImageIcon("res/button_rose.png");
+    private ImageIcon imgBtnTulips = new ImageIcon("res/button_tulips.png");
+    private ImageIcon imgBtnSunflower = new ImageIcon("res/button_sunflower.png");
+    private ImageIcon imgBtnMango = new ImageIcon("res/button_mango.png");
+    private ImageIcon imgBtnApple = new ImageIcon("res/button_apple.png");
     
     public GameView() {
         this.mainFrame = new JFrame("MyFarm");
@@ -238,6 +247,30 @@ public class GameView {
             case "pickaxe":
                 actionBtn.setIcon(scaleImage(imgPickaxe, 95, 95));
                 break;
+                case "Turnip":
+                actionBtn.setIcon(scaleImage(imgBtnTurnip, 116, 94));
+                break;
+            case "Carrot":
+                actionBtn.setIcon(scaleImage(imgBtnCarrot, 116, 94));
+                break;
+            case "Potato":
+                actionBtn.setIcon(scaleImage(imgBtnPotato, 116, 94));
+                break;
+            case "Rose":
+                actionBtn.setIcon(scaleImage(imgBtnRose, 116, 94));
+                break;
+            case "Tulips":
+                actionBtn.setIcon(scaleImage(imgBtnTulips, 116, 94));
+                break;
+            case "Sunflower":
+                actionBtn.setIcon(scaleImage(imgBtnSunflower, 116, 94));
+                break;
+            case "Mango":
+                actionBtn.setIcon(scaleImage(imgBtnMango, 116, 94));
+                break;
+            case "Apple":
+                actionBtn.setIcon(scaleImage(imgBtnApple, 116, 94));
+                break;
             default:
                 // none
                 break;
@@ -247,43 +280,47 @@ public class GameView {
     }
 
     public void setTileIcon(String s, int row, int col) {
-        switch(s) {
-            case "unplowed":
-                this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileUnplowed, 116, 94));
-                break;
-            case "plowed":
-                this.farmTilesBtn[row][col].setIcon(scaleImage(imgTilePlowed, 116, 94));
-                break;
-            case "rock":
-                this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileRock, 116, 94));
-                break;
-            case "withered":
-                this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileWithered, 116, 94));
-                break;
-            case "Turnip":
-                this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileTurnip, 116, 94));
-                break;
-            case "Carrot":
-                this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileCarrot, 116, 94));
-                break;
-            case "Potato":
-                this.farmTilesBtn[row][col].setIcon(scaleImage(imgTilePotato, 116, 94));
-                break;
-            case "Rose":
-                this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileRose, 116, 94));
-                break;
-            case "Tulips":
-                this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileTulips, 116, 94));
-                break;
-            case "Sunflower":
-                this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileSunflower, 116, 94));
-                break;
-            case "Mango":
-                this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileMango, 116, 94));
-                break;
-            case "Apple":
-                this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileApple, 116, 94));
-                break;
+        if ((boolean) this.farmTilesBtn[row][col].getClientProperty("isSelected")) {
+
+        } else {
+            switch(s) {
+                case "unplowed":
+                    this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileUnplowed, 116, 94));
+                    break;
+                case "plowed":
+                    this.farmTilesBtn[row][col].setIcon(scaleImage(imgTilePlowed, 116, 94));
+                    break;
+                case "rock":
+                    this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileRock, 116, 94));
+                    break;
+                case "withered":
+                    this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileWithered, 116, 94));
+                    break;
+                case "Turnip":
+                    this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileTurnip, 116, 94));
+                    break;
+                case "Carrot":
+                    this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileCarrot, 116, 94));
+                    break;
+                case "Potato":
+                    this.farmTilesBtn[row][col].setIcon(scaleImage(imgTilePotato, 116, 94));
+                    break;
+                case "Rose":
+                    this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileRose, 116, 94));
+                    break;
+                case "Tulips":
+                    this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileTulips, 116, 94));
+                    break;
+                case "Sunflower":
+                    this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileSunflower, 116, 94));
+                    break;
+                case "Mango":
+                    this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileMango, 116, 94));
+                    break;
+                case "Apple":
+                    this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileApple, 116, 94));
+                    break;
+            }
         }
     }
 
