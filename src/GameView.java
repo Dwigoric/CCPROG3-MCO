@@ -20,14 +20,20 @@ public class GameView {
     private JLabel farmerTypeLbl = new JLabel();
     private JLabel dayLbl = new JLabel();
 
-    private JButton sleepBtn = new JButton("Sleep");
-    private JButton upgradeFarmerBtn = new JButton("Upgrade Farmer");
+    private JButton sleepBtn = new JButton();
+    private JButton upgradeFarmerBtn = new JButton();
+    private JButton bookBtn = new JButton();
 
     // Farm panel elements
     JButton[][] farmTilesBtn = new JButton[5][10];
     ActionListener farmTileListener;
 
     // GUI elements
+    // Info GUI
+    private ImageIcon imgBtnSleep = new ImageIcon("res/button_sleep.png");
+    private ImageIcon imgBtnUpgrade = new ImageIcon("res/button_upgrade.png");
+    private ImageIcon imgBtnBook = new ImageIcon("res/button_book.png");
+
     // Farm GUI
     private ImageIcon imgTileUnplowed = new ImageIcon("res/tile_unplowed.png");
     private ImageIcon imgTileUnplowedSelected = new ImageIcon("res/tile_unplowed_selected.png");
@@ -123,14 +129,21 @@ public class GameView {
         leftPanel.add(leftLeftPanel, BorderLayout.LINE_START);
         leftPanel.add(leftRightPanel, BorderLayout.LINE_END);
 
-        this.sleepBtn.setPreferredSize(new Dimension(292,25));
-        this.upgradeFarmerBtn.setPreferredSize(new Dimension(292,25));
+        this.sleepBtn.setPreferredSize(new Dimension(195,25));
+        this.sleepBtn.setIcon(scaleImage(imgBtnSleep, 195, 25));
+
+        this.upgradeFarmerBtn.setPreferredSize(new Dimension(195,25));
+        this.upgradeFarmerBtn.setIcon(scaleImage(imgBtnUpgrade, 195, 25));
+
+        this.bookBtn.setPreferredSize(new Dimension(195,25));
+        this.bookBtn.setIcon(scaleImage(imgBtnBook, 195, 25));
 
         rightPanel.setPreferredSize(new Dimension(600,25));
         rightPanel.setOpaque(false);
 
         rightPanel.add(sleepBtn);
         rightPanel.add(upgradeFarmerBtn);
+        rightPanel.add(bookBtn);
 
         mainPanel.add(leftPanel, BorderLayout.LINE_START);
         mainPanel.add(rightPanel, BorderLayout.LINE_END);
@@ -208,8 +221,11 @@ public class GameView {
 
     public void changeMiscListener(ActionListener s, ActionListener e) {
         this.sleepBtn.addActionListener(s);
+
         this.upgradeFarmerBtn.addActionListener(e);
         this.upgradeFarmerBtn.setEnabled(false);
+
+        //this.bookBtn.addActionListener(b);
     }
 
     public void changeFarmTileListener(ActionListener e, int row, int col) {
