@@ -3,7 +3,7 @@
  */
 public class Tile {
     private boolean isPlowed = false;
-    private boolean hasRock = false;
+    private boolean hasRock = true;
     private Crop crop = null;
 
     public Tile() {}

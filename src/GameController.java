@@ -1,8 +1,6 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.xml.transform.Templates;
-
 public class GameController {
     private final Game game;
     private final GameView gameView;
@@ -21,7 +19,7 @@ public class GameController {
                 game.reset();
                 gameView.reset();
 
-                gameView.initializeMiscListener(sleepListener, upgradeFarmerListener);
+                gameView.changeMiscListener(sleepListener, upgradeFarmerListener);
                 updateAllFarmTiles();
                 updateNorthPanel();
                 gameView.updateBottomPanel();
@@ -32,19 +30,13 @@ public class GameController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (game.getPlayer().getObjectCoins() < 5 && !game.getFarm().hasCrop()) {
-                    gameView.endGame(
-                            "You have no more crops and no more money to buy more!",
-                            gameRestartListener
-                    );
+                    gameView.endGame("You have no more crops and no more money to buy more!", gameRestartListener);
 
                     return;
                 }
 
                 if (game.getFarm().isAllWithered()) {
-                    gameView.endGame(
-                            "All of your crops have died!",
-                            gameRestartListener
-                    );
+                    gameView.endGame("All of your crops have died!", gameRestartListener);
 
                     return;
                 }
@@ -52,8 +44,9 @@ public class GameController {
                 game.advanceDay();
                 gameView.resetActionPanel();
                 gameView.updateBottomPanel();
-                updateAllFarmTiles();
+                
                 updateNorthPanel();
+                updateAllFarmTiles();
             }
         };
 
@@ -65,17 +58,9 @@ public class GameController {
             }
         };
 
-        this.gameView.initializeMiscListener(this.sleepListener, this.upgradeFarmerListener);
+        this.gameView.changeMiscListener(this.sleepListener, this.upgradeFarmerListener);
         this.updateAllFarmTiles();
         this.updateNorthPanel();
-    }
-
-    private void updateAllFarmTiles() {
-        for(int i = 0; i < 5; i++) {
-            for(int j = 0; j < 10; j++) {
-                this.updateTile(i, j);
-            }
-        }
     }
 
     private void updateNorthPanel() {
@@ -83,6 +68,14 @@ public class GameController {
                 game.getPlayer().getObjectCoins(), game.getPlayer().getFarmerType(),
                 game.getDay());
         gameView.setUpgradeFarmerButtonEnabled(game.getPlayer().canUpgradeFarmer(game.getFarmerTypeList()));
+    }
+
+    private void updateAllFarmTiles() {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 10; j++) {
+                this.updateTile(i, j);
+            }
+        }
     }
 
     private void updateTile(int row, int col) {
@@ -99,9 +92,8 @@ public class GameController {
             }
         };
 
-        // change to change img
         if(tile.hasRock()) { // Tile has rock; show pickaxe
-            this.gameView.setTileText("rock", row, col);
+            this.gameView.setTileIcon("rock", row, col);
             this.gameView.changeFarmTileListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent event) {
@@ -112,7 +104,11 @@ public class GameController {
                             @Override
                             public void actionPerformed(ActionEvent event) {
                                 game.getPlayer().pickaxe(row, col);
+
+                                gameView.resetActionPanel();
                                 updateTile(row, col);
+                                updateNorthPanel();
+                                gameView.updateBottomPanel();
                             }
                         }, "pickaxe");
                     }
@@ -125,18 +121,11 @@ public class GameController {
                 }
             }, row, col);
 
-        } else if (tile.getCrop() != null) { // Tile has crop; show water, fertilize, shovel
+        } else if (tile.getCrop() != null) { // Tile has crop; show water, fertilize, shovel, harvest*
             Crop crop = tile.getCrop();
 
-            // template
-            if (crop.getSeed().getName() == "Apple" || crop.getSeed().getName() == "Mango") {
-                gameView.setTileText(crop.isAlive() ? crop.getSeed().getName() : "withered", row, col);
-                
-            } else {
-                gameView.setTileIcon(crop.getSeed().getName(), row, col);
-            }
-
             if (crop.isAlive()) {
+                gameView.setTileIcon(crop.getSeed().getName(), row, col);
                 this.gameView.changeFarmTileListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent event) {
@@ -189,6 +178,8 @@ public class GameController {
                         updateNorthPanel();
                     }
                 }, row, col);
+            } else { // Crop is withered; show shovel
+                gameView.setTileIcon("withered", row, col);
             }
 
         } else if (tile.isPlowed()) { // Tile is plowed; show all possible seed that can be planted
@@ -321,7 +312,7 @@ public class GameController {
                 }
             }, row, col);
 
-        } else { // Tile is unplowed; no action buttons
+        } else { // Tile is unplowed; show plow, shovel
             gameView.setTileIcon("unplowed", row, col);
             this.gameView.changeFarmTileListener(new ActionListener() {
                 @Override
@@ -349,6 +340,6 @@ public class GameController {
             }, row, col);
         }
 
-        //gameView.setFarmTileSelected(row, col);
+
     }
 }

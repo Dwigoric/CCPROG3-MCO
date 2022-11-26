@@ -6,9 +6,14 @@ import java.util.ArrayList;
 public class Player {
     private final Farm farm;
 
+    // private int level = 0;
+    // private float experience = 0;
+    // private float objectCoins = 100;
+
+    // temp
     private int level = 0;
-    private float experience = 0;
-    private float objectCoins = 100;
+    private float experience = 1000000;
+    private float objectCoins = 100000;
 
     private int farmerTypeLevel = 0;
     private FarmerType farmerType;
@@ -236,6 +241,10 @@ public class Player {
     }
 
     public boolean canUpgradeFarmer(ArrayList<FarmerType> farmerTypes) {
+        if (this.farmerTypeLevel == 3) {
+            return false;
+        }
+
         FarmerType newType = farmerTypes.get(this.farmerTypeLevel + 1);
 
         return this.farmerTypeLevel + 1 < farmerTypes.size() &&
