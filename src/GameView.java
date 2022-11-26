@@ -38,17 +38,28 @@ public class GameView {
     private ImageIcon imgTileUnplowed = new ImageIcon("res/tile_unplowed.png");
     private ImageIcon imgTileUnplowedSelected = new ImageIcon("res/tile_unplowed_selected.png");
     private ImageIcon imgTilePlowed = new ImageIcon("res/tile_plowed.png");
+    private ImageIcon imgTilePlowedSelected = new ImageIcon("res/tile_plowed_selected.png");
     private ImageIcon imgTileRock = new ImageIcon("res/tile_rock.png");
+    private ImageIcon imgTileRockSelected = new ImageIcon("res/tile_rock_selected.png");
     private ImageIcon imgTileWithered = new ImageIcon("res/tile_withered.png");
+    private ImageIcon imgTileWitheredSelected = new ImageIcon("res/tile_withered_selected.png");
 
     private ImageIcon imgTileTurnip = new ImageIcon("res/tile_turnip.png");
+    private ImageIcon imgTileTurnipSelected = new ImageIcon("res/tile_turnip_selected.png");
     private ImageIcon imgTileCarrot = new ImageIcon("res/tile_carrot.png");
+    private ImageIcon imgTileCarrotSelected = new ImageIcon("res/tile_carrot_selected.png");
     private ImageIcon imgTilePotato = new ImageIcon("res/tile_potato.png");
+    private ImageIcon imgTilePotatoSelected = new ImageIcon("res/tile_potato_selected.png");
     private ImageIcon imgTileRose = new ImageIcon("res/tile_rose.png");
+    private ImageIcon imgTileRoseSelected = new ImageIcon("res/tile_rose_selected.png");
     private ImageIcon imgTileTulips = new ImageIcon("res/tile_tulips.png");
+    private ImageIcon imgTileTulipsSelected = new ImageIcon("res/tile_tulips_selected.png");
     private ImageIcon imgTileSunflower = new ImageIcon("res/tile_sunflower.png");
+    private ImageIcon imgTileSunflowerSelected = new ImageIcon("res/tile_sunflower_selected.png");
     private ImageIcon imgTileMango = new ImageIcon("res/tile_mango.png");
+    private ImageIcon imgTileMangoSelected = new ImageIcon("res/tile_mango_selected.png");
     private ImageIcon imgTileApple = new ImageIcon("res/tile_apple.png");
+    private ImageIcon imgTileAppleSelected = new ImageIcon("res/tile_apple_selected.png");
 
     // Action Buttons GUI
     private ImageIcon imgWater = new ImageIcon("res/button_water.png");
@@ -219,13 +230,17 @@ public class GameView {
         this.actionPanel.removeAll();
     }
 
-    public void changeMiscListener(ActionListener s, ActionListener e) {
-        this.sleepBtn.addActionListener(s);
+    public void initializeMiscListener(ActionListener sleepListener, ActionListener upgradeListener, ActionListener bookListener) {
+        this.sleepBtn.addActionListener(sleepListener);
 
-        this.upgradeFarmerBtn.addActionListener(e);
+        this.upgradeFarmerBtn.addActionListener(upgradeListener);
         this.upgradeFarmerBtn.setEnabled(false);
 
-        //this.bookBtn.addActionListener(b);
+        this.bookBtn.addActionListener(bookListener);
+    }
+
+    public void updateUpgradeListener(ActionListener actionListener) {
+        this.upgradeFarmerBtn.addActionListener(actionListener);
     }
 
     public void changeFarmTileListener(ActionListener e, int row, int col) {
@@ -297,7 +312,44 @@ public class GameView {
 
     public void setTileIcon(String s, int row, int col) {
         if ((boolean) this.farmTilesBtn[row][col].getClientProperty("isSelected")) {
-
+            switch(s) {
+                case "unplowed":
+                    this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileUnplowedSelected, 116, 94));
+                    break;
+                case "plowed":
+                    this.farmTilesBtn[row][col].setIcon(scaleImage(imgTilePlowedSelected, 116, 94));
+                    break;
+                case "rock":
+                    this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileRockSelected, 116, 94));
+                    break;
+                case "withered":
+                    this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileWitheredSelected, 116, 94));
+                    break;
+                case "Turnip":
+                    this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileTurnipSelected, 116, 94));
+                    break;
+                case "Carrot":
+                    this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileCarrotSelected, 116, 94));
+                    break;
+                case "Potato":
+                    this.farmTilesBtn[row][col].setIcon(scaleImage(imgTilePotatoSelected, 116, 94));
+                    break;
+                case "Rose":
+                    this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileRoseSelected, 116, 94));
+                    break;
+                case "Tulips":
+                    this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileTulipsSelected, 116, 94));
+                    break;
+                case "Sunflower":
+                    this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileSunflowerSelected, 116, 94));
+                    break;
+                case "Mango":
+                    this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileMangoSelected, 116, 94));
+                    break;
+                case "Apple":
+                    this.farmTilesBtn[row][col].setIcon(scaleImage(imgTileAppleSelected, 116, 94));
+                    break;
+            }
         } else {
             switch(s) {
                 case "unplowed":
@@ -344,9 +396,27 @@ public class GameView {
         return new ImageIcon((i.getImage()).getScaledInstance(width, height, java.awt.Image.SCALE_DEFAULT));
     }
 
-    // temp
-    public void setTileText(String s, int row, int col) {
-        this.farmTilesBtn[row][col].setText(s);
+    public void showBook() {
+        JFrame bookFrame = new JFrame();
+        bookFrame = new JFrame("Book");
+
+        bookFrame.setSize(1200, 675);
+        bookFrame.setResizable(false);
+        bookFrame.setLocationRelativeTo(null);
+        bookFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        bookFrame.setLayout(new BorderLayout(5,5));
+        bookFrame.setVisible(true);
+    }
+
+    public void setIsSelected(int row, int col) {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 10; j++) {
+                farmTilesBtn[i][j].putClientProperty("isSelected", false);
+            }
+        }
+
+        farmTilesBtn[row][col].putClientProperty("isSelected", true);
     }
 
     public void setUpgradeFarmerButtonEnabled(boolean enabled) {

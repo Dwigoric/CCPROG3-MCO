@@ -8,6 +8,7 @@ public class GameController {
     // Misc listeners
     private final ActionListener sleepListener;
     private final ActionListener upgradeFarmerListener;
+    private final ActionListener bookListener;
 
     public GameController(Game game, GameView gameView) {
         this.game = game;
@@ -19,7 +20,7 @@ public class GameController {
                 game.reset();
                 gameView.reset();
 
-                gameView.changeMiscListener(sleepListener, upgradeFarmerListener);
+                gameView.updateUpgradeListener(upgradeFarmerListener);
                 updateAllFarmTiles();
                 updateNorthPanel();
                 gameView.updateBottomPanel();
@@ -58,8 +59,15 @@ public class GameController {
                 updateNorthPanel();
             }
         };
+        
+        this.bookListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameView.showBook();
+            }
+        };
 
-        this.gameView.changeMiscListener(this.sleepListener, this.upgradeFarmerListener);
+        this.gameView.initializeMiscListener(this.sleepListener, this.upgradeFarmerListener, this.bookListener);
         this.updateAllFarmTiles();
         this.updateNorthPanel();
     }
@@ -87,7 +95,8 @@ public class GameController {
                 game.getPlayer().shovel(row, col);
 
                 gameView.resetActionPanel();
-                updateTile(row, col);
+                gameView.setIsSelected(row, col);
+                updateAllFarmTiles();
                 updateNorthPanel();
                 gameView.updateBottomPanel();
             }
@@ -107,7 +116,8 @@ public class GameController {
                                 game.getPlayer().pickaxe(row, col);
 
                                 gameView.resetActionPanel();
-                                updateTile(row, col);
+                                gameView.setIsSelected(row, col);
+                                updateAllFarmTiles();
                                 updateNorthPanel();
                                 gameView.updateBottomPanel();
                             }
@@ -117,7 +127,8 @@ public class GameController {
                     if (game.getPlayer().getObjectCoins() >= 7) gameView.addActionButton(shovelButtonAL, "shovel");
 
                     gameView.updateBottomPanel();
-                    updateTile(row, col);
+                    gameView.setIsSelected(row, col);
+                    updateAllFarmTiles();
                     updateNorthPanel();
                 }
             }, row, col);
@@ -139,7 +150,8 @@ public class GameController {
                                 public void actionPerformed(ActionEvent event) {
                                     game.getPlayer().water(row, col);
 
-                                    updateTile(row, col);
+                                    gameView.setIsSelected(row, col);
+                                    updateAllFarmTiles();
                                     updateNorthPanel();
                                 }
                             }, "water");
@@ -152,7 +164,8 @@ public class GameController {
                                 public void actionPerformed(ActionEvent event) {
                                     game.getPlayer().fertilize(row, col);
 
-                                    updateTile(row, col);
+                                    gameView.setIsSelected(row, col);
+                                    updateAllFarmTiles();
                                     updateNorthPanel();
                                 }
                             }, "fertilizer");
@@ -165,7 +178,8 @@ public class GameController {
                                     game.getPlayer().harvest(row, col);
 
                                     gameView.resetActionPanel();
-                                    updateTile(row, col);
+                                    gameView.setIsSelected(row, col);
+                                    updateAllFarmTiles();
                                     updateNorthPanel();
                                     gameView.updateBottomPanel();
                                 }
@@ -175,7 +189,8 @@ public class GameController {
                         if (game.getPlayer().getObjectCoins() >= 7) gameView.addActionButton(shovelButtonAL, "shovel");
 
                         gameView.updateBottomPanel();
-                        updateTile(row, col);
+                        gameView.setIsSelected(row, col);
+                        updateAllFarmTiles();
                         updateNorthPanel();
                     }
                 }, row, col);
@@ -197,7 +212,8 @@ public class GameController {
                             @Override
                             public void actionPerformed(ActionEvent event) {
                                 game.getPlayer().plant(row, col, game.getSeed(0));
-                                updateTile(row, col);
+                                gameView.setIsSelected(row, col);
+                                updateAllFarmTiles();
 
                                 updateNorthPanel();
                                 gameView.resetActionPanel();
@@ -210,7 +226,8 @@ public class GameController {
                             @Override
                             public void actionPerformed(ActionEvent event) {
                                 game.getPlayer().plant(row, col, game.getSeed(3));
-                                updateTile(row, col);
+                                gameView.setIsSelected(row, col);
+                                updateAllFarmTiles();
 
                                 updateNorthPanel();
                                 gameView.resetActionPanel();
@@ -225,7 +242,8 @@ public class GameController {
                             @Override
                             public void actionPerformed(ActionEvent event) {
                                 game.getPlayer().plant(row, col, game.getSeed(1));
-                                updateTile(row, col);
+                                gameView.setIsSelected(row, col);
+                                updateAllFarmTiles();
 
                                 updateNorthPanel();
                                 gameView.resetActionPanel();
@@ -238,7 +256,8 @@ public class GameController {
                             @Override
                             public void actionPerformed(ActionEvent event) {
                                 game.getPlayer().plant(row, col, game.getSeed(4));
-                                updateTile(row, col);
+                                gameView.setIsSelected(row, col);
+                                updateAllFarmTiles();
 
                                 updateNorthPanel();
                                 gameView.resetActionPanel();
@@ -252,7 +271,8 @@ public class GameController {
                                 @Override
                                 public void actionPerformed(ActionEvent event) {
                                     game.getPlayer().plant(row, col, game.getSeed(2));
-                                    updateTile(row, col);
+                                    gameView.setIsSelected(row, col);
+                                    updateAllFarmTiles();
 
                                     updateNorthPanel();
                                     gameView.resetActionPanel();
@@ -265,7 +285,8 @@ public class GameController {
                                 @Override
                                 public void actionPerformed(ActionEvent event) {
                                     game.getPlayer().plant(row, col, game.getSeed(5));
-                                    updateTile(row, col);
+                                    gameView.setIsSelected(row, col);
+                                    updateAllFarmTiles();
 
                                     updateNorthPanel();
                                     gameView.resetActionPanel();
@@ -279,7 +300,8 @@ public class GameController {
                                     @Override
                                     public void actionPerformed(ActionEvent event) {
                                         game.getPlayer().plant(row, col, game.getSeed(6));
-                                        updateTile(row, col);
+                                        gameView.setIsSelected(row, col);
+                                        updateAllFarmTiles();
 
                                         updateNorthPanel();
                                         gameView.resetActionPanel();
@@ -293,7 +315,8 @@ public class GameController {
                                         @Override
                                         public void actionPerformed(ActionEvent event) {
                                             game.getPlayer().plant(row, col, game.getSeed(7));
-                                            updateTile(row, col);
+                                            gameView.setIsSelected(row, col);
+                                            updateAllFarmTiles();
 
                                             updateNorthPanel();
                                             gameView.resetActionPanel();
@@ -307,7 +330,8 @@ public class GameController {
 
                     if (game.getPlayer().getObjectCoins() >= 7) gameView.addActionButton(shovelButtonAL, "shovel");
 
-                    updateTile(row, col);
+                    gameView.setIsSelected(row, col);
+                    updateAllFarmTiles();
                     updateNorthPanel();
                     gameView.updateBottomPanel();
                 }
@@ -324,7 +348,8 @@ public class GameController {
                         @Override
                         public void actionPerformed(ActionEvent event) {
                             game.getPlayer().plow(row, col);
-                            updateTile(row, col);
+                            gameView.setIsSelected(row, col);
+                            updateAllFarmTiles();
 
                             gameView.resetActionPanel();
                             updateNorthPanel();
@@ -334,7 +359,8 @@ public class GameController {
 
                     if (game.getPlayer().getObjectCoins() >= 7) gameView.addActionButton(shovelButtonAL, "shovel");
 
-                    updateTile(row, col);
+                    gameView.setIsSelected(row, col);
+                    updateAllFarmTiles();
                     updateNorthPanel();
                     gameView.updateBottomPanel();
                 }
