@@ -6,14 +6,9 @@ import java.util.ArrayList;
 public class Player {
     private final Farm farm;
 
-    // private int level = 0;
-    // private float experience = 0;
-    // private float objectCoins = 100;
-
-    // temp
     private int level = 0;
-    private float experience = 1000000;
-    private float objectCoins = 100000;
+    private float experience = 0;
+    private float objectCoins = 100;
 
     private int farmerTypeLevel = 0;
     private FarmerType farmerType;
