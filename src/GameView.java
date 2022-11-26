@@ -78,6 +78,9 @@ public class GameView {
     private ImageIcon imgBtnMango = new ImageIcon("res/button_mango.png");
     private ImageIcon imgBtnApple = new ImageIcon("res/button_apple.png");
     
+    // Table
+    private ImageIcon imgTable = new ImageIcon("res/table.png");
+
     public GameView() {
         this.mainFrame = new JFrame("MyFarm");
 
@@ -398,14 +401,20 @@ public class GameView {
 
     public void showBook() {
         JFrame bookFrame = new JFrame();
+        JLabel tableLbl = new JLabel();
+
+        tableLbl.setIcon(scaleImage(imgTable, 1200, 675));
+
         bookFrame = new JFrame("Book");
 
         bookFrame.setSize(1200, 675);
         bookFrame.setResizable(false);
         bookFrame.setLocationRelativeTo(null);
-        bookFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        bookFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
-        bookFrame.setLayout(new BorderLayout(5,5));
+        //bookFrame.setLayout(new BorderLayout(5,5));
+
+        bookFrame.add(tableLbl);
         bookFrame.setVisible(true);
     }
 
