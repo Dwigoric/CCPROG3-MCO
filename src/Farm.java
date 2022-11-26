@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * The Farm class.
  */
@@ -11,14 +13,20 @@ public class Farm {
      * @param rows      The number of rows in the farm.
      * @param columns   The number of columns in the farm.
      */
-    public Farm(int rows, int columns) {
+    public Farm(int rows, int columns, ArrayList<Integer[]> rocks) {
         this.tiles = new Tile[rows][columns];
         this.rows = rows;
         this.columns = columns;
 
+        int currRock = 0;
+
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.columns; j++) {
-                this.tiles[i][j] = new Tile();
+                boolean isRock = currRock < rocks.size() &&
+                        rocks.get(currRock)[0] == i && rocks.get(currRock)[1] == j;
+
+                this.tiles[i][j] = new Tile(isRock);
+                if (isRock) currRock++;
             }
         }
     }

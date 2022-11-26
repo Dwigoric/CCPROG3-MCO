@@ -6,6 +6,7 @@ import java.util.Arrays;
  * This class contains the main game loop.
  */
 public class Game {
+    private final ArrayList<Integer[]> rocks;
     private Player player;
     private Farm farm;
     private int day = 1;
@@ -43,8 +44,9 @@ public class Game {
     /**
      * Initializes the game.
      */
-    public Game() {
-        this.farm = new Farm(5, 10);
+    public Game(ArrayList<Integer[]> rocks) {
+        this.rocks = rocks;
+        this.farm = new Farm(5, 10, this.rocks);
         this.player = new Player(this.farm, farmerTypes.get(0));
     }
 
@@ -101,7 +103,7 @@ public class Game {
 
     public void reset() {
         this.day = 1;
-        this.farm = new Farm(5, 10);
+        this.farm = new Farm(5, 10, this.rocks);
         this.player = new Player(this.farm, farmerTypes.get(0));
     }
 }
