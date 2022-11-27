@@ -14,7 +14,7 @@ public class Driver {
         // Start reading rocks from input file
         Scanner rocksFile = new Scanner(new FileReader("rocks.txt"));
         ArrayList<Integer[]> rocks = new ArrayList<>();
-        while (rocksFile.hasNext()) {
+        while (rocksFile.hasNext() && rocks.size() < 30) {
             String[] rock = rocksFile.next().split(",");
             rocks.add(new Integer[] { Integer.parseInt(rock[0]), Integer.parseInt(rock[1]) });
         }
