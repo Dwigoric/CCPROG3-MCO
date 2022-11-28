@@ -194,7 +194,7 @@ public class GameView {
         this.actionPanel.setBackground(Color.decode("#313131"));
         this.actionPanel.setOpaque(true);
 
-        this.southPanel = new JPanel(new BorderLayout());
+        this.southPanel = new JPanel(new FlowLayout());
         this.southPanel.setPreferredSize(new Dimension(1200, 100));
         this.southPanel.setBackground(Color.decode("#313131"));
         this.southPanel.setOpaque(true);
@@ -242,6 +242,26 @@ public class GameView {
 
     public void resetActionPanel() {
         this.actionPanel.removeAll();
+    }
+
+    public void showHarvestResultsPanel(float finalPrice, Crop crop){
+        JLabel resultsLbl = new JLabel();
+        resultsLbl.setForeground(Color.white);
+
+        resultsLbl.setText("Harvested " + crop.getProduce() + " " + crop.getSeed().getName() + 
+            " and sold for " + finalPrice + " ObjectCoins");
+
+        
+        this.southPanel.add(resultsLbl);
+
+        this.mainPanel.remove(this.actionPanel);
+        this.mainPanel.add(this.southPanel, BorderLayout.PAGE_END);
+        this.mainFrame.revalidate();
+        this.mainFrame.repaint();
+    }
+
+    public void resetSouthPanel() {
+        this.southPanel.removeAll();
     }
 
     public void initializeMiscListener(ActionListener sleepListener, ActionListener upgradeListener, ActionListener bookListener) {
@@ -422,8 +442,6 @@ public class GameView {
         bookFrame.setResizable(false);
         bookFrame.setLocationRelativeTo(null);
         bookFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        
-        //bookFrame.setLayout(new BorderLayout(5,5));
 
         bookFrame.add(tableLbl);
         bookFrame.setVisible(true);

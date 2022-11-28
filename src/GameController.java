@@ -75,9 +75,11 @@ public class GameController {
     }
 
     private void updateNorthPanel() {
-        gameView.updatePlayerInfo(game.getPlayer().getLevel(), game.getPlayer().getExperience(), game.getPlayer().getObjectCoins(), 
-            game.getFarmerTypeList(), game.getPlayer().getFarmerTypeLvl(),
-            game.getDay());
+        Player player = game.getPlayer();
+
+        gameView.updatePlayerInfo(player.getLevel(), player.getExperience(), player.getObjectCoins(), 
+            game.getFarmerTypeList(), player.getFarmerTypeLvl(), game.getDay());
+
         gameView.setUpgradeFarmerButtonEnabled(game.getPlayer().canUpgradeFarmer(game.getFarmerTypeList()));
     }
 
@@ -144,6 +146,7 @@ public class GameController {
                     @Override
                     public void actionPerformed(ActionEvent event) {
                         gameView.resetActionPanel();
+                        gameView.resetSouthPanel();
 
                         Tile farmTile = game.getFarm().getTile(row, col);
                         if (farmTile.getCrop().getAge() != farmTile.getCrop().getSeed().getHarvestTime()) {
@@ -177,7 +180,8 @@ public class GameController {
                             gameView.addActionButton(new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent event) {
-                                    game.getPlayer().harvest(row, col);
+                                    Crop crop = game.getFarm().getTile(row, col).getCrop();
+                                    gameView.showHarvestResultsPanel(game.getPlayer().harvest(row, col), crop);
 
                                     gameView.resetActionPanel();
                                     gameView.setIsSelected(row, col);
@@ -188,7 +192,9 @@ public class GameController {
                             }, "harvest");
                         }
 
-                        if (game.getPlayer().getObjectCoins() >= 7) gameView.addActionButton(shovelButtonAL, "shovel");
+                        if (game.getPlayer().getObjectCoins() >= 7) {
+                            gameView.addActionButton(shovelButtonAL, "shovel");
+                        }
 
                         gameView.updateBottomPanel();
                         gameView.setIsSelected(row, col);
@@ -205,11 +211,12 @@ public class GameController {
             this.gameView.changeFarmTileListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent event) {
+                    Player player = game.getPlayer();
+                    int seedCostReduction = player.getFarmerType().getSeedCostReduction();
                     gameView.resetActionPanel();
-                    int seedCostReduction = game.getPlayer().getFarmerType().getSeedCostReduction();
-
+                    gameView.resetSouthPanel();
                     // Add Plant action to seeds that can be bought with the current objectcoins only
-                    if (game.getPlayer().getObjectCoins() >= 5 - seedCostReduction) {
+                    if (player.getObjectCoins() >= 5 - seedCostReduction) {
                         // Turnip
                         gameView.addActionButton(new ActionListener() {
                             @Override
@@ -220,6 +227,7 @@ public class GameController {
 
                                 updateNorthPanel();
                                 gameView.resetActionPanel();
+                                gameView.resetSouthPanel();
                                 gameView.updateBottomPanel();
                             }
                         }, game.getSeed(0).getName());
@@ -234,12 +242,13 @@ public class GameController {
 
                                 updateNorthPanel();
                                 gameView.resetActionPanel();
+                                gameView.resetSouthPanel();
                                 gameView.updateBottomPanel();
                             }
                         }, game.getSeed(3).getName());
                     }
 
-                    if (game.getPlayer().getObjectCoins() >= 10 - seedCostReduction) {
+                    if (player.getObjectCoins() >= 10 - seedCostReduction) {
                         // Carrot
                         gameView.addActionButton(new ActionListener() {
                             @Override
@@ -250,6 +259,7 @@ public class GameController {
 
                                 updateNorthPanel();
                                 gameView.resetActionPanel();
+                                gameView.resetSouthPanel();
                                 gameView.updateBottomPanel();
                             }
                         }, game.getSeed(1).getName());
@@ -264,6 +274,7 @@ public class GameController {
 
                                 updateNorthPanel();
                                 gameView.resetActionPanel();
+                                gameView.resetSouthPanel();
                                 gameView.updateBottomPanel();
                             }
                         }, game.getSeed(4).getName());
@@ -279,6 +290,7 @@ public class GameController {
 
                                     updateNorthPanel();
                                     gameView.resetActionPanel();
+                                    gameView.resetSouthPanel();
                                     gameView.updateBottomPanel();
                                 }
                             }, game.getSeed(2).getName());
@@ -293,6 +305,7 @@ public class GameController {
 
                                     updateNorthPanel();
                                     gameView.resetActionPanel();
+                                    gameView.resetSouthPanel();
                                     gameView.updateBottomPanel();
                                 }
                             }, game.getSeed(5).getName());
@@ -308,6 +321,7 @@ public class GameController {
 
                                         updateNorthPanel();
                                         gameView.resetActionPanel();
+                                        gameView.resetSouthPanel();
                                         gameView.updateBottomPanel();
                                     }
                                 }, game.getSeed(6).getName());
@@ -323,6 +337,7 @@ public class GameController {
 
                                             updateNorthPanel();
                                             gameView.resetActionPanel();
+                                            gameView.resetSouthPanel();
                                             gameView.updateBottomPanel();
                                         }
                                     }, game.getSeed(7).getName());
@@ -346,6 +361,7 @@ public class GameController {
                 @Override
                 public void actionPerformed(ActionEvent event) {
                     gameView.resetActionPanel();
+                    gameView.resetSouthPanel();
 
                     gameView.addActionButton(new ActionListener() {
                         @Override
@@ -355,6 +371,7 @@ public class GameController {
                             updateAllFarmTiles();
 
                             gameView.resetActionPanel();
+                            gameView.resetSouthPanel();
                             updateNorthPanel();
                             gameView.updateBottomPanel();
                         }

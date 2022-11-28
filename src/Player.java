@@ -120,9 +120,9 @@ public class Player {
      * Harvests a crop from a tile, if applicable.
      * @param row       The row of the tile.
      * @param column    The column of the tile.
-     * @return  True if the crop, if present, was successfully harvested, false otherwise.
+     * @return  final price if crop was successfully harvested, 0 otherwise.
      */
-    public boolean harvest(int row, int column) {
+    public float harvest(int row, int column) {
         int WaterBonusLimit;
         int FertilizerBonusLimit;
         
@@ -132,12 +132,12 @@ public class Player {
 
         Tile tile = this.farm.getTile(row, column);
         if (tile.getCrop() == null) {
-            return false;
+            return 0;
         }
 
         Crop crop = tile.getCrop();
         if (crop.isHarvestReady() == false) {
-            return false;
+            return 0;
         }
 
         /* Selling Price Computation */
@@ -163,10 +163,8 @@ public class Player {
         this.addCoins(finalPrice);
         this.addExperience(crop.getSeed().getExpYield());
     
-        System.out.println("  [MESSAGE] Harvested " + tile.getCrop().getProduce() + " " +
-                            tile.getCrop().getSeed().getName() + " and sold for " + finalPrice + " ObjectCoins");
         tile.harvest();
-        return true;
+        return finalPrice;
     }
 
     public boolean pickaxe(int row, int column) {
