@@ -183,12 +183,13 @@ public class Player {
 
     public boolean shovel(int row, int column) {
         Tile tile = this.farm.getTile(row, column);
-        Crop crop = tile.getCrop();
 
-        if (this.objectCoins < 7) return false;
+        if (this.objectCoins < 7) {
+            return false;
+        }
+
         this.deductCoins(7);
-
-        if (crop != null) this.farm.reset(row, column);
+        this.farm.reset(row, column);
 
         return true;
     }
