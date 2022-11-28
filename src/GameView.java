@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -199,10 +200,20 @@ public class GameView {
         this.southPanel.setOpaque(true);
     }
 
-    public void updatePlayerInfo(int level, float experience, float objectCoins, FarmerType farmerType, int day) {
+    public void updatePlayerInfo(int level, float experience, float objectCoins, ArrayList<FarmerType> farmerTypeList, int farmerTypeLevel, int day) {
         this.levelAndExperienceLbl.setText("Level: " + level + " (" + experience + ")");
         this.objectCoinsLbl.setText("ObjectCoins: " + objectCoins);
-        this.farmerTypeLbl.setText(farmerType.getTypeName());
+
+        FarmerType currFarmerType = farmerTypeList.get(farmerTypeLevel);
+
+        if (farmerTypeLevel == 3) {
+            this.farmerTypeLbl.setText(currFarmerType.getTypeName() + " (MAX)");
+        } else {
+            this.farmerTypeLbl.setText(currFarmerType.getTypeName() + 
+            " (Next: Lvl: " + farmerTypeList.get(farmerTypeLevel + 1).getLevelRequirement() +
+            " /Cost: " + farmerTypeList.get(farmerTypeLevel + 1).getRegistrationFee()  + ")");
+        }
+
         this.dayLbl.setText("Day " + day);
     }
 

@@ -75,9 +75,9 @@ public class GameController {
     }
 
     private void updateNorthPanel() {
-        gameView.updatePlayerInfo(game.getPlayer().getLevel(), game.getPlayer().getExperience(),
-                game.getPlayer().getObjectCoins(), game.getPlayer().getFarmerType(),
-                game.getDay());
+        gameView.updatePlayerInfo(game.getPlayer().getLevel(), game.getPlayer().getExperience(), game.getPlayer().getObjectCoins(), 
+            game.getFarmerTypeList(), game.getPlayer().getFarmerTypeLvl(),
+            game.getDay());
         gameView.setUpgradeFarmerButtonEnabled(game.getPlayer().canUpgradeFarmer(game.getFarmerTypeList()));
     }
 

@@ -7,8 +7,8 @@ public class Player {
     private final Farm farm;
 
     private int level = 0;
-    private float experience = 0;
-    private float objectCoins = 100;
+    private float experience = 1000000;
+    private float objectCoins = 1000000;
 
     private int farmerTypeLevel = 0;
     private FarmerType farmerType;
@@ -182,8 +182,6 @@ public class Player {
     }
 
     public boolean shovel(int row, int column) {
-        Tile tile = this.farm.getTile(row, column);
-
         if (this.objectCoins < 7) {
             return false;
         }
@@ -232,6 +230,8 @@ public class Player {
         if (this.canUpgradeFarmer(farmerTypes)) {
             this.farmerTypeLevel++;
             this.farmerType = farmerTypes.get(this.farmerTypeLevel);
+
+            this.objectCoins -= farmerTypes.get(this.farmerTypeLevel).getRegistrationFee();
         }
 
     }
@@ -273,5 +273,9 @@ public class Player {
 
     public FarmerType getFarmerType() {
         return this.farmerType;
+    }
+
+    public int getFarmerTypeLvl() {
+        return this.farmerTypeLevel;
     }
 }
