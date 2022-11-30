@@ -15,7 +15,8 @@ public class Player {
 
     /**
      * The Player class constructor.
-     * @param farm The farm owned by the player.
+     * @param farm          The farm owned by the player.
+     * @param farmerType    The farmer type of the player.
      */
     public Player(Farm farm, FarmerType farmerType) {
         this.farm = farm;
@@ -152,7 +153,7 @@ public class Player {
     /**
      * Checks if the player can upgrade their farmer type.
      * @param farmerTypes   The list of farmer types.
-     * @return  true if the player can upgrade their farmer type, false otherwise.
+     * @return  True if the player can upgrade their farmer type, false otherwise.
      */
     public boolean canUpgradeFarmer(ArrayList<FarmerType> farmerTypes) {
         if (this.farmerTypeLevel == 3) {

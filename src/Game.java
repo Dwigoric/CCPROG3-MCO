@@ -43,6 +43,7 @@ public class Game {
 
     /**
      * Initializes the game.
+     * @param rocks     The list of coordinates of tiles that have rocks.
      */
     public Game(ArrayList<Integer[]> rocks) {
         this.rocks = rocks;

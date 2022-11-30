@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Driver {
     /**
      * The main method.
-     * @param args                      The command line arguments.
+     * @param args  The command line arguments.
      * @throws FileNotFoundException    If the file is not found.
      */
     public static void main (String[] args) throws FileNotFoundException {

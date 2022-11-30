@@ -409,18 +409,18 @@ public class GameView {
      * @param state             The state of the farm tile.
      * @param row               The row of the farm tile button.
      * @param column            The column of the farm tile button.
-     * @param imgTileUnplowed   The image of the farm tile button when it is unplowed and selected.
-     * @param imgTilePlowed     The image of the farm tile button when it is plowed and selected.
-     * @param imgTileRock       The image of the farm tile button when it is a rock and selected.
-     * @param imgTileWithered   The image of the farm tile button when it is withered and selected.
-     * @param imgTileTurnip     The image of the farm tile button when it is a turnip and selected.
-     * @param imgTileCarrot     The image of the farm tile button when it is a carrot and selected.
-     * @param imgTilePotato     The image of the farm tile button when it is a potato and selected.
-     * @param imgTileRose       The image of the farm tile button when it is a rose and selected.
-     * @param imgTileTulips     The image of the farm tile button when it is tulips and selected.
-     * @param imgTileSunflower  The image of the farm tile button when it is a sunflower and selected.
-     * @param imgTileMango      The image of the farm tile button when it is a mango and selected.
-     * @param imgTileApple      The image of the farm tile button when it is an apple and selected.
+     * @param imgTileUnplowed   The image of the farm tile button when it is unplowed.
+     * @param imgTilePlowed     The image of the farm tile button when it is plowed.
+     * @param imgTileRock       The image of the farm tile button when it is a rock.
+     * @param imgTileWithered   The image of the farm tile button when it is withered.
+     * @param imgTileTurnip     The image of the farm tile button when it is a turnip.
+     * @param imgTileCarrot     The image of the farm tile button when it is a carrot.
+     * @param imgTilePotato     The image of the farm tile button when it is a potato.
+     * @param imgTileRose       The image of the farm tile button when it is a rose.
+     * @param imgTileTulips     The image of the farm tile button when it is tulips.
+     * @param imgTileSunflower  The image of the farm tile button when it is a sunflower.
+     * @param imgTileMango      The image of the farm tile button when it is a mango.
+     * @param imgTileApple      The image of the farm tile button when it is an apple.
      */
     private void setTileIconImage(String state, int row, int column,
                                   ImageIcon imgTileUnplowed, ImageIcon imgTilePlowed,

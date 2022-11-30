@@ -12,6 +12,7 @@ public class Farm {
      * Creates a new Farm.
      * @param rows      The number of rows in the farm.
      * @param columns   The number of columns in the farm.
+     * @param rocks     The list of coordinates of tiles that have rocks.
      */
     public Farm(int rows, int columns, ArrayList<Integer[]> rocks) {
         this.tiles = new Tile[rows][columns];
