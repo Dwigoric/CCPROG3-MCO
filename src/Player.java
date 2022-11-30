@@ -61,7 +61,7 @@ public class Player {
         }
 
         tile.plant(seed);
-        this.deductCoins(seed.cost() - this.farmerType.seedCostReduction());
+        this.objectCoins -= seed.cost() - this.farmerType.seedCostReduction();
     }
 
     /**
@@ -104,7 +104,7 @@ public class Player {
             return;
         }
 
-        this.deductCoins(10);
+        this.objectCoins -= 10;
         crop.fertilize();
         this.addExperience(4.0f);
     }
@@ -153,7 +153,7 @@ public class Player {
 
         /* Player Information Update */
         float finalPrice = (HarvestTotal + WaterBonus + FertilizerBonus) * (crop.getSeed().isFlower() ? 1.1f : 1.0f);
-        this.addCoins(finalPrice);
+        this.objectCoins += finalPrice;
         this.addExperience(crop.getSeed().expYield());
     
         tile.harvest();
@@ -168,7 +168,7 @@ public class Player {
     public void pickaxe(int row, int column) {
         if (this.farm.getTile(row, column).hasRock()) {
             this.farm.getTile(row, column).pickaxe();
-            this.deductCoins(50);
+            this.objectCoins -= 50;
             this.addExperience(15);
         }
     }
@@ -179,11 +179,7 @@ public class Player {
      * @param column    The column of the tile.
      */
     public void shovel(int row, int column) {
-        if (this.objectCoins < 7) {
-            return;
-        }
-
-        this.deductCoins(7);
+        this.objectCoins -= 7;
         this.farm.reset(row, column);
     }
 
@@ -194,26 +190,6 @@ public class Player {
     public void addExperience(float amount) {
         this.experience += amount;
         this.level = (int) this.experience / 100;
-    }
-
-    /**
-     * Adds coins to the player.
-     * @param amount    The amount of coins to add.
-     */
-    public void addCoins(float amount) {
-        this.objectCoins += amount;
-    }
-
-    /**
-     * Deducts coins from the player.
-     * @param amount    The amount of coins to deduct.
-     */
-    public void deductCoins(float amount) {
-        if (amount > this.objectCoins) {
-            return;
-        }
-
-        this.objectCoins -= amount;
     }
 
     /**
