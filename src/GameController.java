@@ -67,6 +67,7 @@ public class GameController {
         ActionListener bookListener = event -> gameView.showBook();
 
         this.gameView.initializeMiscListener(sleepListener, this.upgradeFarmerListener, bookListener);
+        this.updateUpgradeEligibility();
         this.updatePlayerInfo();
         this.updateAllFarmTiles();
     }
@@ -97,6 +98,13 @@ public class GameController {
     }
 
     /**
+     * Updates the state of the upgrade farmer button.
+     */
+    private void updateUpgradeEligibility() {
+        gameView.setUpgradeFarmerButtonEnabled(game.getPlayer().canUpgradeFarmer(game.getFarmerTypeList()));
+    }
+
+    /**
      * Updates a farm tile in the game view.
      * @param row       The row of the tile.
      * @param column    The column of the tile.
@@ -108,6 +116,7 @@ public class GameController {
 
             game.getPlayer().shovel(row, column);
 
+            updateUpgradeEligibility();
             updateTileSelection(row, column);
             updateTopBottomPanels();
         };
@@ -123,6 +132,7 @@ public class GameController {
 
                         game.getPlayer().pickaxe(row, column);
 
+                        updateUpgradeEligibility();
                         updateTileSelection(row, column);
                         updateTopBottomPanels();
                     }, "pickaxe");
@@ -147,6 +157,7 @@ public class GameController {
                         gameView.addActionButton(event12 -> {
                             game.getPlayer().water(row, column);
 
+                            updateUpgradeEligibility();
                             updateTileSelection(row, column);
                             updatePlayerInfo();
                         }, "water");
@@ -157,6 +168,7 @@ public class GameController {
                         gameView.addActionButton(event13 -> {
                             game.getPlayer().fertilize(row, column);
 
+                            updateUpgradeEligibility();
                             updateTileSelection(row, column);
                             updatePlayerInfo();
                         }, "fertilizer");
@@ -169,6 +181,7 @@ public class GameController {
 
                             gameView.updateFeedbackPanel(game.getPlayer().harvest(row, column), crop1);
 
+                            updateUpgradeEligibility();
                             updateTileSelection(row, column);
                             updateTopBottomPanels();
                         }, "harvest");
@@ -199,8 +212,9 @@ public class GameController {
                         gameView.resetBottomPanel();
 
                         game.getPlayer().plant(row, column, game.getSeed(0));
-                        updateTileSelection(row, column);
 
+                        updateUpgradeEligibility();
+                        updateTileSelection(row, column);
                         updateTopBottomPanels();
                     }, game.getSeed(0).name());
 
@@ -209,8 +223,9 @@ public class GameController {
                         gameView.resetBottomPanel();
 
                         game.getPlayer().plant(row, column, game.getSeed(3));
-                        updateTileSelection(row, column);
 
+                        updateUpgradeEligibility();
+                        updateTileSelection(row, column);
                         updateTopBottomPanels();
                     }, game.getSeed(3).name());
                 }
@@ -222,6 +237,7 @@ public class GameController {
 
                         game.getPlayer().plant(row, column, game.getSeed(1));
 
+                        updateUpgradeEligibility();
                         updateTileSelection(row, column);
                         updateTopBottomPanels();
                     }, game.getSeed(1).name());
@@ -232,6 +248,7 @@ public class GameController {
 
                         game.getPlayer().plant(row, column, game.getSeed(4));
 
+                        updateUpgradeEligibility();
                         updateTileSelection(row, column);
                         updateTopBottomPanels();
                     }, game.getSeed(4).name());
@@ -243,6 +260,7 @@ public class GameController {
 
                             game.getPlayer().plant(row, column, game.getSeed(2));
 
+                            updateUpgradeEligibility();
                             updateTileSelection(row, column);
                             updateTopBottomPanels();
                         }, game.getSeed(2).name());
@@ -253,6 +271,7 @@ public class GameController {
 
                             game.getPlayer().plant(row, column, game.getSeed(5));
 
+                            updateUpgradeEligibility();
                             updateTileSelection(row, column);
                             updateTopBottomPanels();
                         }, game.getSeed(5).name());
@@ -266,6 +285,7 @@ public class GameController {
 
                                 game.getPlayer().plant(row, column, game.getSeed(6));
 
+                                updateUpgradeEligibility();
                                 updateTileSelection(row, column);
                                 updateTopBottomPanels();
                             }, game.getSeed(6).name());
@@ -279,6 +299,7 @@ public class GameController {
 
                                     game.getPlayer().plant(row, column, game.getSeed(7));
 
+                                    updateUpgradeEligibility();
                                     updateTileSelection(row, column);
                                     updateTopBottomPanels();
                                 }, game.getSeed(7).name());
@@ -301,8 +322,9 @@ public class GameController {
                 gameView.addActionButton(event113 -> {
                     gameView.resetBottomPanel();
                     game.getPlayer().plow(row, column);
-                    updateTileSelection(row, column);
 
+                    updateUpgradeEligibility();
+                    updateTileSelection(row, column);
                     updateTopBottomPanels();
                 }, "plow");
 

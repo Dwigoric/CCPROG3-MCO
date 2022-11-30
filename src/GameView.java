@@ -333,7 +333,6 @@ public class GameView {
         this.sleepBtn.addActionListener(sleepListener);
 
         this.upgradeFarmerBtn.addActionListener(upgradeListener);
-        this.upgradeFarmerBtn.setEnabled(false);
 
         this.bookBtn.addActionListener(bookListener);
     }
