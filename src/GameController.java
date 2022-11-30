@@ -7,10 +7,7 @@ public class GameController {
 
     private final int[] currTileSelected = {-1, -1};
 
-    // Misc listeners
-    private final ActionListener sleepListener;
     private final ActionListener upgradeFarmerListener;
-    private final ActionListener bookListener;
 
     public GameController(Game game, GameView gameView) {
         this.game = game;
@@ -18,7 +15,7 @@ public class GameController {
 
         ActionListener gameRestartListener = new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent event) {
                 game.reset();
                 gameView.reset();
 
@@ -29,50 +26,39 @@ public class GameController {
             }
         };
 
-        this.sleepListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                gameView.resetBottomPanel();
+        // Misc listeners
+        ActionListener sleepListener = event -> {
+            gameView.resetBottomPanel();
 
-                if (game.getPlayer().getObjectCoins() < 5 - game.getPlayer().getFarmerType().getSeedCostReduction() &&
-                        !game.getFarm().hasCrop())
-                {
-                    gameView.showEndGame("You have no more crops and no more money to buy more!", gameRestartListener);
+            if (game.getPlayer().getObjectCoins() < 5 - game.getPlayer().getFarmerType().getSeedCostReduction() &&
+                    !game.getFarm().hasCrop()) {
+                gameView.showEndGame("You have no more crops and no more money to buy more!", gameRestartListener);
 
-                    return;
-                }
-
-                game.advanceDay();
-
-                if (game.getFarm().isAllWithered()) {
-                    gameView.showEndGame("All of your crops have withered!", gameRestartListener);
-
-                    return;
-                }
-
-                gameView.updateBottomPanel();
-                
-                updatePlayerInfo();
-                updateAllFarmTiles();
+                return;
             }
+
+            game.advanceDay();
+
+            if (game.getFarm().isAllWithered()) {
+                gameView.showEndGame("All of your crops have withered!", gameRestartListener);
+
+                return;
+            }
+
+            gameView.updateBottomPanel();
+
+            updatePlayerInfo();
+            updateAllFarmTiles();
         };
 
-        this.upgradeFarmerListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                game.getPlayer().upgradeFarmer(game.getFarmerTypeList());
-                updatePlayerInfo();
-            }
-        };
-        
-        this.bookListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                gameView.showBook();
-            }
+        this.upgradeFarmerListener = event -> {
+            game.getPlayer().upgradeFarmer(game.getFarmerTypeList());
+            updatePlayerInfo();
         };
 
-        this.gameView.initializeMiscListener(this.sleepListener, this.upgradeFarmerListener, this.bookListener);
+        ActionListener bookListener = event -> gameView.showBook();
+
+        this.gameView.initializeMiscListener(sleepListener, this.upgradeFarmerListener, bookListener);
         this.updatePlayerInfo();
         this.updateAllFarmTiles();
     }
@@ -98,44 +84,35 @@ public class GameController {
 
     private void updateTile(int row, int column) {
         Tile tile = this.game.getFarm().getTile(row, column);
-        ActionListener shovelButtonAL = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                gameView.resetBottomPanel();
-                
-                game.getPlayer().shovel(row, column);
+        ActionListener shovelButtonAL = event -> {
+            gameView.resetBottomPanel();
 
-                updateTileSelection(row, column);
-                updateTopBottomPanels();
-            }
+            game.getPlayer().shovel(row, column);
+
+            updateTileSelection(row, column);
+            updateTopBottomPanels();
         };
 
         if(tile.hasRock()) { /* Tile has rock; show pickaxe (if player has enough objectCoins) and shovel */
             this.gameView.setTileIcon("rock", row, column);
-            this.gameView.changeFarmTileListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent event) {
-                    gameView.resetBottomPanel();
+            this.gameView.changeFarmTileListener(event -> {
+                gameView.resetBottomPanel();
 
-                    if (game.getPlayer().getObjectCoins() >= 50) {
-                        gameView.addActionButton(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent event) {
-                                gameView.resetBottomPanel();
+                if (game.getPlayer().getObjectCoins() >= 50) {
+                    gameView.addActionButton(event1 -> {
+                        gameView.resetBottomPanel();
 
-                                game.getPlayer().pickaxe(row, column);
+                        game.getPlayer().pickaxe(row, column);
 
-                                updateTileSelection(row, column);
-                                updateTopBottomPanels();
-                            }
-                        }, "pickaxe");
-                    }
-
-                    if (game.getPlayer().getObjectCoins() >= 7) gameView.addActionButton(shovelButtonAL, "shovel");
-
-                    updateTileSelection(row, column);
-                    updateTopBottomPanels();
+                        updateTileSelection(row, column);
+                        updateTopBottomPanels();
+                    }, "pickaxe");
                 }
+
+                if (game.getPlayer().getObjectCoins() >= 7) gameView.addActionButton(shovelButtonAL, "shovel");
+
+                updateTileSelection(row, column);
+                updateTopBottomPanels();
             }, row, column);
 
         } else if (tile.getCrop() != null) { /* Tile has crop; show water, fertilize, shovel (if player has enough objectCoins), harvest (if ready) */
@@ -143,59 +120,47 @@ public class GameController {
 
             if (crop.isAlive()) {
                 gameView.setTileIcon(crop.getSeed().getName(), row, column);
-                this.gameView.changeFarmTileListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent event) {
-                        gameView.resetBottomPanel();
+                this.gameView.changeFarmTileListener(event -> {
+                    gameView.resetBottomPanel();
 
-                        Tile farmTile = game.getFarm().getTile(row, column);
-                        if (farmTile.getCrop().getAge() != farmTile.getCrop().getSeed().getHarvestTime()) {
-                            gameView.addActionButton(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent event) {
-                                    game.getPlayer().water(row, column);
+                    Tile farmTile = game.getFarm().getTile(row, column);
+                    if (farmTile.getCrop().getAge() != farmTile.getCrop().getSeed().getHarvestTime()) {
+                        gameView.addActionButton(event12 -> {
+                            game.getPlayer().water(row, column);
 
-                                    updateTileSelection(row, column);
-                                    updatePlayerInfo();
-                                }
-                            }, "water");
-                        }
-    
-                        if (game.getPlayer().getObjectCoins() >= 10 &&
-                                farmTile.getCrop().getAge() != farmTile.getCrop().getSeed().getHarvestTime()) {
-                            gameView.addActionButton(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent event) {
-                                    game.getPlayer().fertilize(row, column);
-
-                                    updateTileSelection(row, column);
-                                    updatePlayerInfo();
-                                }
-                            }, "fertilizer");
-                        }
-    
-                        if (crop.isHarvestReady()) {
-                            gameView.addActionButton(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent event) {
-                                    Crop crop = game.getFarm().getTile(row, column).getCrop();
-                                    gameView.resetBottomPanel();
-
-                                    gameView.updateFeedbackPanel(game.getPlayer().harvest(row, column), crop);
-
-                                    updateTileSelection(row, column);
-                                    updateTopBottomPanels();
-                                }
-                            }, "harvest");
-                        }
-
-                        if (game.getPlayer().getObjectCoins() >= 7) {
-                            gameView.addActionButton(shovelButtonAL, "shovel");
-                        }
-
-                        updateTileSelection(row, column);
-                        updateTopBottomPanels();
+                            updateTileSelection(row, column);
+                            updatePlayerInfo();
+                        }, "water");
                     }
+
+                    if (game.getPlayer().getObjectCoins() >= 10 &&
+                            farmTile.getCrop().getAge() != farmTile.getCrop().getSeed().getHarvestTime()) {
+                        gameView.addActionButton(event13 -> {
+                            game.getPlayer().fertilize(row, column);
+
+                            updateTileSelection(row, column);
+                            updatePlayerInfo();
+                        }, "fertilizer");
+                    }
+
+                    if (crop.isHarvestReady()) {
+                        gameView.addActionButton(event14 -> {
+                            Crop crop1 = game.getFarm().getTile(row, column).getCrop();
+                            gameView.resetBottomPanel();
+
+                            gameView.updateFeedbackPanel(game.getPlayer().harvest(row, column), crop1);
+
+                            updateTileSelection(row, column);
+                            updateTopBottomPanels();
+                        }, "harvest");
+                    }
+
+                    if (game.getPlayer().getObjectCoins() >= 7) {
+                        gameView.addActionButton(shovelButtonAL, "shovel");
+                    }
+
+                    updateTileSelection(row, column);
+                    updateTopBottomPanels();
                 }, row, column);
             } else { /* Crop is withered; show shovel (if player has enough objectCoins) */
                 gameView.setTileIcon("withered", row, column);
@@ -203,158 +168,125 @@ public class GameController {
 
         } else if (tile.isPlowed()) { /* Tile is plowed; show all possible seed that can be planted */
             gameView.setTileIcon("plowed", row, column);
-            this.gameView.changeFarmTileListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent event) {
-                    Player player = game.getPlayer();
-                    int seedCostReduction = player.getFarmerType().getSeedCostReduction();
-                    gameView.resetBottomPanel();
+            this.gameView.changeFarmTileListener(event -> {
+                Player player = game.getPlayer();
+                int seedCostReduction = player.getFarmerType().getSeedCostReduction();
+                gameView.resetBottomPanel();
 
-                    /* Add plant action to seeds that can be bought with the current objectcoins only */
-                    if (player.getObjectCoins() >= 5 - seedCostReduction) {
-                        // Turnip
-                        gameView.addActionButton(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent event) {
+                /* Add plant action to seeds that can be bought with the current objectcoins only */
+                if (player.getObjectCoins() >= 5 - seedCostReduction) {
+                    // Turnip
+                    gameView.addActionButton(event15 -> {
+                        gameView.resetBottomPanel();
+
+                        game.getPlayer().plant(row, column, game.getSeed(0));
+                        updateTileSelection(row, column);
+
+                        updateTopBottomPanels();
+                    }, game.getSeed(0).getName());
+
+                    // Rose
+                    gameView.addActionButton(event16 -> {
+                        gameView.resetBottomPanel();
+
+                        game.getPlayer().plant(row, column, game.getSeed(3));
+                        updateTileSelection(row, column);
+
+                        updateTopBottomPanels();
+                    }, game.getSeed(3).getName());
+                }
+
+                if (player.getObjectCoins() >= 10 - seedCostReduction) {
+                    // Carrot
+                    gameView.addActionButton(event17 -> {
+                        gameView.resetBottomPanel();
+
+                        game.getPlayer().plant(row, column, game.getSeed(1));
+
+                        updateTileSelection(row, column);
+                        updateTopBottomPanels();
+                    }, game.getSeed(1).getName());
+
+                    // Tulips
+                    gameView.addActionButton(event18 -> {
+                        gameView.resetBottomPanel();
+
+                        game.getPlayer().plant(row, column, game.getSeed(4));
+
+                        updateTileSelection(row, column);
+                        updateTopBottomPanels();
+                    }, game.getSeed(4).getName());
+
+                    if (game.getPlayer().getObjectCoins() >= 20 - seedCostReduction) {
+                        // Potato
+                        gameView.addActionButton(event19 -> {
+                            gameView.resetBottomPanel();
+
+                            game.getPlayer().plant(row, column, game.getSeed(2));
+
+                            updateTileSelection(row, column);
+                            updateTopBottomPanels();
+                        }, game.getSeed(2).getName());
+
+                        // Sunflower
+                        gameView.addActionButton(event110 -> {
+                            gameView.resetBottomPanel();
+
+                            game.getPlayer().plant(row, column, game.getSeed(5));
+
+                            updateTileSelection(row, column);
+                            updateTopBottomPanels();
+                        }, game.getSeed(5).getName());
+
+                        if (game.getPlayer().getObjectCoins() >= 100 - seedCostReduction) {
+                            // Mango tree
+                            if (game.getFarm().canPlantTree(row, column)) gameView.addActionButton(event111 -> {
                                 gameView.resetBottomPanel();
 
-                                game.getPlayer().plant(row, column, game.getSeed(0));
-                                updateTileSelection(row, column);
-
-                                updateTopBottomPanels();
-                            }
-                        }, game.getSeed(0).getName());
-
-                        // Rose
-                        gameView.addActionButton(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent event) {
-                                gameView.resetBottomPanel();
-
-                                game.getPlayer().plant(row, column, game.getSeed(3));
-                                updateTileSelection(row, column);
-
-                                updateTopBottomPanels();
-                            }
-                        }, game.getSeed(3).getName());
-                    }
-
-                    if (player.getObjectCoins() >= 10 - seedCostReduction) {
-                        // Carrot
-                        gameView.addActionButton(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent event) {
-                                gameView.resetBottomPanel();
-
-                                game.getPlayer().plant(row, column, game.getSeed(1));
+                                game.getPlayer().plant(row, column, game.getSeed(6));
 
                                 updateTileSelection(row, column);
                                 updateTopBottomPanels();
-                            }
-                        }, game.getSeed(1).getName());
+                            }, game.getSeed(6).getName());
 
-                        // Tulips
-                        gameView.addActionButton(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent event) {
-                                gameView.resetBottomPanel();
-
-                                game.getPlayer().plant(row, column, game.getSeed(4));
-
-                                updateTileSelection(row, column);
-                                updateTopBottomPanels();
-                            }
-                        }, game.getSeed(4).getName());
-
-                        if (game.getPlayer().getObjectCoins() >= 20 - seedCostReduction) {
-                            // Potato
-                            gameView.addActionButton(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent event) {
+                            if (game.getPlayer().getObjectCoins() >= 200 - seedCostReduction) {
+                                // Apple tree
+                                if (game.getFarm().canPlantTree(row, column)) gameView.addActionButton(event112 -> {
                                     gameView.resetBottomPanel();
 
-                                    game.getPlayer().plant(row, column, game.getSeed(2));
+                                    game.getPlayer().plant(row, column, game.getSeed(7));
 
                                     updateTileSelection(row, column);
                                     updateTopBottomPanels();
-                                }
-                            }, game.getSeed(2).getName());
-
-                            // Sunflower
-                            gameView.addActionButton(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent event) {
-                                    gameView.resetBottomPanel();
-
-                                    game.getPlayer().plant(row, column, game.getSeed(5));
-
-                                    updateTileSelection(row, column);
-                                    updateTopBottomPanels();
-                                }
-                            }, game.getSeed(5).getName());
-
-                            if (game.getPlayer().getObjectCoins() >= 100 - seedCostReduction) {
-                                // Mango tree
-                                if (game.getFarm().canPlantTree(row, column)) gameView.addActionButton(new ActionListener() {
-                                    @Override
-                                    public void actionPerformed(ActionEvent event) {
-                                        gameView.resetBottomPanel();
-
-                                        game.getPlayer().plant(row, column, game.getSeed(6));
-
-                                        updateTileSelection(row, column);
-                                        updateTopBottomPanels();
-                                    }
-                                }, game.getSeed(6).getName());
-
-                                if (game.getPlayer().getObjectCoins() >= 200 - seedCostReduction) {
-                                    // Apple tree
-                                    if (game.getFarm().canPlantTree(row, column)) gameView.addActionButton(new ActionListener() {
-                                        @Override
-                                        public void actionPerformed(ActionEvent event) {
-                                            gameView.resetBottomPanel();
-
-                                            game.getPlayer().plant(row, column, game.getSeed(7));
-
-                                            updateTileSelection(row, column);
-                                            updateTopBottomPanels();
-                                        }
-                                    }, game.getSeed(7).getName());
-                                }
+                                }, game.getSeed(7).getName());
                             }
                         }
                     }
-
-                    if (game.getPlayer().getObjectCoins() >= 7) gameView.addActionButton(shovelButtonAL, "shovel");
-
-                    updateTileSelection(row, column);
-                    updateTopBottomPanels();
                 }
+
+                if (game.getPlayer().getObjectCoins() >= 7) gameView.addActionButton(shovelButtonAL, "shovel");
+
+                updateTileSelection(row, column);
+                updateTopBottomPanels();
             }, row, column);
 
         } else { /* Tile is unplowed; show plow, shovel (if player has enough objectCoins) */
             gameView.setTileIcon("unplowed", row, column);
-            this.gameView.changeFarmTileListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent event) {
+            this.gameView.changeFarmTileListener(event -> {
+                gameView.resetBottomPanel();
+
+                gameView.addActionButton(event113 -> {
                     gameView.resetBottomPanel();
-
-                    gameView.addActionButton(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent event) {
-                            gameView.resetBottomPanel();
-                            game.getPlayer().plow(row, column);
-                            updateTileSelection(row, column);
-
-                            updateTopBottomPanels();
-                        }
-                    }, "plow");
-
-                    if (game.getPlayer().getObjectCoins() >= 7) gameView.addActionButton(shovelButtonAL, "shovel");
-
+                    game.getPlayer().plow(row, column);
                     updateTileSelection(row, column);
+
                     updateTopBottomPanels();
-                }
+                }, "plow");
+
+                if (game.getPlayer().getObjectCoins() >= 7) gameView.addActionButton(shovelButtonAL, "shovel");
+
+                updateTileSelection(row, column);
+                updateTopBottomPanels();
             }, row, column);
         }
     }

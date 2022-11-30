@@ -21,6 +21,6 @@ public class Driver {
         // Initialize the game
         Game game = new Game(rocks);
         GameView gameView = new GameView();
-        GameController gameController = new GameController(game, gameView);
+        new GameController(game, gameView);
     }
 }

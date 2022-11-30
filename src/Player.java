@@ -26,15 +26,14 @@ public class Player {
      * Plows a tile.
      * @param row       The row of the tile.
      * @param column    The column of the tile.
-     * @return  True if the tile was successfully plowed, false otherwise.
      */
-    public boolean plow(int row, int column) {
+    public void plow(int row, int column) {
         if (this.farm.getTile(row, column).isPlowed()) {
-            return false;
+            return;
         }
 
         this.addExperience(0.5f);
-        return this.farm.getTile(row, column).plow();
+        this.farm.getTile(row, column).plow();
     }
 
     /**
@@ -42,78 +41,72 @@ public class Player {
      * @param row       The row of the tile.
      * @param column    The column of the tile.
      * @param seed      The seed to plant.
-     * @return  True if the seed was successfully planted, false otherwise.
      */
-    public boolean plant(int row, int column, Seed seed) {
+    public void plant(int row, int column, Seed seed) {
         if (seed.getCost() - this.farmerType.getSeedCostReduction() > this.objectCoins) {
-            return false;
+            return;
         }
 
         if (seed.isTree() && !this.farm.canPlantTree(row, column)) {
-            return false;
+            return;
         }
 
         Tile tile = this.farm.getTile(row, column);
         if (!tile.isPlowed() || tile.hasRock()) {
-            return false;
+            return;
         }
 
         if (tile.getCrop() != null) {
-            return false;
+            return;
         }
 
         tile.plant(seed);
         this.deductCoins(seed.getCost() - this.farmerType.getSeedCostReduction());
-        return true;
     }
 
     /**
      * Waters a tile.
      * @param row       The row of the tile.
      * @param column    The column of the tile.
-     * @return  True if the tile was successfully watered, false otherwise.
      */
-    public boolean water(int row, int column) {
+    public void water(int row, int column) {
         Tile tile = this.farm.getTile(row, column);
         if (!tile.isPlowed()) {
-            return false;
+            return;
         }
 
         Crop crop = tile.getCrop();
         if (crop == null) {
-            return false;
+            return;
         }
 
         crop.water();
         this.addExperience(0.5f);
-        return true;
     }
 
     /**
      * Fertilizes a tile.
      * @param row       The row of the tile.
      * @param column    The column of the tile.
-     * @return  True if the tile was successfully fertilized, false otherwise.
      */
-    public boolean fertilize(int row, int column) {
+    public void fertilize(int row, int column) {
         if (this.objectCoins < 10) {
-            return false;
+            return;
         }
 
         Tile tile = this.farm.getTile(row, column);
-        if (tile.isPlowed() == false) {
-            return false;
+        if (!tile.isPlowed()) {
+            return;
         }
 
         Crop crop = tile.getCrop();
         if (crop == null) {
-            return false;
+            return;
         }
 
         this.deductCoins(10);
         crop.fertilize();
         this.addExperience(4.0f);
-        return true;
     }
 
     /**
@@ -136,7 +129,7 @@ public class Player {
         }
 
         Crop crop = tile.getCrop();
-        if (crop.isHarvestReady() == false) {
+        if (!crop.isHarvestReady()) {
             return 0;
         }
 
@@ -167,27 +160,21 @@ public class Player {
         return finalPrice;
     }
 
-    public boolean pickaxe(int row, int column) {
+    public void pickaxe(int row, int column) {
         if (this.farm.getTile(row, column).hasRock()) {
             this.farm.getTile(row, column).pickaxe();
             this.deductCoins(50);
             this.addExperience(15);
-
-            return true;
         }
-        
-        return false;
     }
 
-    public boolean shovel(int row, int column) {
+    public void shovel(int row, int column) {
         if (this.objectCoins < 7) {
-            return false;
+            return;
         }
 
         this.deductCoins(7);
         this.farm.reset(row, column);
-
-        return true;
     }
 
     /**
@@ -210,15 +197,13 @@ public class Player {
     /**
      * Deducts coins from the player.
      * @param amount    The amount of coins to deduct.
-     * @return  True if the coins were successfully deducted, false otherwise.
      */
-    public boolean deductCoins(float amount) {
+    public void deductCoins(float amount) {
         if (amount > this.objectCoins) {
-            return false;
+            return;
         }
 
         this.objectCoins -= amount;
-        return true;
     }
 
     /**

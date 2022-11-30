@@ -14,29 +14,25 @@ public class Tile {
 
     /**
      * Plows the tile.
-     * @return  True if the tile was successfully plowed, false otherwise.
      */
-    public boolean plow() {
-        if (this.isPlowed == true || this.hasRock == true) {
-            return false;
+    public void plow() {
+        if (this.isPlowed || this.hasRock) {
+            return;
         }
 
         this.isPlowed = true;
-        return true;
     }
 
     /**
      * Plants a seed on the tile.
      * @param seed  The seed to plant.
-     * @return  True if the seed was successfully planted, false otherwise.
      */
-    public boolean plant(Seed seed) {
+    public void plant(Seed seed) {
         if (!this.isPlowed || this.crop != null) {
-            return false;
+            return;
         }
 
         this.crop = new Crop(seed);
-        return true;
     }
 
     /**
