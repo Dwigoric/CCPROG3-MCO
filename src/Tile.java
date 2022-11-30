@@ -16,10 +16,6 @@ public class Tile {
      * Plows the tile.
      */
     public void plow() {
-        if (this.isPlowed || this.hasRock) {
-            return;
-        }
-
         this.isPlowed = true;
     }
 
@@ -28,10 +24,6 @@ public class Tile {
      * @param seed  The seed to plant.
      */
     public void plant(Seed seed) {
-        if (!this.isPlowed || this.crop != null) {
-            return;
-        }
-
         this.crop = new Crop(seed);
     }
 

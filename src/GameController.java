@@ -257,9 +257,11 @@ public class GameController {
                             updateTopBottomPanels();
                         }, game.getSeed(5).name());
 
-                        if (game.getPlayer().getObjectCoins() >= 100 - seedCostReduction) {
+                        if (game.getPlayer().getObjectCoins() >= 100 - seedCostReduction &&
+                                game.getFarm().canPlantTree(row, column))
+                        {
                             // Mango tree
-                            if (game.getFarm().canPlantTree(row, column)) gameView.addActionButton(event111 -> {
+                            gameView.addActionButton(event111 -> {
                                 gameView.resetBottomPanel();
 
                                 game.getPlayer().plant(row, column, game.getSeed(6));
@@ -268,9 +270,11 @@ public class GameController {
                                 updateTopBottomPanels();
                             }, game.getSeed(6).name());
 
-                            if (game.getPlayer().getObjectCoins() >= 200 - seedCostReduction) {
+                            if (game.getPlayer().getObjectCoins() >= 200 - seedCostReduction &&
+                                    game.getFarm().canPlantTree(row, column))
+                            {
                                 // Apple tree
-                                if (game.getFarm().canPlantTree(row, column)) gameView.addActionButton(event112 -> {
+                                gameView.addActionButton(event112 -> {
                                     gameView.resetBottomPanel();
 
                                     game.getPlayer().plant(row, column, game.getSeed(7));

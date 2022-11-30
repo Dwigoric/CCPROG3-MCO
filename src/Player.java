@@ -28,10 +28,6 @@ public class Player {
      * @param column    The column of the tile.
      */
     public void plow(int row, int column) {
-        if (this.farm.getTile(row, column).isPlowed()) {
-            return;
-        }
-
         this.addExperience(0.5f);
         this.farm.getTile(row, column).plow();
     }
@@ -43,24 +39,7 @@ public class Player {
      * @param seed      The seed to plant.
      */
     public void plant(int row, int column, Seed seed) {
-        if (seed.cost() - this.farmerType.seedCostReduction() > this.objectCoins) {
-            return;
-        }
-
-        if (seed.isTree() && !this.farm.canPlantTree(row, column)) {
-            return;
-        }
-
-        Tile tile = this.farm.getTile(row, column);
-        if (!tile.isPlowed() || tile.hasRock()) {
-            return;
-        }
-
-        if (tile.getCrop() != null) {
-            return;
-        }
-
-        tile.plant(seed);
+        this.farm.getTile(row, column).plant(seed);
         this.objectCoins -= seed.cost() - this.farmerType.seedCostReduction();
     }
 
@@ -70,17 +49,7 @@ public class Player {
      * @param column    The column of the tile.
      */
     public void water(int row, int column) {
-        Tile tile = this.farm.getTile(row, column);
-        if (!tile.isPlowed()) {
-            return;
-        }
-
-        Crop crop = tile.getCrop();
-        if (crop == null) {
-            return;
-        }
-
-        crop.water();
+        this.farm.getTile(row, column).getCrop().water();
         this.addExperience(0.5f);
     }
 
@@ -90,22 +59,8 @@ public class Player {
      * @param column    The column of the tile.
      */
     public void fertilize(int row, int column) {
-        if (this.objectCoins < 10) {
-            return;
-        }
-
-        Tile tile = this.farm.getTile(row, column);
-        if (!tile.isPlowed()) {
-            return;
-        }
-
-        Crop crop = tile.getCrop();
-        if (crop == null) {
-            return;
-        }
-
         this.objectCoins -= 10;
-        crop.fertilize();
+        this.farm.getTile(row, column).getCrop().fertilize();
         this.addExperience(4.0f);
     }
 
@@ -124,14 +79,7 @@ public class Player {
         float FertilizerBonus;
 
         Tile tile = this.farm.getTile(row, column);
-        if (tile.getCrop() == null) {
-            return 0;
-        }
-
         Crop crop = tile.getCrop();
-        if (!crop.isHarvestReady()) {
-            return 0;
-        }
 
         /* Selling Price Computation */
         WaterBonusLimit = crop.getSeed().waterLimit() + farmerType.waterBonusLimitIncrease();
@@ -166,11 +114,9 @@ public class Player {
      * @param column    The column of the tile.
      */
     public void pickaxe(int row, int column) {
-        if (this.farm.getTile(row, column).hasRock()) {
-            this.farm.getTile(row, column).pickaxe();
-            this.objectCoins -= 50;
-            this.addExperience(15);
-        }
+        this.farm.getTile(row, column).pickaxe();
+        this.objectCoins -= 50;
+        this.addExperience(15);
     }
 
     /**
@@ -197,13 +143,10 @@ public class Player {
      * @param farmerTypes   The list of farmer types.
      */
     public void upgradeFarmer(ArrayList<FarmerType> farmerTypes) {
-        if (this.canUpgradeFarmer(farmerTypes)) {
-            this.farmerTypeLevel++;
-            this.farmerType = farmerTypes.get(this.farmerTypeLevel);
+        this.farmerTypeLevel++;
+        this.farmerType = farmerTypes.get(this.farmerTypeLevel);
 
-            this.objectCoins -= farmerTypes.get(this.farmerTypeLevel).registrationFee();
-        }
-
+        this.objectCoins -= this.farmerType.registrationFee();
     }
 
     /**
