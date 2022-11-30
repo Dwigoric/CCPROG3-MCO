@@ -64,6 +64,14 @@ public class Crop {
     }
 
     /**
+     * Gets the age of the crop.
+     * @return  The age of the crop.
+     */
+    public int getAge() {
+        return this.age;
+    }
+
+    /**
      * Gets the water level of the crop.
      * @return  The water level of the crop.
      */
@@ -93,14 +101,6 @@ public class Crop {
      */
     public int getProduce() {
         return this.produce;
-    }
-
-    /**
-     * Gets the age of the crop.
-     * @return  The age of the crop.
-     */
-    public int getAge() {
-        return this.age;
     }
 
     /**

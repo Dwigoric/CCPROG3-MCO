@@ -170,7 +170,7 @@ public class Player {
     public boolean pickaxe(int row, int column) {
         if (this.farm.getTile(row, column).hasRock()) {
             this.farm.getTile(row, column).pickaxe();
-            this.addCoins(-50);
+            this.deductCoins(50);
             this.addExperience(15);
 
             return true;
@@ -212,7 +212,7 @@ public class Player {
      * @param amount    The amount of coins to deduct.
      * @return  True if the coins were successfully deducted, false otherwise.
      */
-    public boolean deductCoins(int amount) {
+    public boolean deductCoins(float amount) {
         if (amount > this.objectCoins) {
             return false;
         }
@@ -269,11 +269,11 @@ public class Player {
         return this.objectCoins;
     }
 
-    public FarmerType getFarmerType() {
-        return this.farmerType;
-    }
-
     public int getFarmerTypeLvl() {
         return this.farmerTypeLevel;
+    }
+
+    public FarmerType getFarmerType() {
+        return this.farmerType;
     }
 }
