@@ -1,6 +1,9 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The GameController class.
+ */
 public class GameController {
     private final Game game;
     private final GameView gameView;
@@ -9,6 +12,11 @@ public class GameController {
 
     private final ActionListener upgradeFarmerListener;
 
+    /**
+     * Creates a new GameController.
+     * @param game      The game.
+     * @param gameView  The game view.
+     */
     public GameController(Game game, GameView gameView) {
         this.game = game;
         this.gameView = gameView;
@@ -63,6 +71,9 @@ public class GameController {
         this.updateAllFarmTiles();
     }
 
+    /**
+     * Updates the player info in the game view.
+     */
     private void updatePlayerInfo() {
         Player player = game.getPlayer();
 
@@ -72,6 +83,9 @@ public class GameController {
         gameView.setUpgradeFarmerButtonEnabled(game.getPlayer().canUpgradeFarmer(game.getFarmerTypeList()));
     }
 
+    /**
+     * Updates all farm tiles in the game view.
+     */
     private void updateAllFarmTiles() {
         Farm farm = this.game.getFarm();
 
@@ -82,6 +96,11 @@ public class GameController {
         }
     }
 
+    /**
+     * Updates a farm tile in the game view.
+     * @param row       The row of the tile.
+     * @param column    The column of the tile.
+     */
     private void updateTile(int row, int column) {
         Tile tile = this.game.getFarm().getTile(row, column);
         ActionListener shovelButtonAL = event -> {
@@ -291,6 +310,11 @@ public class GameController {
         }
     }
 
+    /**
+     * Updates the selection status of the tile at the given row and column.
+     * @param row       The row of the tile.
+     * @param column    The column of the tile.
+     */
     private void updateTileSelection(int row, int column) {
         /* updates GUI */
         gameView.setIsSelected(row, column);
@@ -306,6 +330,9 @@ public class GameController {
         currTileSelected[1] = column;
     }
 
+    /**
+     * Updates the player information panel and the bottom panel.
+     */
     private void updateTopBottomPanels() {
         this.updatePlayerInfo();
         gameView.updateBottomPanel();

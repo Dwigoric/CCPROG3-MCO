@@ -160,6 +160,11 @@ public class Player {
         return finalPrice;
     }
 
+    /**
+     * Uses the pickaxe on a tile.
+     * @param row       The row of the tile.
+     * @param column    The column of the tile.
+     */
     public void pickaxe(int row, int column) {
         if (this.farm.getTile(row, column).hasRock()) {
             this.farm.getTile(row, column).pickaxe();
@@ -168,6 +173,11 @@ public class Player {
         }
     }
 
+    /**
+     * Uses the shovel on a tile.
+     * @param row       The row of the tile.
+     * @param column    The column of the tile.
+     */
     public void shovel(int row, int column) {
         if (this.objectCoins < 7) {
             return;
@@ -207,7 +217,8 @@ public class Player {
     }
 
     /**
-     * Tries to upgrade the current farmer type of the player.
+     * Attempts to upgrade the player's farmer type.
+     * @param farmerTypes   The list of farmer types.
      */
     public void upgradeFarmer(ArrayList<FarmerType> farmerTypes) {
         if (this.canUpgradeFarmer(farmerTypes)) {
@@ -219,6 +230,11 @@ public class Player {
 
     }
 
+    /**
+     * Checks if the player can upgrade their farmer type.
+     * @param farmerTypes   The list of farmer types.
+     * @return  true if the player can upgrade their farmer type, false otherwise.
+     */
     public boolean canUpgradeFarmer(ArrayList<FarmerType> farmerTypes) {
         if (this.farmerTypeLevel == 3) {
             return false;
@@ -254,10 +270,18 @@ public class Player {
         return this.objectCoins;
     }
 
+    /**
+     * Gets the current farmer type's level.
+     * @return  The current farmer type's level.
+     */
     public int getFarmerTypeLvl() {
         return this.farmerTypeLevel;
     }
 
+    /**
+     * Gets the current farmer type.
+     * @return  The current farmer type.
+     */
     public FarmerType getFarmerType() {
         return this.farmerType;
     }

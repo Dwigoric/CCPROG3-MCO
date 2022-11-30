@@ -43,6 +43,9 @@ public class Tile {
         this.crop = null;
     }
 
+    /**
+     * Uses the pickaxe on the tile.
+     */
     public void pickaxe() {
         this.hasRock = false;
     }

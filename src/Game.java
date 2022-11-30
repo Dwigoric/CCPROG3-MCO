@@ -93,14 +93,26 @@ public class Game {
         return day;
     }
 
+    /**
+     * Gets a seed from the seed list.
+     * @param index The index of the seed.
+     * @return    The seed at the specified index.
+     */
     public Seed getSeed(int index) {
         return seedList.get(index);
     }
 
+    /**
+     * Gets the farmer type list.
+     * @return  The farmer type list.
+     */
     public ArrayList<FarmerType> getFarmerTypeList() {
         return this.farmerTypes;
     }
 
+    /**
+     * Resets the game by replacing the farm and player of new instances respectively and resetting the day.
+     */
     public void reset() {
         this.day = 1;
         this.farm = new Farm(5, 10, this.rocks);

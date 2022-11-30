@@ -80,6 +80,9 @@ public class GameView {
     // Table
     private final ImageIcon imgTable = new ImageIcon("res/table.png");
 
+    /**
+     * Constructor for the GameView class
+     */
     public GameView() {
         this.mainFrame = new JFrame("MyFarm");
 
@@ -106,6 +109,9 @@ public class GameView {
         this.mainFrame.setVisible(true);
     }
 
+    /**
+     * Initializes the top panel (player information panel).
+     */
     public void initializeTopPanel() {
         JPanel mainPanel = new JPanel(new BorderLayout());
 
@@ -164,6 +170,9 @@ public class GameView {
         this.mainPanel.add(mainPanel, BorderLayout.PAGE_START);
     }
 
+    /**
+     * Initializes the farm panel (panel with the farm tiles).
+     */
     public void initializeFarmPanel() {
         JPanel farmPanel = new JPanel(new GridLayout(5, 10));
         farmPanel.setBorder(new EmptyBorder(10, 0, 5, 0));
@@ -186,6 +195,9 @@ public class GameView {
         this.mainPanel.add(farmPanel, BorderLayout.CENTER);
     }
 
+    /**
+     * Initializes the bottom panel (panel with the action buttons).
+     */
     public void initializeBottomPanel() {
         this.actionPanel = new JPanel(new FlowLayout());
         this.actionPanel.setPreferredSize(new Dimension(1200, 100));
@@ -198,6 +210,15 @@ public class GameView {
         this.feedbackPanel.setOpaque(true);
     }
 
+    /**
+     * Updates the top panel (player information panel).
+     * @param level             The level of the player.
+     * @param experience        The experience of the player.
+     * @param objectCoins       The object coins of the player.
+     * @param farmerTypeList    The list of farmer types.
+     * @param farmerTypeLevel   The level of the farmer type.
+     * @param day               The day of the game.
+     */
     public void updateTopPanel(int level, float experience, float objectCoins, ArrayList<FarmerType> farmerTypeList, int farmerTypeLevel, int day) {
         this.levelAndExperienceLbl.setText("Level: " + level + " (" + experience + ")");
         this.objectCoinsLbl.setText("ObjectCoins: " + objectCoins);
@@ -215,6 +236,9 @@ public class GameView {
         this.dayLbl.setText("Day " + day);
     }
 
+    /**
+     * Updates the bottom panel (panel with the action buttons).
+     */
     public void updateBottomPanel() {
         Component[] componentList = this.actionPanel.getComponents();
         boolean hasButton = false;
@@ -238,11 +262,19 @@ public class GameView {
         this.mainFrame.repaint();
     }
 
+    /**
+     * Resets the bottom panel (panel with the action buttons).
+     */
     public void resetBottomPanel() {
         this.actionPanel.removeAll();
         this.feedbackPanel.removeAll();
     }
 
+    /**
+     * Adds a button to the bottom panel.
+     * @param actionListener    The action listener of the button.
+     * @param name              The name of the button.
+     */
     public void addActionButton(ActionListener actionListener, String name) {
         JButton actionBtn = new JButton();
 
@@ -274,6 +306,11 @@ public class GameView {
         this.actionPanel.add(actionBtn);
     }
 
+    /**
+     * Updates the feedback panel after harvesting.
+     * @param finalPrice    The final price of the harvest.
+     * @param crop          The crop that was harvested.
+     */
     public void updateFeedbackPanel(float finalPrice, Crop crop){
         JLabel resultsLbl = new JLabel();
         resultsLbl.setForeground(Color.white);
@@ -285,6 +322,12 @@ public class GameView {
         this.feedbackPanel.add(resultsLbl);
     }
 
+    /**
+     * Initializes the listeners for the buttons at the top of the screen.
+     * @param sleepListener     The listener for the sleep button.
+     * @param upgradeListener   The listener for the upgrade button.
+     * @param bookListener      The listener for the book button.
+     */
     public void initializeMiscListener(ActionListener sleepListener, ActionListener upgradeListener, ActionListener bookListener) {
         this.sleepBtn.addActionListener(sleepListener);
 
@@ -294,14 +337,28 @@ public class GameView {
         this.bookBtn.addActionListener(bookListener);
     }
 
+    /**
+     * Updates the upgrade button's listener.
+     * @param upgradeListener   The listener for the upgrade button.
+     */
     public void updateUpgradeListener(ActionListener upgradeListener) {
         this.upgradeFarmerBtn.addActionListener(upgradeListener);
     }
 
+    /**
+     * Updates whether the upgrade button is enabled.
+     * @param enabled   Whether the upgrade button is enabled.
+     */
     public void setUpgradeFarmerButtonEnabled(boolean enabled) {
         this.upgradeFarmerBtn.setEnabled(enabled);
     }
 
+    /**
+     * Changes the listener of a farm tile button.
+     * @param farmTileListener  The listener for the farm tile button.
+     * @param row               The row of the farm tile button.
+     * @param column            The column of the farm tile button.
+     */
     public void changeFarmTileListener(ActionListener farmTileListener, int row, int column) {
         for (ActionListener actionListener : this.farmTilesBtn[row][column].getActionListeners()) {
             this.farmTilesBtn[row][column].removeActionListener(actionListener);
@@ -310,6 +367,11 @@ public class GameView {
         this.farmTilesBtn[row][column].addActionListener(farmTileListener);
     }
 
+    /**
+     * Changes whether a farm tile button is selected.
+     * @param row       The row of the farm tile button.
+     * @param column    The column of the farm tile button.
+     */
     public void setIsSelected(int row, int column) {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 10; j++) {
@@ -320,6 +382,12 @@ public class GameView {
         farmTilesBtn[row][column].putClientProperty("isSelected", true);
     }
 
+    /**
+     * Updates the farm tile button's image.
+     * @param state     The state of the farm tile.
+     * @param row       The row of the farm tile button.
+     * @param column    The column of the farm tile button.
+     */
     public void setTileIcon(String state, int row, int column) {
         if ((boolean) this.farmTilesBtn[row][column].getClientProperty("isSelected")) {
             setTileIconImage(state, row, column,
@@ -335,34 +403,62 @@ public class GameView {
         }
     }
 
+    /**
+     * Helps the setTileIcon method.
+     * @param state             The state of the farm tile.
+     * @param row               The row of the farm tile button.
+     * @param column            The column of the farm tile button.
+     * @param imgTileUnplowed   The image of the farm tile button when it is unplowed and selected.
+     * @param imgTilePlowed     The image of the farm tile button when it is plowed and selected.
+     * @param imgTileRock       The image of the farm tile button when it is a rock and selected.
+     * @param imgTileWithered   The image of the farm tile button when it is withered and selected.
+     * @param imgTileTurnip     The image of the farm tile button when it is a turnip and selected.
+     * @param imgTileCarrot     The image of the farm tile button when it is a carrot and selected.
+     * @param imgTilePotato     The image of the farm tile button when it is a potato and selected.
+     * @param imgTileRose       The image of the farm tile button when it is a rose and selected.
+     * @param imgTileTulips     The image of the farm tile button when it is tulips and selected.
+     * @param imgTileSunflower  The image of the farm tile button when it is a sunflower and selected.
+     * @param imgTileMango      The image of the farm tile button when it is a mango and selected.
+     * @param imgTileApple      The image of the farm tile button when it is an apple and selected.
+     */
     private void setTileIconImage(String state, int row, int column,
-                                  ImageIcon imgTileUnplowedSelected, ImageIcon imgTilePlowedSelected,
-                                  ImageIcon imgTileRockSelected, ImageIcon imgTileWitheredSelected,
-                                  ImageIcon imgTileTurnipSelected, ImageIcon imgTileCarrotSelected,
-                                  ImageIcon imgTilePotatoSelected, ImageIcon imgTileRoseSelected,
-                                  ImageIcon imgTileTulipsSelected, ImageIcon imgTileSunflowerSelected,
-                                  ImageIcon imgTileMangoSelected, ImageIcon imgTileAppleSelected)
+                                  ImageIcon imgTileUnplowed, ImageIcon imgTilePlowed,
+                                  ImageIcon imgTileRock, ImageIcon imgTileWithered,
+                                  ImageIcon imgTileTurnip, ImageIcon imgTileCarrot,
+                                  ImageIcon imgTilePotato, ImageIcon imgTileRose,
+                                  ImageIcon imgTileTulips, ImageIcon imgTileSunflower,
+                                  ImageIcon imgTileMango, ImageIcon imgTileApple)
     {
         switch (state) {
-            case "unplowed" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileUnplowedSelected, 116, 94));
-            case "plowed" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTilePlowedSelected, 116, 94));
-            case "rock" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileRockSelected, 116, 94));
-            case "withered" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileWitheredSelected, 116, 94));
-            case "Turnip" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileTurnipSelected, 116, 94));
-            case "Carrot" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileCarrotSelected, 116, 94));
-            case "Potato" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTilePotatoSelected, 116, 94));
-            case "Rose" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileRoseSelected, 116, 94));
-            case "Tulips" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileTulipsSelected, 116, 94));
-            case "Sunflower" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileSunflowerSelected, 116, 94));
-            case "Mango" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileMangoSelected, 116, 94));
-            case "Apple" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileAppleSelected, 116, 94));
+            case "unplowed" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileUnplowed, 116, 94));
+            case "plowed" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTilePlowed, 116, 94));
+            case "rock" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileRock, 116, 94));
+            case "withered" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileWithered, 116, 94));
+            case "Turnip" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileTurnip, 116, 94));
+            case "Carrot" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileCarrot, 116, 94));
+            case "Potato" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTilePotato, 116, 94));
+            case "Rose" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileRose, 116, 94));
+            case "Tulips" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileTulips, 116, 94));
+            case "Sunflower" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileSunflower, 116, 94));
+            case "Mango" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileMango, 116, 94));
+            case "Apple" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileApple, 116, 94));
         }
     }
 
+    /**
+     * Scales an image using the given width and height.
+     * @param image     The image to be scaled.
+     * @param width     The width of the scaled image.
+     * @param height    The height of the scaled image.
+     * @return        The scaled image.
+     */
     private Icon scaleImage(ImageIcon image, int width, int height) {
         return new ImageIcon((image.getImage()).getScaledInstance(width, height, java.awt.Image.SCALE_DEFAULT));
     }
 
+    /**
+     * Creates a new frame for the book.
+     */
     public void showBook() {
         JFrame bookFrame;
         JLabel tableLbl = new JLabel();
@@ -381,6 +477,12 @@ public class GameView {
     }
 
     /* FOR END GAME MECHANICS */
+
+    /**
+     * Show the end game screen.
+     * @param reason            The reason why the game ended.
+     * @param restartListener   The listener for the restart button.
+     */
     public void showEndGame(String reason, ActionListener restartListener) {
         this.mainPanel.removeAll();
 
@@ -419,6 +521,9 @@ public class GameView {
         this.mainFrame.repaint();
     }
 
+    /**
+     * Resets the game view.
+     */
     public void reset() {
         this.mainPanel.removeAll();
         this.initializeTopPanel();
