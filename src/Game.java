@@ -3,7 +3,7 @@ import java.util.Arrays;
 
 /**
  * The Game class.
- * This class contains the main game loop.
+ * This class stores important game information.
  */
 public class Game {
     private final ArrayList<Integer[]> rocks;

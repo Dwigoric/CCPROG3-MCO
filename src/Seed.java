@@ -1,5 +1,5 @@
 /**
- * The Seed class.
+ * The Seed record.
  */
 public record Seed(String name, int harvestTime, int waterNeeds, int waterLimit, int fertilizerNeeds,
                    int fertilizerLimit, int minProduce, int maxProduce, int cost, int baseSellingPrice, float expYield,

@@ -6,6 +6,9 @@ import javax.swing.*;
 
 import javax.swing.border.EmptyBorder;
 
+/**
+ * The GameView class.
+ */
 public class GameView {
     private final JFrame mainFrame;
     private final JPanel mainPanel;

@@ -1,5 +1,5 @@
 /**
- * The FarmerType class.
+ * The FarmerType record.
  */
 public record FarmerType(String typeName, int levelRequirement, int bonusEarnings, int seedCostReduction,
                          int waterBonusLimitIncrease, int fertilizerBonusLimitIncrease, int registrationFee) {
