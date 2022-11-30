@@ -28,7 +28,6 @@ public class GameView {
 
     // Farm panel elements
     JButton[][] farmTilesBtn = new JButton[5][10];
-    ActionListener farmTileListener;
 
     // GUI elements
     // Info GUI
@@ -184,7 +183,6 @@ public class GameView {
         for(int i = 0; i < 5; i++) {
             for(int j = 0; j < 10; j++) {
                 farmTilesBtn[i][j] = new JButton();
-                farmTilesBtn[i][j].addActionListener(farmTileListener);
                 farmTilesBtn[i][j].putClientProperty("location", new int[] {i, j});
                 farmTilesBtn[i][j].putClientProperty("isSelected", false);
                 
