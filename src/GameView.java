@@ -205,11 +205,11 @@ public class GameView {
         FarmerType currFarmerType = farmerTypeList.get(farmerTypeLevel);
 
         if (farmerTypeLevel == 3) {
-            this.farmerTypeLbl.setText(currFarmerType.getTypeName() + " (MAX)");
+            this.farmerTypeLbl.setText(currFarmerType.typeName() + " (MAX)");
         } else {
-            this.farmerTypeLbl.setText(currFarmerType.getTypeName() + 
-            " (Next: Lvl: " + farmerTypeList.get(farmerTypeLevel + 1).getLevelRequirement() +
-            " /Cost: " + farmerTypeList.get(farmerTypeLevel + 1).getRegistrationFee()  + ")");
+            this.farmerTypeLbl.setText(currFarmerType.typeName() +
+            " (Next: Lvl: " + farmerTypeList.get(farmerTypeLevel + 1).levelRequirement() +
+            " /Cost: " + farmerTypeList.get(farmerTypeLevel + 1).registrationFee()  + ")");
         }
 
         this.dayLbl.setText("Day " + day);
@@ -278,7 +278,7 @@ public class GameView {
         JLabel resultsLbl = new JLabel();
         resultsLbl.setForeground(Color.white);
 
-        resultsLbl.setText("Harvested " + crop.getProduce() + " " + crop.getSeed().getName() + 
+        resultsLbl.setText("Harvested " + crop.getProduce() + " " + crop.getSeed().name() +
             " and sold for " + finalPrice + " ObjectCoins");
 
         

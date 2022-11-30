@@ -22,7 +22,7 @@ public class Crop {
         this.seed = seed;
 
         /* Randomize number of produce */
-        this.produce = rand.nextInt(seed.getMaxProduce() + 1 - seed.getMinProduce()) + seed.getMinProduce();
+        this.produce = rand.nextInt(seed.maxProduce() + 1 - seed.minProduce()) + seed.minProduce();
     }
 
     /**
@@ -32,11 +32,11 @@ public class Crop {
         this.age++;
         
         /* Crop does not meet water/fertilize requirement on harvest day */
-        if (this.age == this.seed.getHarvestTime() && (this.waterCount < this.seed.getWaterNeeds() || this.fertilizeCount < this.seed.getFertilizerNeeds())) {
+        if (this.age == this.seed.harvestTime() && (this.waterCount < this.seed.waterNeeds() || this.fertilizeCount < this.seed.fertilizerNeeds())) {
             this.isAlive = false;
 
         /* Crop age exceeds harvest time */
-        } else if (this.age > this.seed.getHarvestTime()) {
+        } else if (this.age > this.seed.harvestTime()) {
             this.isAlive = false;
         }
     }
@@ -108,7 +108,7 @@ public class Crop {
      * @return  True if the crop is ready to be harvested, false otherwise.
      */
     public boolean isHarvestReady() {
-        return this.isAlive && this.age == this.seed.getHarvestTime() &&
-               this.waterCount >= this.seed.getWaterNeeds() && this.fertilizeCount >= this.seed.getFertilizerNeeds();
+        return this.isAlive && this.age == this.seed.harvestTime() &&
+               this.waterCount >= this.seed.waterNeeds() && this.fertilizeCount >= this.seed.fertilizerNeeds();
     }
 }

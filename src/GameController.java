@@ -30,7 +30,7 @@ public class GameController {
         ActionListener sleepListener = event -> {
             gameView.resetBottomPanel();
 
-            if (game.getPlayer().getObjectCoins() < 5 - game.getPlayer().getFarmerType().getSeedCostReduction() &&
+            if (game.getPlayer().getObjectCoins() < 5 - game.getPlayer().getFarmerType().seedCostReduction() &&
                     !game.getFarm().hasCrop()) {
                 gameView.showEndGame("You have no more crops and no more money to buy more!", gameRestartListener);
 
@@ -119,12 +119,12 @@ public class GameController {
             Crop crop = tile.getCrop();
 
             if (crop.isAlive()) {
-                gameView.setTileIcon(crop.getSeed().getName(), row, column);
+                gameView.setTileIcon(crop.getSeed().name(), row, column);
                 this.gameView.changeFarmTileListener(event -> {
                     gameView.resetBottomPanel();
 
                     Tile farmTile = game.getFarm().getTile(row, column);
-                    if (farmTile.getCrop().getAge() != farmTile.getCrop().getSeed().getHarvestTime()) {
+                    if (farmTile.getCrop().getAge() != farmTile.getCrop().getSeed().harvestTime()) {
                         gameView.addActionButton(event12 -> {
                             game.getPlayer().water(row, column);
 
@@ -134,7 +134,7 @@ public class GameController {
                     }
 
                     if (game.getPlayer().getObjectCoins() >= 10 &&
-                            farmTile.getCrop().getAge() != farmTile.getCrop().getSeed().getHarvestTime()) {
+                            farmTile.getCrop().getAge() != farmTile.getCrop().getSeed().harvestTime()) {
                         gameView.addActionButton(event13 -> {
                             game.getPlayer().fertilize(row, column);
 
@@ -170,7 +170,7 @@ public class GameController {
             gameView.setTileIcon("plowed", row, column);
             this.gameView.changeFarmTileListener(event -> {
                 Player player = game.getPlayer();
-                int seedCostReduction = player.getFarmerType().getSeedCostReduction();
+                int seedCostReduction = player.getFarmerType().seedCostReduction();
                 gameView.resetBottomPanel();
 
                 /* Add plant action to seeds that can be bought with the current objectcoins only */
@@ -183,7 +183,7 @@ public class GameController {
                         updateTileSelection(row, column);
 
                         updateTopBottomPanels();
-                    }, game.getSeed(0).getName());
+                    }, game.getSeed(0).name());
 
                     // Rose
                     gameView.addActionButton(event16 -> {
@@ -193,7 +193,7 @@ public class GameController {
                         updateTileSelection(row, column);
 
                         updateTopBottomPanels();
-                    }, game.getSeed(3).getName());
+                    }, game.getSeed(3).name());
                 }
 
                 if (player.getObjectCoins() >= 10 - seedCostReduction) {
@@ -205,7 +205,7 @@ public class GameController {
 
                         updateTileSelection(row, column);
                         updateTopBottomPanels();
-                    }, game.getSeed(1).getName());
+                    }, game.getSeed(1).name());
 
                     // Tulips
                     gameView.addActionButton(event18 -> {
@@ -215,7 +215,7 @@ public class GameController {
 
                         updateTileSelection(row, column);
                         updateTopBottomPanels();
-                    }, game.getSeed(4).getName());
+                    }, game.getSeed(4).name());
 
                     if (game.getPlayer().getObjectCoins() >= 20 - seedCostReduction) {
                         // Potato
@@ -226,7 +226,7 @@ public class GameController {
 
                             updateTileSelection(row, column);
                             updateTopBottomPanels();
-                        }, game.getSeed(2).getName());
+                        }, game.getSeed(2).name());
 
                         // Sunflower
                         gameView.addActionButton(event110 -> {
@@ -236,7 +236,7 @@ public class GameController {
 
                             updateTileSelection(row, column);
                             updateTopBottomPanels();
-                        }, game.getSeed(5).getName());
+                        }, game.getSeed(5).name());
 
                         if (game.getPlayer().getObjectCoins() >= 100 - seedCostReduction) {
                             // Mango tree
@@ -247,7 +247,7 @@ public class GameController {
 
                                 updateTileSelection(row, column);
                                 updateTopBottomPanels();
-                            }, game.getSeed(6).getName());
+                            }, game.getSeed(6).name());
 
                             if (game.getPlayer().getObjectCoins() >= 200 - seedCostReduction) {
                                 // Apple tree
@@ -258,7 +258,7 @@ public class GameController {
 
                                     updateTileSelection(row, column);
                                     updateTopBottomPanels();
-                                }, game.getSeed(7).getName());
+                                }, game.getSeed(7).name());
                             }
                         }
                     }

@@ -43,7 +43,7 @@ public class Player {
      * @param seed      The seed to plant.
      */
     public void plant(int row, int column, Seed seed) {
-        if (seed.getCost() - this.farmerType.getSeedCostReduction() > this.objectCoins) {
+        if (seed.cost() - this.farmerType.seedCostReduction() > this.objectCoins) {
             return;
         }
 
@@ -61,7 +61,7 @@ public class Player {
         }
 
         tile.plant(seed);
-        this.deductCoins(seed.getCost() - this.farmerType.getSeedCostReduction());
+        this.deductCoins(seed.cost() - this.farmerType.seedCostReduction());
     }
 
     /**
@@ -134,10 +134,10 @@ public class Player {
         }
 
         /* Selling Price Computation */
-        WaterBonusLimit = crop.getSeed().getWaterLimit() + farmerType.getWaterBonusLimitIncrease();
-        FertilizerBonusLimit = crop.getSeed().getFertilizerLimit() + farmerType.getFertilizerBonusLimitIncrease();
+        WaterBonusLimit = crop.getSeed().waterLimit() + farmerType.waterBonusLimitIncrease();
+        FertilizerBonusLimit = crop.getSeed().fertilizerLimit() + farmerType.fertilizerBonusLimitIncrease();
 
-        HarvestTotal = crop.getProduce() * (crop.getSeed().getBaseSellingPrice() + farmerType.getBonusEarnings());
+        HarvestTotal = crop.getProduce() * (crop.getSeed().baseSellingPrice() + farmerType.bonusEarnings());
         
         if(crop.getWaterCount() > WaterBonusLimit) {
             WaterBonus = HarvestTotal * 0.2f * (WaterBonusLimit - 1);
@@ -154,7 +154,7 @@ public class Player {
         /* Player Information Update */
         float finalPrice = (HarvestTotal + WaterBonus + FertilizerBonus) * (crop.getSeed().isFlower() ? 1.1f : 1.0f);
         this.addCoins(finalPrice);
-        this.addExperience(crop.getSeed().getExpYield());
+        this.addExperience(crop.getSeed().expYield());
     
         tile.harvest();
         return finalPrice;
@@ -214,7 +214,7 @@ public class Player {
             this.farmerTypeLevel++;
             this.farmerType = farmerTypes.get(this.farmerTypeLevel);
 
-            this.objectCoins -= farmerTypes.get(this.farmerTypeLevel).getRegistrationFee();
+            this.objectCoins -= farmerTypes.get(this.farmerTypeLevel).registrationFee();
         }
 
     }
@@ -227,7 +227,7 @@ public class Player {
         FarmerType newType = farmerTypes.get(this.farmerTypeLevel + 1);
 
         return this.farmerTypeLevel + 1 < farmerTypes.size() &&
-                this.level >= newType.getLevelRequirement() && this.objectCoins >= newType.getRegistrationFee();
+                this.level >= newType.levelRequirement() && this.objectCoins >= newType.registrationFee();
     }
 
     /**
