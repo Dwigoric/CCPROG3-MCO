@@ -463,14 +463,6 @@ public class GameView {
         this.feedbackPanel.add(resultsLbl);
     }
 
-    /**
-     * Updates the upgrade button's listener.
-     * @param upgradeListener   The listener for the upgrade button.
-     */
-    public void updateUpgradeListener(ActionListener upgradeListener) {
-        this.upgradeFarmerBtn.addActionListener(upgradeListener);
-    }
-
     /* FOR END GAME MECHANICS */
 
     /**

@@ -1,4 +1,3 @@
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
@@ -9,7 +8,6 @@ public class GameController {
     private final GameView gameView;
 
     private final int[] currTileSelected = {-1, -1};
-    private final ActionListener upgradeFarmerListener;
 
     /**
      * Creates a new GameController.
@@ -20,17 +18,13 @@ public class GameController {
         this.game = game;
         this.gameView = gameView;
 
-        ActionListener gameRestartListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                game.resetGame();
-                gameView.resetView();
+        ActionListener gameRestartListener = event -> {
+            game.resetGame();
+            gameView.resetView();
 
-                gameView.updateUpgradeListener(upgradeFarmerListener);
-                updatePlayerInfo();
-                updateAllFarmTiles();
-                gameView.updateBottomPanel();
-            }
+            updatePlayerInfo();
+            updateAllFarmTiles();
+            gameView.updateBottomPanel();
         };
 
         // Misc listeners
@@ -58,14 +52,14 @@ public class GameController {
             updateAllFarmTiles();
         };
 
-        this.upgradeFarmerListener = event -> {
+        ActionListener upgradeFarmerListener = event -> {
             game.getPlayer().upgradeFarmer(game.getFarmerTypeList());
             updatePlayerInfo();
         };
 
         ActionListener bookListener = event -> gameView.showBook();
 
-        this.gameView.initializeMiscListener(sleepListener, this.upgradeFarmerListener, bookListener);
+        this.gameView.initializeMiscListener(sleepListener, upgradeFarmerListener, bookListener);
         this.updateUpgradeButton();
         this.updatePlayerInfo();
         this.updateAllFarmTiles();
