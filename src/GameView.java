@@ -28,9 +28,6 @@ public class GameView {
 
     // Farm panel elements
     JButton[][] farmTilesBtn = new JButton[5][10];
-    
-    // Table
-    public static final ImageIcon IMG_TABLE = new ImageIcon("res/table.png");
 
     /**
      * Constructor for the GameView class
@@ -218,11 +215,11 @@ public class GameView {
         JFrame bookFrame;
         JLabel tableLbl = new JLabel();
 
-        tableLbl.setIcon(scaleImage(IMG_TABLE, 1200, 675));
+        tableLbl.setIcon(scaleImage(Game.IMG_TABLE, 900, 600));
 
         bookFrame = new JFrame("Book");
 
-        bookFrame.setSize(1200, 675);
+        bookFrame.setSize(900, 600);
         bookFrame.setResizable(false);
         bookFrame.setLocationRelativeTo(null);
         bookFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

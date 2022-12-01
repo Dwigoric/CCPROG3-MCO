@@ -47,6 +47,7 @@ public class Game {
     public static final ImageIcon IMG_BUTTON_SLEEP = new ImageIcon("res/button_sleep.png");
     public static final ImageIcon IMG_BUTTON_UPGRADE = new ImageIcon("res/button_upgrade.png");
     public static final ImageIcon IMG_BUTTON_BOOK = new ImageIcon("res/button_book.png");
+    public static final ImageIcon IMG_TABLE = new ImageIcon("res/table.png");
 
     /**
      * Initializes the game.
