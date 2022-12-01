@@ -127,7 +127,8 @@ public class Player {
      */
     public void shovel(int row, int column) {
         this.objectCoins -= 7;
-        this.farm.resetTile(row, column);
+
+        if (!this.farm.getTile(row, column).hasRock()) this.farm.resetTile(row, column);
     }
 
     /**
