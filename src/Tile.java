@@ -1,3 +1,5 @@
+import javax.swing.ImageIcon;
+
 /**
  * The Tile class.
  */
@@ -5,6 +7,16 @@ public class Tile {
     private boolean isPlowed = false;
     private boolean hasRock = false;
     private Crop crop = null;
+
+    public static final ImageIcon IMG_TILE_UNPLOWED = new ImageIcon("res/tile_unplowed.png");
+    public static final ImageIcon IMG_TILE_PLOWED = new ImageIcon("res/tile_plowed.png");
+    public static final ImageIcon IMG_TILE_ROCK = new ImageIcon("res/tile_rock.png");
+    public static final ImageIcon IMG_TILE_WITHERED = new ImageIcon("res/tile_withered.png");
+
+    public static final ImageIcon IMG_TILE_UNPLOWED_SELECTED = new ImageIcon("res/tile_unplowed_selected.png");
+    public static final ImageIcon IMG_TILE_PLOWED_SELECTED = new ImageIcon("res/tile_plowed_selected.png");
+    public static final ImageIcon IMG_TILE_ROCK_SELECTED = new ImageIcon("res/tile_rock_selected.png");
+    public static final ImageIcon IMG_TILE_WITHERED_SELECTED = new ImageIcon("res/tile_withered_selected.png");
 
     public Tile() {}
 

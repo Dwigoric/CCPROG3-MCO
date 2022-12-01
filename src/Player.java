@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 /**
  * The Player class.
  */
@@ -12,6 +14,22 @@ public class Player {
 
     private int farmerTypeLevel = 0;
     private FarmerType farmerType;
+
+    public static final ImageIcon IMG_BUTTON_WATER = new ImageIcon("res/button_water.png");
+    public static final ImageIcon IMG_BUTTON_FERTILIZE = new ImageIcon("res/button_fertilize.png");
+    public static final ImageIcon IMG_BUTTON_HARVEST = new ImageIcon("res/button_harvest.png");
+    public static final ImageIcon IMG_BUTTON_PLOW = new ImageIcon("res/button_plow.png");
+    public static final ImageIcon IMG_BUTTON_SHOVEL = new ImageIcon("res/button_shovel.png");
+    public static final ImageIcon IMG_BUTTON_PICKAXE = new ImageIcon("res/button_pickaxe.png");
+
+    public static final ImageIcon IMG_BUTTON_TURNIP = new ImageIcon("res/button_turnip.png");
+    public static final ImageIcon IMG_BUTTON_CARROT = new ImageIcon("res/button_carrot.png");
+    public static final ImageIcon IMG_BUTTON_POTATO = new ImageIcon("res/button_potato.png");
+    public static final ImageIcon IMG_BUTTON_ROSE = new ImageIcon("res/button_rose.png");
+    public static final ImageIcon IMG_BUTTON_TULIPS = new ImageIcon("res/button_tulips.png");
+    public static final ImageIcon IMG_BUTTON_SUNFLOWER = new ImageIcon("res/button_sunflower.png");
+    public static final ImageIcon IMG_BUTTON_MANGO = new ImageIcon("res/button_mango.png");
+    public static final ImageIcon IMG_BUTTON_APPLE = new ImageIcon("res/button_apple.png");
 
     /**
      * The Player class constructor.

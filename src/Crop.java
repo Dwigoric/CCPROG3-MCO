@@ -1,5 +1,7 @@
 import java.util.Random;
 
+import javax.swing.ImageIcon;
+
 /**
  * The Crop class.
  */
@@ -13,6 +15,24 @@ public class Crop {
 
     private final int produce;
     Random rand = new Random(System.currentTimeMillis());
+
+    public static final ImageIcon IMG_TILE_TURNIP = new ImageIcon("res/tile_turnip.png");
+    public static final ImageIcon IMG_TILE_CARROT = new ImageIcon("res/tile_carrot.png");
+    public static final ImageIcon IMG_TILE_POTATO = new ImageIcon("res/tile_potato.png");
+    public static final ImageIcon IMG_TILE_ROSE = new ImageIcon("res/tile_rose.png");
+    public static final ImageIcon IMG_TILE_TULIPS = new ImageIcon("res/tile_tulips.png");
+    public static final ImageIcon IMG_TILE_SUNFLOWER = new ImageIcon("res/tile_sunflower.png");
+    public static final ImageIcon IMG_TILE_MANGO = new ImageIcon("res/tile_mango.png");
+    public static final ImageIcon IMG_TILE_APPLE = new ImageIcon("res/tile_apple.png");
+
+    public static final ImageIcon IMG_TILE_TURNIP_SELECTED = new ImageIcon("res/tile_turnip_selected.png");
+    public static final ImageIcon IMG_TILE_CARROT_SELECTED = new ImageIcon("res/tile_carrot_selected.png");
+    public static final ImageIcon IMG_TILE_POTATO_SELECTED = new ImageIcon("res/tile_potato_selected.png");
+    public static final ImageIcon IMG_TILE_ROSE_SELECTED = new ImageIcon("res/tile_rose_selected.png");
+    public static final ImageIcon IMG_TILE_TULIPS_SELECTED = new ImageIcon("res/tile_tulips_selected.png");
+    public static final ImageIcon IMG_TILE_SUNFLOWER_SELECTED = new ImageIcon("res/tile_sunflower_selected.png");
+    public static final ImageIcon IMG_TILE_MANGO_SELECTED = new ImageIcon("res/tile_mango_selected.png");
+    public static final ImageIcon IMG_TILE_APPLE_SELECTED = new ImageIcon("res/tile_apple_selected.png");   
 
     /**
      * Constructs a new Crop.

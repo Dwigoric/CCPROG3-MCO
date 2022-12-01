@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.swing.ImageIcon;
+
 /**
  * The Game class.
  * This class stores important game information.
@@ -41,6 +43,10 @@ public class Game {
             new FarmerType("Legendary Farmer", 15, 4, 3,
                     2, 1, 400)
     ));
+
+    public static final ImageIcon IMG_BUTTON_SLEEP = new ImageIcon("res/button_sleep.png");
+    public static final ImageIcon IMG_BUTTON_UPGRADE = new ImageIcon("res/button_upgrade.png");
+    public static final ImageIcon IMG_BUTTON_BOOK = new ImageIcon("res/button_book.png");
 
     /**
      * Initializes the game.
