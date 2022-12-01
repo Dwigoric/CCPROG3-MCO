@@ -8,8 +8,8 @@ public class Tile {
 
     public Tile() {}
 
-    public Tile(boolean isRock) {
-        this.hasRock = isRock;
+    public Tile(boolean hasRock) {
+        this.hasRock = hasRock;
     }
 
     /**

@@ -6,12 +6,13 @@ import java.util.Arrays;
  * This class stores important game information.
  */
 public class Game {
-    private final ArrayList<Integer[]> rocks;
+    private int day = 1;
     private Player player;
     private Farm farm;
-    private int day = 1;
+
+    private final ArrayList<Integer[]> rocks;
     
-    private final ArrayList<Seed> seedList = new ArrayList<>(Arrays.asList(
+    private final ArrayList<Seed> seeds = new ArrayList<>(Arrays.asList(
             new Seed("Turnip", 2, 1, 2, 0, 1,
                     1, 2, 5, 6, 5, false, false),
             new Seed("Carrot", 3, 1, 2, 0, 1,
@@ -71,6 +72,23 @@ public class Game {
     }
 
     /**
+     * Resets the game by replacing the farm and player of new instances respectively and resetting the day.
+     */
+    public void resetGame() {
+        this.day = 1;
+        this.farm = new Farm(5, 10, this.rocks);
+        this.player = new Player(this.farm, farmerTypes.get(0));
+    }
+
+    /**
+     * Gets the day.
+     * @return  The day.
+     */
+    public int getDay() {
+        return day;
+    }
+
+    /**
      * Gets the player.
      * @return  The player.
      */
@@ -87,20 +105,12 @@ public class Game {
     }
 
     /**
-     * Gets the day.
-     * @return  The day.
-     */
-    public int getDay() {
-        return day;
-    }
-
-    /**
      * Gets a seed from the seed list.
      * @param index The index of the seed.
      * @return    The seed at the specified index.
      */
     public Seed getSeed(int index) {
-        return seedList.get(index);
+        return seeds.get(index);
     }
 
     /**
@@ -109,14 +119,5 @@ public class Game {
      */
     public ArrayList<FarmerType> getFarmerTypeList() {
         return this.farmerTypes;
-    }
-
-    /**
-     * Resets the game by replacing the farm and player of new instances respectively and resetting the day.
-     */
-    public void reset() {
-        this.day = 1;
-        this.farm = new Farm(5, 10, this.rocks);
-        this.player = new Player(this.farm, farmerTypes.get(0));
     }
 }

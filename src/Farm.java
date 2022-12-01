@@ -37,7 +37,7 @@ public class Farm {
      * @param row       The row of the tile.
      * @param column    The column of the tile.
      */
-    public void reset(int row, int column) {
+    public void resetTile(int row, int column) {
         this.tiles[row][column] = new Tile();
     }
 
@@ -76,32 +76,6 @@ public class Farm {
     }
 
     /**
-     * Gets the number of rows in the farm.
-     * @return  The number of rows in the farm.
-     */
-    public int getRows() {
-        return this.rows;
-    }
-
-    /**
-     * Gets the number of columns in the farm.
-     * @return  The number of columns in the farm.
-     */
-    public int getColumns() {
-        return this.columns;
-    }
-
-    /**
-     * Gets a tile in the farm.
-     * @param row       The row of the tile.
-     * @param column    The column of the tile.
-     * @return  The tile at the specified row and column.
-     */
-    public Tile getTile(int row, int column) {
-        return this.tiles[row][column];
-    }
-
-    /**
      * Checks whether the tile is empty.
      * @param row       The row of the tile.
      * @param column    The column of the tile.
@@ -130,5 +104,31 @@ public class Farm {
                 this.isEmpty(row + 1, column - 1) &&
                 this.isEmpty(row + 1, column) &&
                 this.isEmpty(row + 1, column + 1);
+    }
+
+    /**
+     * Gets the number of rows in the farm.
+     * @return  The number of rows in the farm.
+     */
+    public int getRows() {
+        return this.rows;
+    }
+
+    /**
+     * Gets the number of columns in the farm.
+     * @return  The number of columns in the farm.
+     */
+    public int getColumns() {
+        return this.columns;
+    }
+
+    /**
+     * Gets a tile in the farm.
+     * @param row       The row of the tile.
+     * @param column    The column of the tile.
+     * @return  The tile at the specified row and column.
+     */
+    public Tile getTile(int row, int column) {
+        return this.tiles[row][column];
     }
 }

@@ -212,6 +212,22 @@ public class GameView {
     }
 
     /**
+     * Initializes the listeners for the buttons at the top of the screen.
+     * @param sleepListener     The listener for the sleep button.
+     * @param upgradeListener   The listener for the upgrade button.
+     * @param bookListener      The listener for the book button.
+     */
+    public void initializeMiscListener(ActionListener sleepListener, ActionListener upgradeListener, ActionListener bookListener) {
+        this.sleepBtn.addActionListener(sleepListener);
+
+        this.upgradeFarmerBtn.addActionListener(upgradeListener);
+
+        this.bookBtn.addActionListener(bookListener);
+    }
+
+    /* TOP PANEL METHODS */
+
+    /**
      * Updates the top panel (player information panel).
      * @param level             The level of the player.
      * @param experience        The experience of the player.
@@ -236,6 +252,130 @@ public class GameView {
 
         this.dayLbl.setText("Day " + day);
     }
+
+    /**
+     * Updates whether the upgrade button is enabled.
+     * @param enabled   Whether the upgrade button is enabled.
+     */
+    public void setUpgradeFarmerButtonEnabled(boolean enabled) {
+        this.upgradeFarmerBtn.setEnabled(enabled);
+    }
+
+    /**
+     * Creates a new frame for the book.
+     */
+    public void showBook() {
+        JFrame bookFrame;
+        JLabel tableLbl = new JLabel();
+
+        tableLbl.setIcon(scaleImage(imgTable, 1200, 675));
+
+        bookFrame = new JFrame("Book");
+
+        bookFrame.setSize(1200, 675);
+        bookFrame.setResizable(false);
+        bookFrame.setLocationRelativeTo(null);
+        bookFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        bookFrame.add(tableLbl);
+        bookFrame.setVisible(true);
+    }
+
+    /* FARM PANEL METHODS */
+
+    /**
+     * Updates the farm tile button's image.
+     * @param state     The state of the farm tile.
+     * @param row       The row of the farm tile button.
+     * @param column    The column of the farm tile button.
+     */
+    public void setTileIcon(String state, int row, int column) {
+        if ((boolean) this.farmTilesBtn[row][column].getClientProperty("isSelected")) {
+            setTileIconImage(state, row, column,
+                    imgTileUnplowedSelected, imgTilePlowedSelected, imgTileRockSelected, imgTileWitheredSelected,
+                    imgTileTurnipSelected, imgTileCarrotSelected, imgTilePotatoSelected, imgTileRoseSelected,
+                    imgTileTulipsSelected, imgTileSunflowerSelected, imgTileMangoSelected, imgTileAppleSelected
+            );
+        } else {
+            setTileIconImage(state, row, column,
+                    imgTileUnplowed, imgTilePlowed, imgTileRock, imgTileWithered, imgTileTurnip, imgTileCarrot,
+                    imgTilePotato, imgTileRose, imgTileTulips, imgTileSunflower, imgTileMango, imgTileApple
+            );
+        }
+    }
+
+    /**
+     * Helps the setTileIcon method.
+     * @param state             The state of the farm tile.
+     * @param row               The row of the farm tile button.
+     * @param column            The column of the farm tile button.
+     * @param imgTileUnplowed   The image of the farm tile button when it is unplowed.
+     * @param imgTilePlowed     The image of the farm tile button when it is plowed.
+     * @param imgTileRock       The image of the farm tile button when it is a rock.
+     * @param imgTileWithered   The image of the farm tile button when it is withered.
+     * @param imgTileTurnip     The image of the farm tile button when it is a turnip.
+     * @param imgTileCarrot     The image of the farm tile button when it is a carrot.
+     * @param imgTilePotato     The image of the farm tile button when it is a potato.
+     * @param imgTileRose       The image of the farm tile button when it is a rose.
+     * @param imgTileTulips     The image of the farm tile button when it is tulips.
+     * @param imgTileSunflower  The image of the farm tile button when it is a sunflower.
+     * @param imgTileMango      The image of the farm tile button when it is a mango.
+     * @param imgTileApple      The image of the farm tile button when it is an apple.
+     */
+    private void setTileIconImage(String state, int row, int column,
+                                  ImageIcon imgTileUnplowed, ImageIcon imgTilePlowed,
+                                  ImageIcon imgTileRock, ImageIcon imgTileWithered,
+                                  ImageIcon imgTileTurnip, ImageIcon imgTileCarrot,
+                                  ImageIcon imgTilePotato, ImageIcon imgTileRose,
+                                  ImageIcon imgTileTulips, ImageIcon imgTileSunflower,
+                                  ImageIcon imgTileMango, ImageIcon imgTileApple)
+    {
+        switch (state) {
+            case "unplowed" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileUnplowed, 116, 94));
+            case "plowed" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTilePlowed, 116, 94));
+            case "rock" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileRock, 116, 94));
+            case "withered" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileWithered, 116, 94));
+            case "Turnip" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileTurnip, 116, 94));
+            case "Carrot" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileCarrot, 116, 94));
+            case "Potato" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTilePotato, 116, 94));
+            case "Rose" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileRose, 116, 94));
+            case "Tulips" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileTulips, 116, 94));
+            case "Sunflower" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileSunflower, 116, 94));
+            case "Mango" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileMango, 116, 94));
+            case "Apple" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileApple, 116, 94));
+        }
+    }
+
+    /**
+     * Changes whether a farm tile button is selected.
+     * @param row       The row of the farm tile button.
+     * @param column    The column of the farm tile button.
+     */
+    public void setIsSelected(int row, int column) {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 10; j++) {
+                farmTilesBtn[i][j].putClientProperty("isSelected", false);
+            }
+        }
+
+        farmTilesBtn[row][column].putClientProperty("isSelected", true);
+    }
+
+    /**
+     * Changes the listener of a farm tile button.
+     * @param farmTileListener  The listener for the farm tile button.
+     * @param row               The row of the farm tile button.
+     * @param column            The column of the farm tile button.
+     */
+    public void changeFarmTileListener(ActionListener farmTileListener, int row, int column) {
+        for (ActionListener actionListener : this.farmTilesBtn[row][column].getActionListeners()) {
+            this.farmTilesBtn[row][column].removeActionListener(actionListener);
+        }
+
+        this.farmTilesBtn[row][column].addActionListener(farmTileListener);
+    }
+
+    /* BOTTOM PANEL METHODS */
 
     /**
      * Updates the bottom panel (panel with the action buttons).
@@ -324,156 +464,11 @@ public class GameView {
     }
 
     /**
-     * Initializes the listeners for the buttons at the top of the screen.
-     * @param sleepListener     The listener for the sleep button.
-     * @param upgradeListener   The listener for the upgrade button.
-     * @param bookListener      The listener for the book button.
-     */
-    public void initializeMiscListener(ActionListener sleepListener, ActionListener upgradeListener, ActionListener bookListener) {
-        this.sleepBtn.addActionListener(sleepListener);
-
-        this.upgradeFarmerBtn.addActionListener(upgradeListener);
-
-        this.bookBtn.addActionListener(bookListener);
-    }
-
-    /**
      * Updates the upgrade button's listener.
      * @param upgradeListener   The listener for the upgrade button.
      */
     public void updateUpgradeListener(ActionListener upgradeListener) {
         this.upgradeFarmerBtn.addActionListener(upgradeListener);
-    }
-
-    /**
-     * Updates whether the upgrade button is enabled.
-     * @param enabled   Whether the upgrade button is enabled.
-     */
-    public void setUpgradeFarmerButtonEnabled(boolean enabled) {
-        this.upgradeFarmerBtn.setEnabled(enabled);
-    }
-
-    /**
-     * Changes the listener of a farm tile button.
-     * @param farmTileListener  The listener for the farm tile button.
-     * @param row               The row of the farm tile button.
-     * @param column            The column of the farm tile button.
-     */
-    public void changeFarmTileListener(ActionListener farmTileListener, int row, int column) {
-        for (ActionListener actionListener : this.farmTilesBtn[row][column].getActionListeners()) {
-            this.farmTilesBtn[row][column].removeActionListener(actionListener);
-        }
-
-        this.farmTilesBtn[row][column].addActionListener(farmTileListener);
-    }
-
-    /**
-     * Changes whether a farm tile button is selected.
-     * @param row       The row of the farm tile button.
-     * @param column    The column of the farm tile button.
-     */
-    public void setIsSelected(int row, int column) {
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 10; j++) {
-                farmTilesBtn[i][j].putClientProperty("isSelected", false);
-            }
-        }
-
-        farmTilesBtn[row][column].putClientProperty("isSelected", true);
-    }
-
-    /**
-     * Updates the farm tile button's image.
-     * @param state     The state of the farm tile.
-     * @param row       The row of the farm tile button.
-     * @param column    The column of the farm tile button.
-     */
-    public void setTileIcon(String state, int row, int column) {
-        if ((boolean) this.farmTilesBtn[row][column].getClientProperty("isSelected")) {
-            setTileIconImage(state, row, column,
-                    imgTileUnplowedSelected, imgTilePlowedSelected, imgTileRockSelected, imgTileWitheredSelected,
-                    imgTileTurnipSelected, imgTileCarrotSelected, imgTilePotatoSelected, imgTileRoseSelected,
-                    imgTileTulipsSelected, imgTileSunflowerSelected, imgTileMangoSelected, imgTileAppleSelected
-            );
-        } else {
-            setTileIconImage(state, row, column,
-                    imgTileUnplowed, imgTilePlowed, imgTileRock, imgTileWithered, imgTileTurnip, imgTileCarrot,
-                    imgTilePotato, imgTileRose, imgTileTulips, imgTileSunflower, imgTileMango, imgTileApple
-            );
-        }
-    }
-
-    /**
-     * Helps the setTileIcon method.
-     * @param state             The state of the farm tile.
-     * @param row               The row of the farm tile button.
-     * @param column            The column of the farm tile button.
-     * @param imgTileUnplowed   The image of the farm tile button when it is unplowed.
-     * @param imgTilePlowed     The image of the farm tile button when it is plowed.
-     * @param imgTileRock       The image of the farm tile button when it is a rock.
-     * @param imgTileWithered   The image of the farm tile button when it is withered.
-     * @param imgTileTurnip     The image of the farm tile button when it is a turnip.
-     * @param imgTileCarrot     The image of the farm tile button when it is a carrot.
-     * @param imgTilePotato     The image of the farm tile button when it is a potato.
-     * @param imgTileRose       The image of the farm tile button when it is a rose.
-     * @param imgTileTulips     The image of the farm tile button when it is tulips.
-     * @param imgTileSunflower  The image of the farm tile button when it is a sunflower.
-     * @param imgTileMango      The image of the farm tile button when it is a mango.
-     * @param imgTileApple      The image of the farm tile button when it is an apple.
-     */
-    private void setTileIconImage(String state, int row, int column,
-                                  ImageIcon imgTileUnplowed, ImageIcon imgTilePlowed,
-                                  ImageIcon imgTileRock, ImageIcon imgTileWithered,
-                                  ImageIcon imgTileTurnip, ImageIcon imgTileCarrot,
-                                  ImageIcon imgTilePotato, ImageIcon imgTileRose,
-                                  ImageIcon imgTileTulips, ImageIcon imgTileSunflower,
-                                  ImageIcon imgTileMango, ImageIcon imgTileApple)
-    {
-        switch (state) {
-            case "unplowed" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileUnplowed, 116, 94));
-            case "plowed" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTilePlowed, 116, 94));
-            case "rock" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileRock, 116, 94));
-            case "withered" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileWithered, 116, 94));
-            case "Turnip" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileTurnip, 116, 94));
-            case "Carrot" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileCarrot, 116, 94));
-            case "Potato" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTilePotato, 116, 94));
-            case "Rose" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileRose, 116, 94));
-            case "Tulips" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileTulips, 116, 94));
-            case "Sunflower" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileSunflower, 116, 94));
-            case "Mango" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileMango, 116, 94));
-            case "Apple" -> this.farmTilesBtn[row][column].setIcon(scaleImage(imgTileApple, 116, 94));
-        }
-    }
-
-    /**
-     * Scales an image using the given width and height.
-     * @param image     The image to be scaled.
-     * @param width     The width of the scaled image.
-     * @param height    The height of the scaled image.
-     * @return        The scaled image.
-     */
-    private Icon scaleImage(ImageIcon image, int width, int height) {
-        return new ImageIcon((image.getImage()).getScaledInstance(width, height, java.awt.Image.SCALE_DEFAULT));
-    }
-
-    /**
-     * Creates a new frame for the book.
-     */
-    public void showBook() {
-        JFrame bookFrame;
-        JLabel tableLbl = new JLabel();
-
-        tableLbl.setIcon(scaleImage(imgTable, 1200, 675));
-
-        bookFrame = new JFrame("Book");
-
-        bookFrame.setSize(1200, 675);
-        bookFrame.setResizable(false);
-        bookFrame.setLocationRelativeTo(null);
-        bookFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        bookFrame.add(tableLbl);
-        bookFrame.setVisible(true);
     }
 
     /* FOR END GAME MECHANICS */
@@ -524,11 +519,22 @@ public class GameView {
     /**
      * Resets the game view.
      */
-    public void reset() {
+    public void resetView() {
         this.mainPanel.removeAll();
         this.initializeTopPanel();
         this.initializeFarmPanel();
         this.initializeBottomPanel();
         this.updateBottomPanel();
+    }
+
+    /**
+     * Scales an image using the given width and height.
+     * @param image     The image to be scaled.
+     * @param width     The width of the scaled image.
+     * @param height    The height of the scaled image.
+     * @return        The scaled image.
+     */
+    private Icon scaleImage(ImageIcon image, int width, int height) {
+        return new ImageIcon((image.getImage()).getScaledInstance(width, height, java.awt.Image.SCALE_DEFAULT));
     }
 }
