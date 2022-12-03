@@ -6,29 +6,89 @@ import javax.swing.ImageIcon;
  * The Player class.
  */
 public class Player {
+    /**
+     * The Farm instance that the player is using.
+     */
     private final Farm farm;
 
+    /**
+     * The amount of Objectcoins the player has.
+     */
     private float objectCoins = 1000000;
+    /**
+     * The amount of experience the player has.
+     */
     private float experience = 1000000;
+    /**
+     * The current level of the player.
+     */
     private int level = (int) this.experience / 100;
 
+    /**
+     * The index of the current farmer type of the player based on the list of farmer types.
+     */
     private int farmerTypeLevel = 0;
+    /**
+     * The current farmer type of the player.
+     */
     private FarmerType farmerType;
 
+    /**
+     * The image icon of the button to water a crop.
+     */
     public static final ImageIcon IMG_BUTTON_WATER = new ImageIcon("res/button_water.png");
+    /**
+     * The image icon of the button to fertilize a crop.
+     */
     public static final ImageIcon IMG_BUTTON_FERTILIZE = new ImageIcon("res/button_fertilize.png");
+    /**
+     * The image icon of the button to harvest a crop.
+     */
     public static final ImageIcon IMG_BUTTON_HARVEST = new ImageIcon("res/button_harvest.png");
+    /**
+     * The image icon of the button to plow a tile.
+     */
     public static final ImageIcon IMG_BUTTON_PLOW = new ImageIcon("res/button_plow.png");
+    /**
+     * The image icon of the button to shovel a tile.
+     */
     public static final ImageIcon IMG_BUTTON_SHOVEL = new ImageIcon("res/button_shovel.png");
+    /**
+     * The image icon of the button to pickaxe a tile with a rock.
+     */
     public static final ImageIcon IMG_BUTTON_PICKAXE = new ImageIcon("res/button_pickaxe.png");
 
+    /**
+     * The image icon of the button to plant a turnip.
+     */
     public static final ImageIcon IMG_BUTTON_TURNIP = new ImageIcon("res/button_turnip.png");
+    /**
+     * The image icon of the button to plant a carrot.
+     */
     public static final ImageIcon IMG_BUTTON_CARROT = new ImageIcon("res/button_carrot.png");
+    /**
+     * The image icon of the button to plant a potato.
+     */
     public static final ImageIcon IMG_BUTTON_POTATO = new ImageIcon("res/button_potato.png");
+    /**
+     * The image icon of the button to plant a rose.
+     */
     public static final ImageIcon IMG_BUTTON_ROSE = new ImageIcon("res/button_rose.png");
+    /**
+     * The image icon of the button to plant a tulip.
+     */
     public static final ImageIcon IMG_BUTTON_TULIPS = new ImageIcon("res/button_tulips.png");
+    /**
+     * The image icon of the button to plant a sunflower.
+     */
     public static final ImageIcon IMG_BUTTON_SUNFLOWER = new ImageIcon("res/button_sunflower.png");
+    /**
+     * The image icon of the button to plant a mango tree.
+     */
     public static final ImageIcon IMG_BUTTON_MANGO = new ImageIcon("res/button_mango.png");
+    /**
+     * The image icon of the button to plant an apple tree.
+     */
     public static final ImageIcon IMG_BUTTON_APPLE = new ImageIcon("res/button_apple.png");
 
     /**

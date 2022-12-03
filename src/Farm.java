@@ -4,8 +4,17 @@ import java.util.ArrayList;
  * The Farm class.
  */
 public class Farm {
+    /**
+     * The amount of rows of tiles in the farm.
+     */
     private final int rows;
+    /**
+     * The amount of columns of tiles in the farm.
+     */
     private final int columns;
+    /**
+     * The tiles of the farm represented as a 2D array.
+     */
     private final Tile[][] tiles;
 
     /**

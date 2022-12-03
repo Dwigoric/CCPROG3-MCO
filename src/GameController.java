@@ -4,9 +4,18 @@ import java.awt.event.ActionListener;
  * The GameController class.
  */
 public class GameController {
+    /**
+     * The game model.
+     */
     private final Game game;
+    /**
+     * The game view.
+     */
     private final GameView gameView;
 
+    /**
+     * The coordinates of the selected tile in the farm.
+     */
     private final int[] currTileSelected = {-1, -1};
 
     /**

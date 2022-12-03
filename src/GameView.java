@@ -10,23 +10,60 @@ import javax.swing.border.EmptyBorder;
  * The GameView class.
  */
 public class GameView {
+    /**
+     * The frame of the game.
+     */
     private final JFrame mainFrame;
+    /**
+     * The main panel of the game.
+     * This panel contains all other panels.
+     */
     private final JPanel mainPanel;
 
+    /**
+     * The panel containing user feedback when a crop is harvested.
+     */
     private JPanel feedbackPanel;
+    /**
+     * The panel containing the action buttons.
+     */
     private JPanel actionPanel;
 
     // Player information panel elements
+    /**
+     * The label containing the player's level and experience.
+     */
     private final JLabel levelAndExperienceLbl = new JLabel();
+    /**
+     * The label containing the player's objectcoins.
+     */
     private final JLabel objectCoinsLbl = new JLabel();
+    /**
+     * The label containing the player's farmer type.
+     */
     private final JLabel farmerTypeLbl = new JLabel();
+    /**
+     * The label containing the current day.
+     */
     private final JLabel dayLbl = new JLabel();
 
+    /**
+     * The button responsible for advancing the day.
+     */
     private final JButton sleepBtn = new JButton();
+    /**
+     * The button responsible for upgrading the farmer type.
+     */
     private final JButton upgradeFarmerBtn = new JButton();
+    /**
+     * The button responsible for showing the book.
+     */
     private final JButton bookBtn = new JButton();
 
     // Farm panel elements
+    /**
+     * The 2D array of buttons representing the farm tiles.
+     */
     JButton[][] farmTilesBtn = new JButton[5][10];
 
     /**

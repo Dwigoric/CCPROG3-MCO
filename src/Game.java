@@ -8,12 +8,27 @@ import javax.swing.ImageIcon;
  * This class stores important game information.
  */
 public class Game {
+    /**
+     * The current day of the game.
+     */
     private int day = 1;
+    /**
+     * The Player instance the game is using.
+     */
     private Player player;
+    /**
+     * The Farm instance the game is using.
+     */
     private Farm farm;
 
+    /**
+     * The list of coordinates that initially have rocks (every game restart).
+     */
     private final ArrayList<Integer[]> rocks;
-    
+
+    /**
+     * The list of seeds the game is using.
+     */
     private final ArrayList<Seed> seeds = new ArrayList<>(Arrays.asList(
             new Seed("Turnip", 2, 1, 2, 0, 1,
                     1, 2, 5, 6, 5, false, false),
@@ -32,7 +47,10 @@ public class Game {
             new Seed("Apple",10, 7, 7, 5, 5,
                     10, 15, 200, 5, 25, false, true)
     ));
-    
+
+    /**
+     * The list of available farmer types.
+     */
     private final ArrayList<FarmerType> farmerTypes = new ArrayList<>(Arrays.asList(
             new FarmerType("Farmer", 0, 0, 0,
                     0, 0, 0),
@@ -44,9 +62,21 @@ public class Game {
                     2, 1, 400)
     ));
 
+    /**
+     * The image icon for the sleep button.
+     */
     public static final ImageIcon IMG_BUTTON_SLEEP = new ImageIcon("res/button_sleep.png");
+    /**
+     * The image icon for the upgrade button.
+     */
     public static final ImageIcon IMG_BUTTON_UPGRADE = new ImageIcon("res/button_upgrade.png");
+    /**
+     * The image icon for the book button.
+     */
     public static final ImageIcon IMG_BUTTON_BOOK = new ImageIcon("res/button_book.png");
+    /**
+     * The image icon for the table inside the book frame.
+     */
     public static final ImageIcon IMG_TABLE = new ImageIcon("res/table.png");
 
     /**
