@@ -14,15 +14,15 @@ public class Player {
     /**
      * The amount of Objectcoins the player has.
      */
-    private float objectCoins = 1000000;
+    private float objectCoins = 100;
     /**
      * The amount of experience the player has.
      */
-    private float experience = 1000000;
+    private float experience = 0;
     /**
      * The current level of the player.
      */
-    private int level = (int) this.experience / 100;
+    private int level = 0;
 
     /**
      * The index of the current farmer type of the player based on the list of farmer types.
