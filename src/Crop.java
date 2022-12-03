@@ -14,7 +14,6 @@ public class Crop {
     private boolean isAlive = true;
 
     private final int produce;
-    Random rand = new Random(System.currentTimeMillis());
 
     public static final ImageIcon IMG_TILE_TURNIP = new ImageIcon("res/tile_turnip.png");
     public static final ImageIcon IMG_TILE_CARROT = new ImageIcon("res/tile_carrot.png");
@@ -42,6 +41,7 @@ public class Crop {
         this.seed = seed;
 
         /* Randomize number of produce */
+        Random rand = new Random(System.currentTimeMillis());
         this.produce = rand.nextInt(seed.maxProduce() + 1 - seed.minProduce()) + seed.minProduce();
     }
 
