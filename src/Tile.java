@@ -5,7 +5,7 @@ import javax.swing.ImageIcon;
  */
 public class Tile {
     private boolean isPlowed = false;
-    private boolean hasRock = false;
+    private boolean hasRock;
     private Crop crop = null;
 
     public static final ImageIcon IMG_TILE_UNPLOWED = new ImageIcon("res/tile_unplowed.png");
@@ -18,8 +18,10 @@ public class Tile {
     public static final ImageIcon IMG_TILE_ROCK_SELECTED = new ImageIcon("res/tile_rock_selected.png");
     public static final ImageIcon IMG_TILE_WITHERED_SELECTED = new ImageIcon("res/tile_withered_selected.png");
 
-    public Tile() {}
-
+    /**
+     * Constructs a new Tile with a rock.
+     * @param hasRock   Whether the tile has a rock.
+     */
     public Tile(boolean hasRock) {
         this.hasRock = hasRock;
     }

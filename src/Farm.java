@@ -38,7 +38,7 @@ public class Farm {
      * @param column    The column of the tile.
      */
     public void resetTile(int row, int column) {
-        this.tiles[row][column] = new Tile();
+        this.tiles[row][column] = new Tile(false);
     }
 
     /**
