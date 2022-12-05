@@ -18,6 +18,9 @@ public class GameController {
      */
     private final int[] currTileSelected = {-1, -1};
 
+    /**
+     * The action listener associated with restarting the game.
+     */
     private final ActionListener gameRestartListener;
 
     /**
@@ -111,6 +114,9 @@ public class GameController {
         }
     }
 
+    /**
+     * Checks the end game condition for coins.
+     */
     private void checkCoinsCondition() {
         if (game.getPlayer().getObjectCoins() < 5 - game.getPlayer().getFarmerType().seedCostReduction() &&
                 !game.getFarm().hasCrop()) {
