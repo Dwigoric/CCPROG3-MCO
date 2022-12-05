@@ -45,10 +45,9 @@ public class GameController {
         ActionListener sleepListener = event -> {
             gameView.resetBottomPanel();
 
-            checkCoinsCondition();
-
             game.advanceDay();
 
+            checkCoinsCondition();
             if (game.getFarm().isAllWithered()) {
                 gameView.showEndGame("All of your crops have withered!", gameRestartListener);
 

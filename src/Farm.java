@@ -51,13 +51,15 @@ public class Farm {
     }
 
     /**
-     * Checks whether the farm has any crops.
-     * @return  True if the farm has any crops, false otherwise.
+     * Checks whether the farm has a crop alive.
+     * @return  True if the farm has a crop alive, false otherwise.
      */
     public boolean hasCrop() {
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.columns; j++) {
-                if (this.tiles[i][j].getCrop() != null) {
+                Crop crop = this.tiles[i][j].getCrop();
+
+                if (crop != null && crop.isAlive()) {
                     return true;
                 }
             }
