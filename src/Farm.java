@@ -75,7 +75,7 @@ public class Farm {
             for (int j = 0; j < this.columns; j++) {
                 Crop crop = this.tiles[i][j].getCrop();
 
-                if (crop == null || crop.isAlive()) {
+                if (crop != null && crop.isAlive()) {
                     return false;
                 }
             }
