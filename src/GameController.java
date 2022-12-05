@@ -18,6 +18,8 @@ public class GameController {
      */
     private final int[] currTileSelected = {-1, -1};
 
+    private final ActionListener gameRestartListener;
+
     /**
      * Creates a new GameController.
      * @param game      The game.
@@ -27,7 +29,7 @@ public class GameController {
         this.game = game;
         this.gameView = gameView;
 
-        ActionListener gameRestartListener = event -> {
+        this.gameRestartListener = event -> {
             game.resetGame();
             gameView.resetView();
 
@@ -40,12 +42,7 @@ public class GameController {
         ActionListener sleepListener = event -> {
             gameView.resetBottomPanel();
 
-            if (game.getPlayer().getObjectCoins() < 5 - game.getPlayer().getFarmerType().seedCostReduction() &&
-                    !game.getFarm().hasCrop()) {
-                gameView.showEndGame("You have no more crops and no more money to buy more!", gameRestartListener);
-
-                return;
-            }
+            checkCoinsCondition();
 
             game.advanceDay();
 
@@ -114,6 +111,13 @@ public class GameController {
         }
     }
 
+    private void checkCoinsCondition() {
+        if (game.getPlayer().getObjectCoins() < 5 - game.getPlayer().getFarmerType().seedCostReduction() &&
+                !game.getFarm().hasCrop()) {
+            gameView.showEndGame("You have no more crops and no more money to buy more!", this.gameRestartListener);
+        }
+    }
+
     /**
      * Updates a farm tile in the game view.
      * @param row       The row of the tile.
@@ -129,6 +133,8 @@ public class GameController {
             updateUpgradeButton();
             updateTileSelection(row, column);
             updateTopBottomPanels();
+
+            checkCoinsCondition();
         };
 
         if(tile.hasRock()) { /* Tile has rock; show pickaxe (if player has enough objectCoins) and shovel */
@@ -145,6 +151,8 @@ public class GameController {
                         updateUpgradeButton();
                         updateTileSelection(row, column);
                         updateTopBottomPanels();
+
+                        checkCoinsCondition();
                     }, "pickaxe");
                 }
 
@@ -181,6 +189,8 @@ public class GameController {
                             updateUpgradeButton();
                             updateTileSelection(row, column);
                             updatePlayerInfo();
+
+                            checkCoinsCondition();
                         }, "fertilizer");
                     }
 
