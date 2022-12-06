@@ -466,7 +466,8 @@ public class GameView {
         exitBtn.setIcon(scaleImage(Game.IMG_BUTTON_EXIT, 195, 25));
         buttonPanel.add(exitBtn);
 
-        
+        // Hide book frame
+        this.bookFrame.setVisible(false);
 
         // Add button panel
         this.mainPanel.add(buttonPanel, BorderLayout.PAGE_END);
