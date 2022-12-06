@@ -78,6 +78,14 @@ public class Game {
      * The image icon for the table inside the book frame.
      */
     public static final ImageIcon IMG_TABLE = new ImageIcon("res/table.png");
+    /**
+     * The image icon for the restart button.
+     */
+    public static final ImageIcon IMG_BUTTON_RESTART = new ImageIcon("res/button_restart.png");
+    /**
+     * The image icon for the exit button.
+     */
+    public static final ImageIcon IMG_BUTTON_EXIT = new ImageIcon("res/button_exit.png");
 
     /**
      * Initializes the game.

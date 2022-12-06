@@ -453,14 +453,20 @@ public class GameView {
         buttonPanel.setBackground(Color.decode("#313131"));
 
         // Restart button
-        JButton restartBtn = new JButton("Restart");
+        JButton restartBtn = new JButton();
         restartBtn.addActionListener(restartListener);
+        restartBtn.setPreferredSize(new Dimension(195,25));
+        restartBtn.setIcon(scaleImage(Game.IMG_BUTTON_RESTART, 195, 25));
         buttonPanel.add(restartBtn);
 
         // Exit button
-        JButton exitBtn = new JButton("Exit");
+        JButton exitBtn = new JButton();
         exitBtn.addActionListener(e -> System.exit(0));
+        exitBtn.setPreferredSize(new Dimension(195,25));
+        exitBtn.setIcon(scaleImage(Game.IMG_BUTTON_EXIT, 195, 25));
         buttonPanel.add(exitBtn);
+
+        
 
         // Add button panel
         this.mainPanel.add(buttonPanel, BorderLayout.PAGE_END);
