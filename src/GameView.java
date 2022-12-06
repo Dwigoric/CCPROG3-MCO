@@ -19,6 +19,10 @@ public class GameView {
      * This panel contains all other panels.
      */
     private final JPanel mainPanel;
+    /**
+     * The frame of the book.
+     */
+    private final JFrame bookFrame = new JFrame("Book");
 
     /**
      * The panel containing user feedback when a crop is harvested.
@@ -93,6 +97,18 @@ public class GameView {
 
         this.mainFrame.add(this.mainPanel, BorderLayout.CENTER);
         this.mainFrame.setVisible(true);
+
+        // Book frame
+        JLabel tableLbl = new JLabel();
+
+        tableLbl.setIcon(scaleImage(Game.IMG_TABLE, 900, 600));
+
+        this.bookFrame.setSize(900, 600);
+        this.bookFrame.setResizable(false);
+        this.bookFrame.setLocationRelativeTo(null);
+        this.bookFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+
+        this.bookFrame.add(tableLbl);
     }
 
     /**
@@ -249,19 +265,6 @@ public class GameView {
      * Creates a new frame for the book.
      */
     public void showBook() {
-        JFrame bookFrame;
-        JLabel tableLbl = new JLabel();
-
-        tableLbl.setIcon(scaleImage(Game.IMG_TABLE, 900, 600));
-
-        bookFrame = new JFrame("Book");
-
-        bookFrame.setSize(900, 600);
-        bookFrame.setResizable(false);
-        bookFrame.setLocationRelativeTo(null);
-        bookFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        bookFrame.add(tableLbl);
         bookFrame.setVisible(true);
     }
 
