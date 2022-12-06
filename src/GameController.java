@@ -54,6 +54,7 @@ public class GameController {
                 return;
             }
 
+            updateTileSelection(-1, -1);
             gameView.updateBottomPanel();
 
             updatePlayerInfo();
@@ -368,14 +369,11 @@ public class GameController {
      */
     private void updateTileSelection(int row, int column) {
         /* updates GUI */
-        gameView.setIsSelected(row, column);
+        gameView.setIsSelected(currTileSelected[0], currTileSelected[1], row, column);
 
-        if (currTileSelected[0] != -1 && currTileSelected[1] != -1) {
-            updateTile(currTileSelected[0], currTileSelected[1]);
-        }
+        if (currTileSelected[0] != -1 && currTileSelected[1] != -1) updateTile(currTileSelected[0], currTileSelected[1]);
+        if (row != -1 && column != -1) updateTile(row, column);
 
-        updateTile(row, column);
-        
         /* stores current selected tile */
         currTileSelected[0] = row;
         currTileSelected[1] = column;

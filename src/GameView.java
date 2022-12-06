@@ -309,17 +309,14 @@ public class GameView {
 
     /**
      * Changes whether a farm tile button is selected.
-     * @param row       The row of the farm tile button.
-     * @param column    The column of the farm tile button.
+     * @param oldRow        The row coordinate of the old selected farm tile button.
+     * @param oldColumn     The column coordinate of the old selected farm tile button.
+     * @param newRow        The row coordinate of the new selected farm tile button.
+     * @param newColumn     The column coordinate of the new selected farm tile button.
      */
-    public void setIsSelected(int row, int column) {
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 10; j++) {
-                farmTilesBtn[i][j].putClientProperty("is_SELECTED", false);
-            }
-        }
-
-        farmTilesBtn[row][column].putClientProperty("is_SELECTED", true);
+    public void setIsSelected(int oldRow, int oldColumn, int newRow, int newColumn) {
+        if (oldRow != -1 && oldColumn != -1) farmTilesBtn[oldRow][oldColumn].putClientProperty("is_SELECTED", false);
+        if (newRow != -1 && newColumn != -1) farmTilesBtn[newRow][newColumn].putClientProperty("is_SELECTED", true);
     }
 
     /**
