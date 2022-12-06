@@ -177,7 +177,7 @@ public class GameController {
                     gameView.resetBottomPanel();
 
                     Tile farmTile = game.getFarm().getTile(row, column);
-                    if (farmTile.getCrop().getAge() < farmTile.getCrop().getSeed().harvestTime()) {
+                    if (farmTile.getCrop().getAge() <= farmTile.getCrop().getSeed().harvestTime()) {
                         gameView.addActionButton(event12 -> {
                             game.getPlayer().water(row, column);
 
@@ -188,7 +188,7 @@ public class GameController {
                     }
 
                     if (game.getPlayer().getObjectCoins() >= 10 &&
-                            farmTile.getCrop().getAge() < farmTile.getCrop().getSeed().harvestTime()) {
+                            farmTile.getCrop().getAge() <= farmTile.getCrop().getSeed().harvestTime()) {
                         gameView.addActionButton(event13 -> {
                             game.getPlayer().fertilize(row, column);
 
