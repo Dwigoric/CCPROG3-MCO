@@ -2,8 +2,8 @@
  * The Seed record.
  * @param name             The name of the seed.
  * @param harvestTime      The harvest time of the seed.
- * @param waterNeeds       The minimum water level of the seed.
- * @param fertilizerNeeds  The minimum fertilizer level of the seed.
+ * @param waterNeeds       The minimum water count of the seed.
+ * @param fertilizerNeeds  The minimum fertilizer count of the seed.
  * @param minProduce       The minimum produce of the seed.
  * @param maxProduce       The maximum produce of the seed.
  * @param cost             The cost of the seed.

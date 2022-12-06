@@ -262,7 +262,7 @@ public class GameView {
     }
 
     /**
-     * Creates a new frame for the book.
+     * Makes the book frame visible.
      */
     public void showBook() {
         bookFrame.setVisible(true);

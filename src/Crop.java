@@ -158,16 +158,16 @@ public class Crop {
     }
 
     /**
-     * Gets the water level of the crop.
-     * @return  The water level of the crop.
+     * Gets the water count of the crop.
+     * @return  The water count of the crop.
      */
     public int getWaterCount () {
         return this.waterCount;
     }
 
     /**
-     * Gets the fertilizer level of the crop.
-     * @return  The fertilizer level of the crop.
+     * Gets the fertilizer count of the crop.
+     * @return  The fertilizer count of the crop.
      */
     public int getFertilizeCount () {
         return this.fertilizeCount;
